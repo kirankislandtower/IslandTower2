@@ -1,19 +1,65 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useParallax } from '@/hooks/useParallax';
+
+const industries = [
+  { title: 'Infrastructure', image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Energy & Power', image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Water Treatment', image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Residential', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Industrial', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Aviation', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop' },
+  { title: 'Oil & Gas', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop' },
+];
+
+function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: number }) {
+  const row = Math.floor(idx / 4);
+  const col = idx % 4;
+  const delay = (row + col) * 0.09;
+  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
+
+  return (
+    <motion.div
+      initial={{ clipPath: 'inset(100% 0 0 0)' }}
+      whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+      viewport={{ once: false, margin: "-60px" }}
+      transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
+      ref={parallaxRef}
+      className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
+    >
+      <motion.img
+        src={item.image}
+        alt={item.title}
+        initial={{ scale: 1.4 }}
+        whileInView={{ scale: 1.15 }}
+        whileHover={{ scale: 1.22 }}
+        viewport={{ once: false, margin: "-60px" }}
+        transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
+        style={{ y: parallaxY }}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
+
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, margin: "-60px" }}
+        transition={{ duration: 0.4, delay: delay + 0.5 }}
+        className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
+      >
+        0{idx + 1}
+      </motion.span>
+
+      <h3 className="absolute top-6 left-6 right-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
+        {item.title}
+      </h3>
+    </motion.div>
+  );
+}
 
 export default function Industries() {
-  const industries = [
-    { title: 'Infrastructure', image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Energy & Power', image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Water Treatment', image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Residential', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Industrial', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Aviation', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop' },
-    { title: 'Oil & Gas', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop' },
-  ];
-
   return (
     <section className="bg-background py-24 w-full">
       <div className="max-w-7xl mx-auto px-6">
@@ -56,47 +102,9 @@ export default function Industries() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {industries.map((item, idx) => {
-            const row = Math.floor(idx / 4);
-            const col = idx % 4;
-            const delay = (row + col) * 0.09;
-
-            return (
-              <motion.div
-                key={idx}
-                initial={{ clipPath: 'inset(100% 0 0 0)' }}
-                whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-                viewport={{ once: false, margin: "-60px" }}
-                transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
-                className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
-              >
-                <motion.img
-                  src={item.image}
-                  alt={item.title}
-                  initial={{ scale: 1.25 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: false, margin: "-60px" }}
-                  transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
-
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: false, margin: "-60px" }}
-                  transition={{ duration: 0.4, delay: delay + 0.5 }}
-                  className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
-                >
-                  0{idx + 1}
-                </motion.span>
-
-                <h3 className="absolute top-6 left-6 right-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
-                  {item.title}
-                </h3>
-              </motion.div>
-            );
-          })}
+          {industries.map((item, idx) => (
+            <SectorCard key={idx} item={item} idx={idx} />
+          ))}
         </div>
 
       </div>

@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useParallax } from '@/hooks/useParallax';
 
 export default function Platform() {
   const [activeTab, setActiveTab] = useState(0);
+  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
 
   const features = [
     {
@@ -127,13 +129,15 @@ export default function Platform() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
+            ref={parallaxRef}
             className="relative w-full aspect-[4/3] lg:aspect-square rounded-3xl overflow-hidden shadow-2xl bg-muted lg:sticky lg:top-32"
           >
             {features.map((feature, idx) => (
-              <img
+              <motion.img
                 key={idx}
                 src={feature.image}
                 alt={feature.title}
+                style={{ y: parallaxY, scale: 1.15 }}
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
                   activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}

@@ -1,23 +1,29 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 120]);
+
   return (
-    <section className="relative h-screen w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-      <video
+    <section ref={sectionRef} className="relative h-screen w-full flex flex-col justify-center overflow-hidden bg-[#111]">
+      <motion.video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-50"
+        style={{ y: videoY }}
+        className="absolute -top-[60px] left-0 w-full h-[calc(100%+120px)] object-cover opacity-50"
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
-      </video>
-      
+      </motion.video>
+
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-black/20" />
       

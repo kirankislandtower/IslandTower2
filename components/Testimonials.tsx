@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParallax } from '@/hooks/useParallax';
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const { ref: parallaxRef, y: parallaxY } = useParallax(25);
 
   const testimonials = [
     {
@@ -68,7 +70,7 @@ export default function Testimonials() {
         <div className="bg-muted rounded-sm p-6 md:p-8 grid md:grid-cols-2 gap-12 lg:gap-24 items-stretch overflow-hidden">
 
           {/* Image */}
-          <div className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden bg-card rounded-sm">
+          <div ref={parallaxRef} className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden bg-card rounded-sm">
             <AnimatePresence initial={false} mode="wait">
               <motion.img
                 key={current.image}
@@ -78,6 +80,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction * -16 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{ y: parallaxY, scale: 1.15 }}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </AnimatePresence>

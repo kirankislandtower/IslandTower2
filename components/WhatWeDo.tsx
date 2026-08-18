@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useParallax } from '@/hooks/useParallax';
 
 export default function WhatWeDo() {
   const [activeTab, setActiveTab] = useState(1);
+  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
 
   const tabs = [
     {
@@ -52,18 +54,20 @@ export default function WhatWeDo() {
           </h2>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          ref={parallaxRef}
           className="relative w-full h-[600px] rounded-xl overflow-hidden bg-black shadow-2xl"
         >
           {tabs.map((tab) => (
-            <img
+            <motion.img
               key={tab.id}
               src={tab.image}
               alt={tab.title}
+              style={{ y: parallaxY, scale: 1.15 }}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
                 activeTab === tab.id ? 'opacity-100' : 'opacity-0'
               }`}
