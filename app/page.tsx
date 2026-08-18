@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Header onDemoClick={() => setShowDemoModal(true)} />
-      <Hero onDemoClick={() => setShowDemoModal(true)} />
+      <Hero />
       <WhatWeDo />
       <Solutions />
       <Platform />

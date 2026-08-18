@@ -2,11 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 
-interface HeroProps {
-  onDemoClick: () => void;
-}
-
-export default function Hero({ onDemoClick }: HeroProps) {
+export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
 
@@ -64,23 +60,11 @@ export default function Hero({ onDemoClick }: HeroProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.2 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
         >
           <p className="text-white/90 text-sm md:text-base max-w-2xl font-sans font-light leading-relaxed">
             Island Tower Electro Mechanical Works LLC is a leading provider of Infrastructure,<br className="hidden md:block" />
             MEP, and Civil Engineering solutions in Dubai and Saudi Arabia.
           </p>
-          <div className="flex items-center gap-6 shrink-0">
-            <div className="text-white/80 font-mono text-sm tracking-widest">
-              25.2048°N 55.2708°E
-            </div>
-            <button
-              onClick={onDemoClick}
-              className="bg-accent text-on-accent hover:bg-accent/90 transition-colors px-6 py-3 rounded-[6px] text-xs font-mono font-medium tracking-widest uppercase cursor-pointer focus-ring whitespace-nowrap"
-            >
-              Get a Quote
-            </button>
-          </div>
         </motion.div>
       </motion.div>
 
