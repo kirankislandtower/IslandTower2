@@ -25,11 +25,16 @@ export default function Header({ onDemoClick }: HeaderProps) {
         }`}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity focus-ring">
+        <Link
+          href="/"
+          className={`flex items-center hover:opacity-80 transition-all duration-300 focus-ring ${
+            scrolled ? 'bg-[#1c1f24] rounded-[6px] px-3 py-2' : ''
+          }`}
+        >
           <img
             src="https://www.islandtoweruae.ae/images/logo.png"
             alt="Island Tower Logo"
-            className={`h-6 md:h-7 w-auto object-contain transition-all duration-300 ${scrolled ? 'brightness-0' : ''}`}
+            className="h-6 md:h-7 w-auto object-contain"
           />
         </Link>
 
