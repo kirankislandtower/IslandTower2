@@ -23,7 +23,7 @@ export default function Industries() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex items-center gap-3 mb-6"
           >
@@ -35,7 +35,7 @@ export default function Industries() {
             <motion.h2
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
               className="text-5xl md:text-7xl text-foreground font-normal tracking-tight"
             >
@@ -46,7 +46,7 @@ export default function Industries() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
           >
@@ -66,7 +66,7 @@ export default function Industries() {
                 key={idx}
                 initial={{ clipPath: 'inset(100% 0 0 0)' }}
                 whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: false, margin: "-60px" }}
                 transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
                 className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
               >
@@ -75,7 +75,7 @@ export default function Industries() {
                   alt={item.title}
                   initial={{ scale: 1.25 }}
                   whileInView={{ scale: 1 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={{ once: false, margin: "-60px" }}
                   transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -84,7 +84,7 @@ export default function Industries() {
                 <motion.span
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={{ once: false, margin: "-60px" }}
                   transition={{ duration: 0.4, delay: delay + 0.5 }}
                   className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
                 >

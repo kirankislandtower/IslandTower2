@@ -21,7 +21,7 @@ export default function Solutions() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="md:col-span-4 flex flex-col items-start relative"
         >
@@ -50,7 +50,7 @@ export default function Solutions() {
                 key={idx}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: false, margin: "-60px" }}
                 transition={{ duration: 0.4, delay: idx * 0.04, ease: "easeOut" }}
                 className="group relative flex items-center py-8 md:py-10 border-b border-border hover:border-accent transition-colors cursor-pointer"
               >

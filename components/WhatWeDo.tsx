@@ -39,7 +39,7 @@ export default function WhatWeDo() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="mb-12"
         >
@@ -55,7 +55,7 @@ export default function WhatWeDo() {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           className="relative w-full h-[600px] rounded-xl overflow-hidden bg-black shadow-2xl"
         >
