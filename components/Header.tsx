@@ -35,10 +35,10 @@ export default function Header({ onDemoClick }: HeaderProps) {
 
         {/* Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#about" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>About Us</Link>
-          <Link href="#expertise" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Expertise</Link>
-          <Link href="#projects" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Projects</Link>
-          <Link href="#contact" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Contact</Link>
+          <Link href="/about" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>About Us</Link>
+          <Link href="/#expertise" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Expertise</Link>
+          <Link href="/#projects" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Projects</Link>
+          <Link href="/#contact" className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${scrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'}`}>Contact</Link>
         </nav>
 
         {/* Action Buttons */}

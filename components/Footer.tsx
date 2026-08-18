@@ -39,9 +39,9 @@ export default function Footer({ onDemoClick }: FooterProps) {
           {/* Column 2 */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="hover:text-accent transition-colors focus-ring">HOME</Link>
-            <Link href="#about" className="hover:text-accent transition-colors focus-ring">ABOUT US</Link>
-            <Link href="#expertise" className="hover:text-accent transition-colors focus-ring">EXPERTISE</Link>
-            <Link href="#projects" className="hover:text-accent transition-colors focus-ring">PROJECTS</Link>
+            <Link href="/about" className="hover:text-accent transition-colors focus-ring">ABOUT US</Link>
+            <Link href="/#expertise" className="hover:text-accent transition-colors focus-ring">EXPERTISE</Link>
+            <Link href="/#projects" className="hover:text-accent transition-colors focus-ring">PROJECTS</Link>
             <Link href="#careers" className="hover:text-accent transition-colors focus-ring">CAREERS</Link>
           </div>
 
@@ -50,7 +50,7 @@ export default function Footer({ onDemoClick }: FooterProps) {
             <Link href="#quality" className="hover:text-accent transition-colors focus-ring">QUALITY</Link>
             <Link href="#hse" className="hover:text-accent transition-colors focus-ring">HSE</Link>
             <Link href="#sustainability" className="hover:text-accent transition-colors focus-ring">SUSTAINABILITY</Link>
-            <Link href="#contact" className="hover:text-accent transition-colors focus-ring">CONTACT US</Link>
+            <Link href="/#contact" className="hover:text-accent transition-colors focus-ring">CONTACT US</Link>
           </div>
 
           {/* Column 4 */}
