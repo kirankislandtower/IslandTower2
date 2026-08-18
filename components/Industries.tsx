@@ -19,47 +19,84 @@ export default function Industries() {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex flex-col items-center text-center mb-16"
-        >
-          <div className="flex items-center gap-3 mb-6">
+        <div className="flex flex-col items-center text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex items-center gap-3 mb-6"
+          >
             <div className="w-2 h-2 bg-accent" />
             <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">SECTORS</span>
+          </motion.div>
+
+          <div className="overflow-hidden mb-6">
+            <motion.h2
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
+              className="text-5xl md:text-7xl text-foreground font-normal tracking-tight"
+            >
+              Serving Critical Sectors
+            </motion.h2>
           </div>
-          <h2 className="text-5xl md:text-7xl text-foreground font-normal tracking-tight mb-6">
-            Serving Critical Sectors
-          </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed">
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
+          >
             Island Tower provides specialized engineering, construction, and MEP services across a wide range of challenging industries and sectors throughout the region.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {industries.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (idx % 4) * 0.06, ease: "easeOut" }}
-              className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
-              <h3 className="absolute top-6 left-6 right-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
-                {item.title}
-              </h3>
-            </motion.div>
-          ))}
+          {industries.map((item, idx) => {
+            const row = Math.floor(idx / 4);
+            const col = idx % 4;
+            const delay = (row + col) * 0.09;
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ clipPath: 'inset(100% 0 0 0)' }}
+                whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
+              >
+                <motion.img
+                  src={item.image}
+                  alt={item.title}
+                  initial={{ scale: 1.25 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
+
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.4, delay: delay + 0.5 }}
+                  className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
+                >
+                  0{idx + 1}
+                </motion.span>
+
+                <h3 className="absolute top-6 left-6 right-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
+                  {item.title}
+                </h3>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>
