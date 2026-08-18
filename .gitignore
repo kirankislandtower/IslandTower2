@@ -36,3 +36,6 @@ public/*.mp4
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python bytecode from skill scripts
+__pycache__/

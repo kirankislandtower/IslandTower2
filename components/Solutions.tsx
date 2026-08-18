@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Solutions() {
   const solutions = [
     { num: '01', title: 'INFRASTRUCTURE', image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=500' },
@@ -10,54 +14,64 @@ export default function Solutions() {
   ];
 
   return (
-    <section className="bg-white py-32 w-full" id="expertise">
+    <section className="bg-card py-32 w-full" id="expertise">
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-12 gap-12">
-        
+
         {/* Left Column */}
-        <div className="md:col-span-4 flex flex-col items-start relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="md:col-span-4 flex flex-col items-start relative"
+        >
           <div className="md:sticky md:top-32 w-full">
-            <h2 className="text-6xl md:text-7xl text-[#111] font-normal tracking-tight mb-6 flex items-start">
+            <h2 className="text-6xl md:text-7xl text-foreground font-normal tracking-tight mb-6 flex items-start">
               Expertise
-              <sup className="text-2xl md:text-3xl mt-4 ml-1 font-light text-[#111]">7</sup>
+              <sup className="text-2xl md:text-3xl mt-4 ml-1 font-light text-muted-foreground">7</sup>
             </h2>
-            <p className="text-gray-500 text-base md:text-lg mb-8 leading-relaxed max-w-sm">
+            <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed max-w-sm">
               Built for major projects across the Middle East, our team delivers high-quality engineering, procurement, and construction solutions across multiple specialized sectors.
             </p>
-            <a 
-              href="#projects" 
-              className="inline-block bg-[#94a3b8] text-white font-mono uppercase tracking-widest text-sm px-6 py-4 hover:bg-[#64748b] transition-colors"
+            <a
+              href="#projects"
+              className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
             >
               VIEW ALL PROJECTS
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column */}
         <div className="md:col-span-8 mt-12 md:mt-0">
-          <div className="flex flex-col border-t border-gray-300">
+          <div className="flex flex-col border-t border-border">
             {solutions.map((item, idx) => (
-              <div 
-                key={idx} 
-                className="group relative flex items-center py-8 md:py-10 border-b border-gray-300 hover:border-[#94a3b8] transition-colors cursor-pointer"
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: idx * 0.04, ease: "easeOut" }}
+                className="group relative flex items-center py-8 md:py-10 border-b border-border hover:border-accent transition-colors cursor-pointer"
               >
-                <div className="flex items-center gap-8 md:gap-16 text-[#111] group-hover:text-[#94a3b8] transition-colors">
+                <div className="flex items-center gap-8 md:gap-16 text-foreground group-hover:text-accent transition-colors">
                   <span className="font-mono text-sm md:text-base tracking-widest">{item.num}</span>
                   <span className="font-mono text-lg md:text-2xl tracking-widest uppercase">{item.title}</span>
                 </div>
-                
+
                 {/* Hover Image */}
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-48 h-64 md:w-56 md:h-72 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-2xl">
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
+                  <img
+                    src={item.image}
+                    alt={item.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-        
+
       </div>
     </section>
   );

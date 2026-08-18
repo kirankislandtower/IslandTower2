@@ -34,9 +34,9 @@ export default function WhatWeDo() {
   ];
 
   return (
-    <section className="bg-white py-24 w-full">
+    <section className="bg-background py-24 w-full">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -44,10 +44,10 @@ export default function WhatWeDo() {
           className="mb-12"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-2 h-2 bg-[#94a3b8]" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-gray-800">Our Expertise</span>
+            <div className="w-2 h-2 bg-accent" />
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl text-[#111] font-normal tracking-tight leading-[1.1] max-w-4xl">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
             Island Tower delivers comprehensive engineering, procurement, and construction services for major projects.
           </h2>
         </motion.div>
@@ -86,7 +86,7 @@ export default function WhatWeDo() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className="flex flex-col justify-end text-left h-full group outline-none"
+                className="flex flex-col justify-end text-left h-full group cursor-pointer focus-ring"
               >
                 <div className="flex flex-col justify-end min-h-[120px] mb-4">
                   <h3 
@@ -123,7 +123,7 @@ export default function WhatWeDo() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className="text-left w-full outline-none"
+                className="text-left w-full cursor-pointer focus-ring"
               >
                 <div className="flex items-center justify-between">
                   <h3 

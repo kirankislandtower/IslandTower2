@@ -1,12 +1,15 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 interface HeroProps {
   onDemoClick: () => void;
 }
 
 export default function Hero({ onDemoClick }: HeroProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
+
   return (
     <section className="relative h-screen w-full flex flex-col justify-center overflow-hidden bg-[#111]">
       <video
@@ -37,46 +40,54 @@ export default function Hero({ onDemoClick }: HeroProps) {
       {/* Solid color fade into the next section */}
       <div className="absolute bottom-0 left-0 right-0 h-[40vh] bg-gradient-to-t from-[#111] via-[#111]/60 to-transparent pointer-events-none" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: d(1), ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.2 }}
         className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20"
       >
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
           <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-mono uppercase tracking-tight">
             Excellence in Electro-Mechanical Engineering
           </h1>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 0.8, ease: "easeInOut" }}
-          className="w-full h-[1px] bg-white/40 my-6 origin-left" 
+          transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 0.8, ease: "easeInOut" }}
+          className="w-full h-[1px] bg-white/40 my-6 origin-left"
         />
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.2 }}
+          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
         >
           <p className="text-white/90 text-sm md:text-base max-w-2xl font-sans font-light leading-relaxed">
             Island Tower Electro Mechanical Works LLC is a leading provider of Infrastructure,<br className="hidden md:block" />
             MEP, and Civil Engineering solutions in Dubai and Saudi Arabia.
           </p>
-          <div className="text-white/80 font-mono text-sm tracking-widest">
-            25.2048°N 55.2708°E
+          <div className="flex items-center gap-6 shrink-0">
+            <div className="text-white/80 font-mono text-sm tracking-widest">
+              25.2048°N 55.2708°E
+            </div>
+            <button
+              onClick={onDemoClick}
+              className="bg-accent text-on-accent hover:bg-accent/90 transition-colors px-6 py-3 rounded-[6px] text-xs font-mono font-medium tracking-widest uppercase cursor-pointer focus-ring whitespace-nowrap"
+            >
+              Get a Quote
+            </button>
           </div>
         </motion.div>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
+        transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.5, ease: "easeOut" }}
         className="absolute bottom-10 left-0 right-0 z-10 w-full max-w-6xl mx-auto px-6"
       >
         <div className="flex flex-wrap justify-between items-center opacity-70 gap-6 md:gap-8">

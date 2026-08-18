@@ -10,6 +10,7 @@ import Platform from '@/components/Platform';
 import Industries from '@/components/Industries';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
+import QuoteModal from '@/components/QuoteModal';
 
 export default function Home() {
   const [showDemoModal, setShowDemoModal] = useState(false);
@@ -24,6 +25,7 @@ export default function Home() {
       <Industries />
       <Testimonials />
       <Footer onDemoClick={() => setShowDemoModal(true)} />
+      <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </>
   );
 }
