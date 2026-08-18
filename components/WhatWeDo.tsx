@@ -38,13 +38,12 @@ export default function WhatWeDo() {
   return (
     <section className="bg-background py-24 w-full">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-12"
-        >
+        {/* No entrance animation here on purpose: the hero's shrink-reveal
+            transition (see components/Hero.tsx) already plays this exact
+            block in as the hero recedes, so this is what's left in its
+            place once the page un-pins - animating it again would replay
+            a fade-in on content the user just watched appear. */}
+        <div className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 bg-accent" />
             <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
@@ -52,7 +51,7 @@ export default function WhatWeDo() {
           <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
             Island Tower delivers comprehensive engineering, procurement, and construction services for major projects.
           </h2>
-        </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
