@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useParallax } from '@/hooks/useParallax';
 
@@ -114,12 +115,12 @@ export default function Platform() {
             })}
 
             <div className="mt-12">
-              <a
-                href="#contact"
+              <Link
+                href="/services#quality"
                 className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
               >
                 LEARN MORE
-              </a>
+              </Link>
             </div>
           </div>
 

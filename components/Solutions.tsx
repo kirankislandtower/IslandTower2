@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export default function Solutions() {
@@ -33,12 +34,20 @@ export default function Solutions() {
             <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed max-w-sm">
               Built for major projects across the Middle East, our team delivers high-quality engineering, procurement, and construction solutions across multiple specialized sectors.
             </p>
-            <a
-              href="#projects"
-              className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
-            >
-              VIEW ALL PROJECTS
-            </a>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/projects"
+                className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+              >
+                VIEW ALL PROJECTS
+              </Link>
+              <Link
+                href="/services"
+                className="inline-block border border-border text-foreground font-mono uppercase tracking-widest text-sm px-6 py-4 hover:border-accent hover:text-accent transition-colors cursor-pointer focus-ring"
+              >
+                ALL SERVICES
+              </Link>
+            </div>
           </div>
         </motion.div>
 
