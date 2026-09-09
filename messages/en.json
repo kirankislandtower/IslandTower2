@@ -275,5 +275,17 @@
     "projectReferencePlaceholder": "e.g. project name or contract number",
     "requestReceived": "Request received",
     "requestReceivedDesc": "Our team will verify your project details and follow up with portal access within one business day."
+  },
+  "NewsPage": {
+    "eyebrow": "Insights",
+    "title": "Perspectives from the field.",
+    "subtitle": "Practical lessons on MEP engineering, HSE, and EPC delivery from projects across the UAE and Saudi Arabia.",
+    "ctaHeadline": "Have a project in mind?",
+    "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
+    "getQuote": "Get a Quote"
+  },
+  "ArticleDetail": {
+    "allInsights": "All Insights",
+    "moreInsights": "More Insights"
   }
 }

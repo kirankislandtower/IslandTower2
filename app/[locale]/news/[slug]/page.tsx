@@ -1,15 +1,21 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getArticleBySlug, articles } from '@/lib/news';
+import { getArticleBySlug, localizeArticle, articles, type Locale } from '@/lib/news';
 import ArticleContent from './ArticleContent';
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const article = getArticleBySlug(params.slug);
-  if (!article) return {};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const raw = getArticleBySlug(slug);
+  if (!raw) return {};
+  const article = localizeArticle(raw, locale as Locale);
 
   const ogImage = { url: article.image, width: 1200, height: 630, alt: article.title };
 
@@ -34,8 +40,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = getArticleBySlug(params.slug);
-  if (!article) notFound();
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const raw = getArticleBySlug(slug);
+  if (!raw) notFound();
+  const article = localizeArticle(raw, locale as Locale);
   return <ArticleContent article={article} />;
 }

@@ -2,19 +2,23 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
-import { articles } from '@/lib/news';
+import { articles, localizeArticle, type Locale } from '@/lib/news';
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+function formatDate(dateStr: string, locale: Locale) {
+  return new Date(dateStr).toLocaleDateString(locale === 'ar' ? 'ar' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 export default function NewsContent() {
+  const t = useTranslations('NewsPage');
+  const locale = useLocale() as Locale;
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const [featured, ...rest] = articles;
+  const localized = articles.map((a) => localizeArticle(a, locale));
+  const [featured, ...rest] = localized;
 
   return (
     <>
@@ -37,14 +41,13 @@ export default function NewsContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">Insights</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Perspectives from the field.
+            {t('title')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            Practical lessons on MEP engineering, HSE, and EPC delivery from projects across the UAE and
-            Saudi Arabia.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -75,7 +78,7 @@ export default function NewsContent() {
                   {featured.excerpt}
                 </p>
                 <div className="flex items-center gap-4 font-mono text-xs tracking-widest uppercase text-muted-foreground">
-                  <span>{formatDate(featured.date)}</span>
+                  <span>{formatDate(featured.date, locale)}</span>
                   <span>&middot;</span>
                   <span>{featured.readTime}</span>
                 </div>
@@ -112,7 +115,7 @@ export default function NewsContent() {
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
                     <div className="flex items-center gap-3 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
-                      <span>{formatDate(article.date)}</span>
+                      <span>{formatDate(article.date, locale)}</span>
                       <span>&middot;</span>
                       <span>{article.readTime}</span>
                     </div>
@@ -134,16 +137,16 @@ export default function NewsContent() {
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >
           <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            Have a project in mind?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-white/70 text-base max-w-xl">
-            Tell us what you&apos;re building and our team will follow up with next steps.
+            {t('ctaSubtitle')}
           </p>
           <button
             onClick={() => setShowDemoModal(true)}
             className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
           >
-            Get a Quote
+            {t('getQuote')}
           </button>
         </motion.div>
       </section>

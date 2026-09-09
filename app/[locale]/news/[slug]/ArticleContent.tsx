@@ -2,20 +2,25 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
-import type { Article } from '@/lib/news';
-import { articles } from '@/lib/news';
+import { articles, localizeArticle, type Locale, type LocalizedArticle } from '@/lib/news';
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+function formatDate(dateStr: string, locale: Locale) {
+  return new Date(dateStr).toLocaleDateString(locale === 'ar' ? 'ar' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-export default function ArticleContent({ article }: { article: Article }) {
+export default function ArticleContent({ article }: { article: LocalizedArticle }) {
+  const t = useTranslations('ArticleDetail');
+  const locale = useLocale() as Locale;
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const more = articles.filter((a) => a.slug !== article.slug).slice(0, 2);
+  const more = articles
+    .filter((a) => a.slug !== article.slug)
+    .map((a) => localizeArticle(a, locale))
+    .slice(0, 2);
 
   return (
     <>
@@ -40,18 +45,18 @@ export default function ArticleContent({ article }: { article: Article }) {
             href="/news"
             className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            All Insights
+            {t('allInsights')}
           </Link>
           <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent">{article.category}</span>
           <h1 className="text-3xl md:text-5xl text-white font-normal tracking-tight leading-[1.1] mt-4">
             {article.title}
           </h1>
           <div className="flex items-center gap-4 font-mono text-xs tracking-widest uppercase text-white/60 mt-6">
-            <span>{formatDate(article.date)}</span>
+            <span>{formatDate(article.date, locale)}</span>
             <span>&middot;</span>
             <span>{article.readTime}</span>
           </div>
@@ -86,7 +91,7 @@ export default function ArticleContent({ article }: { article: Article }) {
             className="flex items-center gap-3 mb-10"
           >
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">More Insights</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('moreInsights')}</span>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -102,7 +107,7 @@ export default function ArticleContent({ article }: { article: Article }) {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="absolute bottom-0 start-0 end-0 p-6">
                   <span className="font-mono text-xs tracking-widest uppercase text-white/70">{a.category}</span>
                   <h3 className="text-xl text-white font-medium mt-1">{a.title}</h3>
                 </div>
