@@ -133,5 +133,32 @@
     "next": "Next testimonial",
     "quote1": "Island Tower Electro Mechanical Works delivered our infrastructure on time and with exceptional quality. Their commitment to safety and engineering precision is unmatched in the region.",
     "quote2": "The civil and MEP works executed by Island Tower have set a new benchmark for our future projects. Truly a reliable partner for high-stakes construction."
+  },
+  "AboutPage": {
+    "eyebrow": "About Island Tower",
+    "title": "Engineering excellence, built on trust.",
+    "subtitle": "Island Tower Electro Mechanical Works LLC has spent over a decade delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia, for clients who need it done right the first time.",
+    "storyEyebrow": "Our Story",
+    "storyHeadline": "Founded on-site, not in a boardroom.",
+    "storyP1": "Island Tower started with a small electro-mechanical crew taking on the jobs larger contractors considered too complex or too tight on schedule. That reputation for solving hard problems on-site is still what our clients come back for.",
+    "storyP2": "Today we run full-scope EPC engagements across infrastructure, MEP, civil works, and energy & water projects — but the standard hasn't changed: precise engineering, disciplined safety practice, and a crew that shows up and finishes what it starts.",
+    "stat1": "Years in Operation",
+    "stat2": "Projects Delivered",
+    "stat3": "Countries Served",
+    "stat4": "Lost-Time Incidents in 2025",
+    "valuesEyebrow": "What We Stand For",
+    "valuesHeadline": "Our Values",
+    "value1Title": "Integrity",
+    "value1Desc": "We deliver what we commit to, on schedule and to specification, with transparent reporting at every stage.",
+    "value2Title": "Precision",
+    "value2Desc": "Every weld, connection, and installation is executed to exacting engineering tolerances and quality standards.",
+    "value3Title": "Safety First",
+    "value3Desc": "No project timeline outweighs the wellbeing of our workforce. HSE protocols are non-negotiable on every site.",
+    "value4Title": "Partnership",
+    "value4Desc": "We work as an extension of our clients' teams, not just a contractor, from early design through handover.",
+    "ctaHeadline": "Have a project in mind?",
+    "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
+    "getQuote": "Get a Quote",
+    "companyProfile": "Company Profile"
   }
 }

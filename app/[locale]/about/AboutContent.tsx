@@ -2,40 +2,30 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
 
-const stats = [
-  { value: '15+', label: 'Years in Operation' },
-  { value: '200+', label: 'Projects Delivered' },
-  { value: '2', label: 'Countries Served' },
-  { value: '0', label: 'Lost-Time Incidents in 2025' },
-];
-
-const values = [
-  {
-    title: 'Integrity',
-    description: 'We deliver what we commit to, on schedule and to specification, with transparent reporting at every stage.',
-  },
-  {
-    title: 'Precision',
-    description: 'Every weld, connection, and installation is executed to exacting engineering tolerances and quality standards.',
-  },
-  {
-    title: 'Safety First',
-    description: 'No project timeline outweighs the wellbeing of our workforce. HSE protocols are non-negotiable on every site.',
-  },
-  {
-    title: 'Partnership',
-    description: 'We work as an extension of our clients\' teams, not just a contractor, from early design through handover.',
-  },
-];
-
 export default function AboutContent() {
+  const t = useTranslations('AboutPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const { ref: storyImgRef, y: storyImgY } = useParallax(28);
+
+  const stats = [
+    { value: '15+', label: t('stat1') },
+    { value: '200+', label: t('stat2') },
+    { value: '2', label: t('stat3') },
+    { value: '0', label: t('stat4') },
+  ];
+
+  const values = [
+    { title: t('value1Title'), description: t('value1Desc') },
+    { title: t('value2Title'), description: t('value2Desc') },
+    { title: t('value3Title'), description: t('value3Desc') },
+    { title: t('value4Title'), description: t('value4Desc') },
+  ];
 
   return (
     <>
@@ -58,14 +48,13 @@ export default function AboutContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">About Island Tower</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Engineering excellence, built on trust.
+            {t('title')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            Island Tower Electro Mechanical Works LLC has spent over a decade delivering infrastructure, MEP,
-            and civil engineering projects across the UAE and Saudi Arabia, for clients who need it done right the first time.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -81,20 +70,16 @@ export default function AboutContent() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">OUR STORY</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('storyEyebrow')}</span>
             </div>
             <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight leading-[1.1] mb-6">
-              Founded on-site, not in a boardroom.
+              {t('storyHeadline')}
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed mb-4">
-              Island Tower started with a small electro-mechanical crew taking on the jobs larger contractors
-              considered too complex or too tight on schedule. That reputation for solving hard problems on-site
-              is still what our clients come back for.
+              {t('storyP1')}
             </p>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Today we run full-scope EPC engagements across infrastructure, MEP, civil works, and energy &amp;
-              water projects &mdash; but the standard hasn't changed: precise engineering, disciplined safety
-              practice, and a crew that shows up and finishes what it starts.
+              {t('storyP2')}
             </p>
           </motion.div>
 
@@ -126,7 +111,7 @@ export default function AboutContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: '0px 0px -60px 0px' }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-              className="text-center md:text-left"
+              className="text-center md:text-start"
             >
               <div className="font-mono text-4xl md:text-5xl text-accent font-light mb-2">{stat.value}</div>
               <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground">{stat.label}</div>
@@ -147,10 +132,10 @@ export default function AboutContent() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">WHAT WE STAND FOR</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('valuesEyebrow')}</span>
             </div>
             <h2 className="text-4xl md:text-6xl text-foreground font-normal tracking-tight">
-              Our Values
+              {t('valuesHeadline')}
             </h2>
           </motion.div>
 
@@ -183,17 +168,17 @@ export default function AboutContent() {
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >
           <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            Have a project in mind?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-white/70 text-base max-w-xl">
-            Tell us what you're building and our team will follow up with next steps.
+            {t('ctaSubtitle')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
               onClick={() => setShowDemoModal(true)}
               className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
             >
-              Get a Quote
+              {t('getQuote')}
             </button>
             <a
               href="/island-tower-company-profile.pdf"
@@ -205,7 +190,7 @@ export default function AboutContent() {
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
-              Company Profile
+              {t('companyProfile')}
             </a>
           </div>
         </motion.div>
