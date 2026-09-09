@@ -2,16 +2,18 @@
 
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
-import { projects } from '@/lib/projects';
+import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 
-const categories = ['All', 'MEP Engineering', 'Infrastructure', 'Civil Works', 'Water Treatment', 'Energy Solutions', 'Chemical Facilities'];
+const CATEGORY_KEYS = ['all', 'MEP Engineering', 'Infrastructure', 'Civil Works', 'Water Treatment', 'Energy Solutions', 'Chemical Facilities'] as const;
 
-function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx: number }) {
+function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number }) {
+  const t = useTranslations('ProjectsPage');
   const { ref: parallaxRef, y: parallaxY } = useParallax(24);
   const isEven = idx % 2 === 0;
 
@@ -35,7 +37,7 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
           style={{ y: parallaxY, scale: 1.15 }}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <span className="absolute top-5 left-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
+        <span className="absolute top-5 start-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
           0{idx + 1}
         </span>
       </div>
@@ -55,8 +57,8 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
           href={`/projects/${project.slug}`}
           className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-foreground hover:text-accent transition-colors focus-ring"
         >
-          View Case Study
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {t('viewCaseStudy')}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
@@ -67,13 +69,35 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
 }
 
 export default function ProjectsContent() {
+  const t = useTranslations('ProjectsPage');
+  const locale = useLocale() as Locale;
   const [showDemoModal, setShowDemoModal] = useState(false);
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState<(typeof CATEGORY_KEYS)[number]>('all');
+
+  const localized = useMemo(() => allProjects.map((p) => localizeProject(p, locale)), [locale]);
 
   const filtered = useMemo(
-    () => (activeCategory === 'All' ? projects : projects.filter((p) => p.category === activeCategory)),
-    [activeCategory]
+    () =>
+      activeCategory === 'all'
+        ? localized
+        : allProjects
+            .filter((p) => p.category.en === activeCategory)
+            .map((p) => localizeProject(p, locale)),
+    [activeCategory, localized, locale]
   );
+
+  const categoryLabel = (key: (typeof CATEGORY_KEYS)[number]) => {
+    const map: Record<(typeof CATEGORY_KEYS)[number], string> = {
+      all: t('categoryAll'),
+      'MEP Engineering': t('categoryMep'),
+      Infrastructure: t('categoryInfrastructure'),
+      'Civil Works': t('categoryCivil'),
+      'Water Treatment': t('categoryWater'),
+      'Energy Solutions': t('categoryEnergy'),
+      'Chemical Facilities': t('categoryChemical'),
+    };
+    return map[key];
+  };
 
   return (
     <>
@@ -96,14 +120,13 @@ export default function ProjectsContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">Featured Work</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Selected Projects
+            {t('title')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            A cross-section of the engineering, procurement, and construction work Island Tower has delivered
-            across the UAE and Saudi Arabia.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -111,7 +134,7 @@ export default function ProjectsContent() {
       {/* Filter Bar */}
       <section className="bg-card w-full border-b border-border sticky top-0 z-30 backdrop-blur-md bg-card/95">
         <div className="max-w-[1400px] mx-auto px-6 py-5 flex gap-3 overflow-x-auto no-scrollbar">
-          {categories.map((cat) => (
+          {CATEGORY_KEYS.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
@@ -121,7 +144,7 @@ export default function ProjectsContent() {
                   : 'bg-transparent text-muted-foreground border-border hover:border-accent hover:text-foreground'
               }`}
             >
-              {cat}
+              {categoryLabel(cat)}
             </button>
           ))}
         </div>
@@ -132,10 +155,10 @@ export default function ProjectsContent() {
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex flex-col gap-24">
             {filtered.map((project, idx) => (
-              <ProjectCard key={project.title} project={project} idx={idx} />
+              <ProjectCard key={project.slug} project={project} idx={idx} />
             ))}
             {filtered.length === 0 && (
-              <p className="text-center text-muted-foreground text-sm py-12">No projects in this category yet.</p>
+              <p className="text-center text-muted-foreground text-sm py-12">{t('noProjects')}</p>
             )}
           </div>
         </div>
@@ -151,16 +174,16 @@ export default function ProjectsContent() {
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >
           <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            Ready to start your next project?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-white/70 text-base max-w-xl">
-            Tell us what you're building and our team will follow up with next steps.
+            {t('ctaSubtitle')}
           </p>
           <button
             onClick={() => setShowDemoModal(true)}
             className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
           >
-            Get a Quote
+            {t('getQuote')}
           </button>
         </motion.div>
       </section>

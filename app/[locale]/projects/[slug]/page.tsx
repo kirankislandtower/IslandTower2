@@ -1,17 +1,24 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getProjectBySlug, projects } from '@/lib/projects';
+import { getProjectBySlug, localizeProject, projects, type Locale } from '@/lib/projects';
 import ProjectDetailContent from './ProjectDetailContent';
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const project = getProjectBySlug(params.slug);
-  if (!project) return {};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const raw = getProjectBySlug(slug);
+  if (!raw) return {};
+  const project = localizeProject(raw, locale as Locale);
 
-  const title = `${project.title} — Case Study`;
+  const isAr = locale === 'ar';
+  const title = isAr ? `${project.title} — دراسة حالة` : `${project.title} — Case Study`;
   const description = project.description;
   const ogImage = { url: project.image, width: 1200, height: 630, alt: project.title };
 
@@ -35,8 +42,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = getProjectBySlug(params.slug);
-  if (!project) notFound();
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const raw = getProjectBySlug(slug);
+  if (!raw) notFound();
+  const project = localizeProject(raw, locale as Locale);
   return <ProjectDetailContent project={project} />;
 }

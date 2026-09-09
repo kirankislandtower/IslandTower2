@@ -93,5 +93,38 @@
     "i6": "Industrial",
     "i7": "Aviation",
     "i8": "Oil & Gas"
+  },
+  "Projects": {
+    "eyebrow": "Featured Work",
+    "headline": "Selected Projects",
+    "description": "A cross-section of the engineering, procurement, and construction work Island Tower has delivered across the UAE and Saudi Arabia.",
+    "viewCaseStudy": "View Case Study"
+  },
+  "ProjectsPage": {
+    "eyebrow": "Featured Work",
+    "title": "Selected Projects",
+    "subtitle": "A cross-section of the engineering, procurement, and construction work Island Tower has delivered across the UAE and Saudi Arabia.",
+    "viewCaseStudy": "View Case Study",
+    "noProjects": "No projects in this category yet.",
+    "ctaHeadline": "Ready to start your next project?",
+    "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
+    "getQuote": "Get a Quote",
+    "categoryAll": "All",
+    "categoryMep": "MEP Engineering",
+    "categoryInfrastructure": "Infrastructure",
+    "categoryCivil": "Civil Works",
+    "categoryWater": "Water Treatment",
+    "categoryEnergy": "Energy Solutions",
+    "categoryChemical": "Chemical Facilities"
+  },
+  "ProjectDetail": {
+    "allProjects": "All Projects",
+    "theChallenge": "The Challenge",
+    "ourApproach": "Our Approach",
+    "results": "Results",
+    "moreProjects": "More Projects",
+    "ctaHeadline": "Have a similar project in mind?",
+    "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
+    "getQuote": "Get a Quote"
   }
 }

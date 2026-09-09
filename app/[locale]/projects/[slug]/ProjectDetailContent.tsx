@@ -2,20 +2,31 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
-import type { Project } from '@/lib/projects';
-import { projects } from '@/lib/projects';
+import { projects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 
-export default function ProjectDetailContent({ project }: { project: Project }) {
+export default function ProjectDetailContent({ project }: { project: LocalizedProject }) {
+  const t = useTranslations('ProjectDetail');
+  const locale = useLocale() as Locale;
   const [showDemoModal, setShowDemoModal] = useState(false);
   const { ref: heroImgRef, y: heroImgY } = useParallax(24);
 
-  const related = projects.filter((p) => p.slug !== project.slug && p.category === project.category).slice(0, 2);
-  const fallbackRelated = related.length > 0 ? related : projects.filter((p) => p.slug !== project.slug).slice(0, 2);
+  const related = projects
+    .filter((p) => p.slug !== project.slug && p.category.en === project.categoryKey)
+    .map((p) => localizeProject(p, locale))
+    .slice(0, 2);
+  const fallbackRelated =
+    related.length > 0
+      ? related
+      : projects
+          .filter((p) => p.slug !== project.slug)
+          .map((p) => localizeProject(p, locale))
+          .slice(0, 2);
 
   return (
     <>
@@ -40,11 +51,11 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
             href="/projects"
             className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            All Projects
+            {t('allProjects')}
           </Link>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -61,8 +72,8 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
       <section className="bg-background py-24 md:py-32 w-full">
         <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-3 gap-12">
           {[
-            { label: 'The Challenge', text: project.challenge },
-            { label: 'Our Approach', text: project.approach },
+            { label: t('theChallenge'), text: project.challenge },
+            { label: t('ourApproach'), text: project.approach },
           ].map((block, idx) => (
             <motion.div
               key={block.label}
@@ -88,7 +99,7 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Results</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('results')}</span>
             </div>
             <ul className="flex flex-col gap-4">
               {project.results.map((result) => (
@@ -118,7 +129,7 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
             >
               <motion.img
                 src={project.gallery[0]}
-                alt={`${project.title} — site work`}
+                alt={project.title}
                 style={{ y: heroImgY, scale: 1.15 }}
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -126,7 +137,7 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
             {project.gallery[1] && (
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                  <img src={project.gallery[1]} alt={`${project.title} — detail`} className="absolute inset-0 w-full h-full object-cover" />
+                  <img src={project.gallery[1]} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
                 </div>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
                   <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
@@ -148,7 +159,7 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
             className="flex items-center gap-3 mb-10"
           >
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">More Projects</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('moreProjects')}</span>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-6">
@@ -164,7 +175,7 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="absolute bottom-0 start-0 end-0 p-6">
                   <span className="font-mono text-xs tracking-widest uppercase text-white/70">{p.category}</span>
                   <h3 className="text-xl text-white font-medium mt-1">{p.title}</h3>
                 </div>
@@ -184,16 +195,16 @@ export default function ProjectDetailContent({ project }: { project: Project }) 
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >
           <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            Have a similar project in mind?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-white/70 text-base max-w-xl">
-            Tell us what you&apos;re building and our team will follow up with next steps.
+            {t('ctaSubtitle')}
           </p>
           <button
             onClick={() => setShowDemoModal(true)}
             className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
           >
-            Get a Quote
+            {t('getQuote')}
           </button>
         </motion.div>
       </section>

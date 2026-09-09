@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { useParallax } from '@/hooks/useParallax';
-import { projects as allProjects } from '@/lib/projects';
+import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 
-const projects = allProjects.slice(0, 6);
-
-function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx: number }) {
+function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number }) {
+  const t = useTranslations('Projects');
   const { ref: parallaxRef, y: parallaxY } = useParallax(24);
   const isEven = idx % 2 === 0;
 
@@ -29,7 +29,7 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
           style={{ y: parallaxY, scale: 1.15 }}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <span className="absolute top-5 left-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
+        <span className="absolute top-5 start-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
           0{idx + 1}
         </span>
       </div>
@@ -49,8 +49,8 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
           href={`/projects/${project.slug}`}
           className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-foreground hover:text-accent transition-colors focus-ring"
         >
-          View Case Study
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {t('viewCaseStudy')}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
@@ -61,6 +61,10 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
 }
 
 export default function Projects() {
+  const t = useTranslations('Projects');
+  const locale = useLocale() as Locale;
+  const projects = allProjects.slice(0, 6).map((p) => localizeProject(p, locale));
+
   return (
     <section className="bg-card py-32 w-full" id="projects">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -74,7 +78,7 @@ export default function Projects() {
             className="flex items-center gap-3 mb-6"
           >
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">FEATURED WORK</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -83,7 +87,7 @@ export default function Projects() {
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="text-5xl md:text-7xl text-foreground font-normal tracking-tight mb-6"
           >
-            Selected Projects
+            {t('headline')}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -92,13 +96,13 @@ export default function Projects() {
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
           >
-            A cross-section of the engineering, procurement, and construction work Island Tower has delivered across the UAE and Saudi Arabia.
+            {t('description')}
           </motion.p>
         </div>
 
         <div className="flex flex-col gap-24">
           {projects.map((project, idx) => (
-            <ProjectCard key={idx} project={project} idx={idx} />
+            <ProjectCard key={project.slug} project={project} idx={idx} />
           ))}
         </div>
 
