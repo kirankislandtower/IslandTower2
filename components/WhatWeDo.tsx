@@ -36,8 +36,24 @@ export default function WhatWeDo() {
   ];
 
   return (
-    <section className="bg-background pt-8 pb-24 w-full">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section className="relative overflow-hidden bg-background pt-8 pb-24 w-full">
+      {/* Faint tower-icon watermark in the section's own top area. The
+          hero's scroll-pin above releases with an unavoidable blank stretch
+          (a CSS `position: sticky` limitation - releasing a pin always
+          costs one viewport-height of scroll with nothing pinned to show)
+          before this section's real content scrolls into view. Since this
+          watermark lives in the section's own top padding rather than
+          being tied to the pin's timing, it starts appearing the moment
+          this section's top edge enters the viewport - filling what would
+          otherwise be a truly blank pause with a subtle branded presence
+          instead, with no fragile scroll-position math involved. */}
+      <img
+        src="https://cdn.jsdelivr.net/gh/kirank860/island-tower-assets@main/main-logo.jpeg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] md:w-[640px] max-w-none opacity-[0.05] mix-blend-multiply"
+      />
+      <div className="relative max-w-[1400px] mx-auto px-6">
         {/* No entrance animation here on purpose: the hero's shrink-reveal
             transition (see components/Hero.tsx) already plays this exact
             block in as the hero recedes, so this is what's left in its
