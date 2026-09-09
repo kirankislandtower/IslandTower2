@@ -2,117 +2,23 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
 
-const services = [
-  {
-    num: '01',
-    title: 'Infrastructure',
-    description:
-      'Site-wide utilities and transport infrastructure networks engineered for scale — from logistics hubs to corporate campuses, delivered on compressed schedules without cutting corners.',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '02',
-    title: 'MEP Engineering',
-    description:
-      'Full mechanical, electrical, and plumbing engineering and execution across residential, commercial, and industrial towers, with precise quality control at every fit-out stage.',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '03',
-    title: 'Civil Works',
-    description:
-      'From foundation to finishing, we deliver structural integrity and architectural precision, holding every pour and connection to exacting engineering tolerances.',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '04',
-    title: 'Chemical Facilities',
-    description:
-      'Specialized construction and MEP integration for chemical processing plants, built to strict process-safety requirements and commissioned by engineers who understand the stakes.',
-    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '05',
-    title: 'Water Treatment',
-    description:
-      'Capacity expansions and new-build works for regional water treatment facilities, including clarifier basins, filtration lines, and full commissioning support.',
-    image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '06',
-    title: 'Energy Solutions',
-    description:
-      'Electro-mechanical works for industrial power facilities — switchgear installation, cabling, and commissioning — built for renewable and conventional energy sectors alike.',
-    image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop',
-  },
-  {
-    num: '07',
-    title: 'Research & Development',
-    description:
-      'We pilot new materials, methods, and process technologies at small scale before committing them to a live project, so innovation never comes at the cost of reliability.',
-    image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop',
-  },
+const serviceImages = [
+  'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop',
 ];
 
-const pillars = [
-  {
-    id: 'quality',
-    title: 'Quality',
-    description:
-      'We maintain the highest standards of quality control across every electro-mechanical and civil scope, with documented inspection at each project milestone to ensure longevity and performance.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="7"></circle>
-        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-      </svg>
-    ),
-  },
-  {
-    id: 'hse',
-    title: 'HSE — Health & Safety',
-    description:
-      'A safe working environment is our top priority on every site. We enforce global HSE protocols without exception, with zero lost-time incidents as the standard we hold ourselves to.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        <line x1="12" y1="8" x2="12" y2="16"></line>
-        <line x1="8" y1="12" x2="16" y2="12"></line>
-      </svg>
-    ),
-  },
-  {
-    id: 'sustainability',
-    title: 'Sustainability',
-    description:
-      'We integrate sustainable materials and construction practices wherever the project allows, minimizing environmental impact while maximizing resource and energy efficiency.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-      </svg>
-    ),
-  },
-  {
-    id: 'technology',
-    title: 'Technology',
-    description:
-      'Modern construction technology, project software, and continuous R&D drive precise execution, real-time monitoring, and reliable delivery across every engagement.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 14 10 14 10 20"></polyline>
-        <polyline points="20 10 14 10 14 4"></polyline>
-        <line x1="14" y1="10" x2="21" y2="3"></line>
-        <line x1="3" y1="21" x2="10" y2="14"></line>
-      </svg>
-    ),
-  },
-];
-
-function ServiceCard({ service, idx }: { service: (typeof services)[number]; idx: number }) {
+function ServiceCard({ service, idx }: { service: { num: string; title: string; description: string; image: string }; idx: number }) {
   const { ref: parallaxRef, y: parallaxY } = useParallax(20);
 
   return (
@@ -131,7 +37,7 @@ function ServiceCard({ service, idx }: { service: (typeof services)[number]; idx
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.22]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <span className="absolute top-4 left-4 font-mono text-white text-xs tracking-widest">{service.num}</span>
+        <span className="absolute top-4 start-4 font-mono text-white text-xs tracking-widest">{service.num}</span>
       </div>
       <div className="p-6 md:p-8 flex flex-col flex-1">
         <h3 className="text-xl md:text-2xl text-foreground font-medium tracking-tight mb-3">{service.title}</h3>
@@ -142,7 +48,67 @@ function ServiceCard({ service, idx }: { service: (typeof services)[number]; idx
 }
 
 export default function ServicesContent() {
+  const t = useTranslations('ServicesPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
+
+  const services = [
+    { num: '01', title: t('s1Title'), description: t('s1Desc'), image: serviceImages[0] },
+    { num: '02', title: t('s2Title'), description: t('s2Desc'), image: serviceImages[1] },
+    { num: '03', title: t('s3Title'), description: t('s3Desc'), image: serviceImages[2] },
+    { num: '04', title: t('s4Title'), description: t('s4Desc'), image: serviceImages[3] },
+    { num: '05', title: t('s5Title'), description: t('s5Desc'), image: serviceImages[4] },
+    { num: '06', title: t('s6Title'), description: t('s6Desc'), image: serviceImages[5] },
+    { num: '07', title: t('s7Title'), description: t('s7Desc'), image: serviceImages[6] },
+  ];
+
+  const pillars = [
+    {
+      id: 'quality',
+      title: t('qualityTitle'),
+      description: t('qualityDesc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="8" r="7"></circle>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+        </svg>
+      ),
+    },
+    {
+      id: 'hse',
+      title: t('hseTitle'),
+      description: t('hseDesc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
+      ),
+    },
+    {
+      id: 'sustainability',
+      title: t('sustainabilityTitle'),
+      description: t('sustainabilityDesc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+      ),
+    },
+    {
+      id: 'technology',
+      title: t('technologyTitle'),
+      description: t('technologyDesc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="4 14 10 14 10 20"></polyline>
+          <polyline points="20 10 14 10 14 4"></polyline>
+          <line x1="14" y1="10" x2="21" y2="3"></line>
+          <line x1="3" y1="21" x2="10" y2="14"></line>
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -165,14 +131,13 @@ export default function ServicesContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">Expertise</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Seven disciplines. One standard of execution.
+            {t('title')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            Island Tower delivers comprehensive engineering, procurement, and construction services for major
-            projects across infrastructure, MEP, civil, energy, water, and chemical sectors.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -200,10 +165,10 @@ export default function ServicesContent() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">HOW WE WORK</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('howWeWork')}</span>
             </div>
             <h2 className="text-4xl md:text-6xl text-foreground font-normal tracking-tight">
-              Committed to Quality &amp; Safety
+              {t('howWeWorkHeadline')}
             </h2>
           </motion.div>
 
@@ -237,16 +202,16 @@ export default function ServicesContent() {
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >
           <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            Need a specialist EPC partner?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-white/70 text-base max-w-xl">
-            Tell us which discipline your project needs and our engineering team will follow up with next steps.
+            {t('ctaSubtitle')}
           </p>
           <button
             onClick={() => setShowDemoModal(true)}
             className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
           >
-            Get a Quote
+            {t('getQuote')}
           </button>
         </motion.div>
       </section>
