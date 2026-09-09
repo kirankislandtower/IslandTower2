@@ -126,5 +126,12 @@
     "ctaHeadline": "Have a similar project in mind?",
     "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
     "getQuote": "Get a Quote"
+  },
+  "Testimonials": {
+    "eyebrow": "Client Testimonials",
+    "previous": "Previous testimonial",
+    "next": "Next testimonial",
+    "quote1": "Island Tower Electro Mechanical Works delivered our infrastructure on time and with exceptional quality. Their commitment to safety and engineering precision is unmatched in the region.",
+    "quote2": "The civil and MEP works executed by Island Tower have set a new benchmark for our future projects. Truly a reliable partner for high-stakes construction."
   }
 }
