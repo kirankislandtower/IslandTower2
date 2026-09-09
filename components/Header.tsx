@@ -1,26 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from './LocaleSwitcher';
 
 interface HeaderProps {
   onDemoClick: () => void;
 }
 
-const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Expertise', href: '/services' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '/contact' },
-];
-
 export default function Header({ onDemoClick }: HeaderProps) {
+  const t = useTranslations('Nav');
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const NAV_LINKS = [
+    { label: t('home'), href: '/' },
+    { label: t('about'), href: '/about' },
+    { label: t('expertise'), href: '/services' },
+    { label: t('projects'), href: '/projects' },
+    { label: t('contact'), href: '/contact' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight - 100);
@@ -67,32 +69,40 @@ export default function Header({ onDemoClick }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${
+              className={`relative pb-1 transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${
                 pathname === link.href
-                  ? isScrolled ? 'text-black' : 'text-white'
+                  ? 'text-accent'
                   : isScrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'
               }`}
             >
               {link.label}
+              {pathname === link.href && (
+                <motion.span
+                  layoutId="active-nav-underline"
+                  className="absolute left-0 right-0 -bottom-0.5 h-[2px] bg-accent"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
             </Link>
           ))}
         </nav>
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-4">
+          <LocaleSwitcher isScrolled={isScrolled} />
           <Link
             href="/portal"
             className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${
               isScrolled ? 'text-gray-700 hover:text-black bg-black/5 hover:bg-black/10' : 'text-gray-300 hover:text-white bg-white/5 hover:bg-white/10'
             }`}
           >
-            Client Portal
+            {t('clientPortal')}
           </Link>
           <button
             className="bg-accent text-on-accent hover:bg-accent/90 transition-colors px-5 py-2.5 rounded-[6px] text-xs font-mono font-medium tracking-widest uppercase cursor-pointer focus-ring"
             onClick={onDemoClick}
           >
-            Get a Quote
+            {t('getQuote')}
           </button>
         </div>
 
@@ -157,8 +167,11 @@ export default function Header({ onDemoClick }: HeaderProps) {
               }}
               className="mt-4 bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-3.5 rounded-[6px] hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
             >
-              Get a Quote
+              {t('getQuote')}
             </motion.button>
+            <div className="mt-4 flex justify-center">
+              <LocaleSwitcher isScrolled={false} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

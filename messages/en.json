@@ -1,0 +1,11 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About Us",
+    "expertise": "Expertise",
+    "projects": "Projects",
+    "contact": "Contact",
+    "clientPortal": "Client Portal",
+    "getQuote": "Get a Quote"
+  }
+}
