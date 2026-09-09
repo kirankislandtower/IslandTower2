@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { projects } from '@/lib/projects';
+import { articles } from '@/lib/news';
 
 const siteUrl = 'https://www.islandtoweruae.ae';
 
@@ -36,6 +37,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
+    })),
+    {
+      url: `${siteUrl}/news`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    ...articles.map((a) => ({
+      url: `${siteUrl}/news/${a.slug}`,
+      lastModified: a.date,
+      changeFrequency: 'yearly' as const,
+      priority: 0.5,
     })),
     {
       url: `${siteUrl}/contact`,
