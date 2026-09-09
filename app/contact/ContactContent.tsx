@@ -107,12 +107,12 @@ export default function ContactContent() {
 
       {/* Form + Offices */}
       <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">
+        <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20">
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="bg-card border border-border rounded-2xl p-8 md:p-10"
           >
@@ -220,7 +220,7 @@ export default function ContactContent() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
             className="flex flex-col gap-6"
           >

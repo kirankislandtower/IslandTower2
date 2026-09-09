@@ -24,7 +24,7 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
     <motion.div
       initial={{ clipPath: 'inset(100% 0 0 0)' }}
       whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-      viewport={{ once: false, margin: "-60px" }}
+      viewport={{ once: false, margin: "0px 0px -60px 0px" }}
       transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
       ref={parallaxRef}
       className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
@@ -35,7 +35,7 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
         initial={{ scale: 1.4 }}
         whileInView={{ scale: 1.15 }}
         whileHover={{ scale: 1.22 }}
-        viewport={{ once: false, margin: "-60px" }}
+        viewport={{ once: false, margin: "0px 0px -60px 0px" }}
         transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
         style={{ y: parallaxY }}
         className="absolute inset-0 w-full h-full object-cover"
@@ -45,7 +45,7 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
       <motion.span
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: false, margin: "-60px" }}
+        viewport={{ once: false, margin: "0px 0px -60px 0px" }}
         transition={{ duration: 0.4, delay: delay + 0.5 }}
         className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
       >
@@ -62,14 +62,14 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
 export default function Industries() {
   return (
     <section className="bg-background py-24 w-full">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: false, margin: "0px 0px -100px 0px" }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex items-center gap-3 mb-6"
           >
@@ -81,7 +81,7 @@ export default function Industries() {
             <motion.h2
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
               whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
-              viewport={{ once: false, margin: "-100px" }}
+              viewport={{ once: false, margin: "0px 0px -100px 0px" }}
               transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
               className="text-5xl md:text-7xl text-foreground font-normal tracking-tight"
             >
@@ -92,7 +92,7 @@ export default function Industries() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: false, margin: "0px 0px -100px 0px" }}
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
           >

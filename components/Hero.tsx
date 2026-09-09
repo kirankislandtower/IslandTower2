@@ -59,7 +59,7 @@ export default function Hero() {
             unpinned - the video above it recedes from the top down, not the
             bottom up, so the handoff lands at the same screen position. */}
         <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-start">
-          <div className="w-full max-w-6xl mx-auto px-6 pt-24">
+          <div className="w-full max-w-[1400px] mx-auto px-6 pt-24">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
               <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>

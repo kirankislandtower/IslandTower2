@@ -119,7 +119,7 @@ function ServiceCard({ service, idx }: { service: (typeof services)[number]; idx
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-80px' }}
+      viewport={{ once: false, margin: '0px 0px -80px 0px' }}
       transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: 'easeOut' }}
       className="group relative flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/40 transition-colors"
     >
@@ -179,7 +179,7 @@ export default function ServicesContent() {
 
       {/* Services Grid */}
       <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, idx) => (
               <ServiceCard key={service.num} service={service} idx={idx} />
@@ -190,11 +190,11 @@ export default function ServicesContent() {
 
       {/* How We Work */}
       <section className="bg-card py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col items-center text-center mb-16"
           >
@@ -214,7 +214,7 @@ export default function ServicesContent() {
                 id={pillar.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-60px' }}
+                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.06, ease: 'easeOut' }}
                 className="scroll-mt-32 bg-background border border-border rounded-2xl p-8"
               >
@@ -232,7 +232,7 @@ export default function ServicesContent() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-100px' }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >

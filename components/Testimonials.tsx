@@ -36,7 +36,7 @@ export default function Testimonials() {
 
   return (
     <section className="bg-background py-24 w-full">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header and Controls */}
         <div className="flex justify-between items-center mb-10">

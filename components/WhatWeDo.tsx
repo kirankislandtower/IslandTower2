@@ -37,7 +37,7 @@ export default function WhatWeDo() {
 
   return (
     <section className="bg-background py-24 w-full">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         {/* No entrance animation here on purpose: the hero's shrink-reveal
             transition (see components/Hero.tsx) already plays this exact
             block in as the hero recedes, so this is what's left in its
@@ -56,7 +56,7 @@ export default function WhatWeDo() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, margin: "-100px" }}
+          viewport={{ once: false, margin: "0px 0px -100px 0px" }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
           ref={parallaxRef}
           className="relative w-full h-[600px] rounded-xl overflow-hidden bg-black shadow-2xl"

@@ -61,7 +61,7 @@ export default function Header({ onDemoClick }: HeaderProps) {
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -78,7 +78,7 @@ export default function Header({ onDemoClick }: HeaderProps) {
         </nav>
 
         {/* Action Buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           <Link
             href="#"
             className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${
@@ -97,7 +97,7 @@ export default function Header({ onDemoClick }: HeaderProps) {
 
         {/* Mobile Menu Toggle */}
         <button
-          className={`md:hidden cursor-pointer focus-ring transition-colors relative z-10 ${isScrolled ? 'text-black' : 'text-white'}`}
+          className={`lg:hidden cursor-pointer focus-ring transition-colors relative z-10 ${isScrolled ? 'text-black' : 'text-white'}`}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
@@ -127,7 +127,7 @@ export default function Header({ onDemoClick }: HeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="md:hidden absolute top-[calc(100%+8px)] left-4 right-4 bg-[#1c1f24] rounded-[10px] shadow-2xl px-6 py-6 flex flex-col gap-1"
+            className="lg:hidden absolute top-[calc(100%+8px)] left-4 right-4 bg-[#1c1f24] rounded-[10px] shadow-2xl px-6 py-6 flex flex-col gap-1"
           >
             {NAV_LINKS.map((link, idx) => (
               <motion.div

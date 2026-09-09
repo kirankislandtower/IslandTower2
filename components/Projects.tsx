@@ -56,7 +56,7 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '-100px' }}
+      viewport={{ once: false, margin: '0px 0px -100px 0px' }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
     >
@@ -94,13 +94,13 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
 export default function Projects() {
   return (
     <section className="bg-card py-32 w-full" id="projects">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
 
         <div className="flex flex-col items-center text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="flex items-center gap-3 mb-6"
           >
@@ -110,7 +110,7 @@ export default function Projects() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="text-5xl md:text-7xl text-foreground font-normal tracking-tight mb-6"
           >
@@ -119,7 +119,7 @@ export default function Projects() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
           >

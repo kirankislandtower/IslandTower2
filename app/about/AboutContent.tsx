@@ -72,11 +72,11 @@ export default function AboutContent() {
 
       {/* Our Story */}
       <section className="bg-card py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="max-w-[1400px] mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <div className="flex items-center gap-3 mb-6">
@@ -101,7 +101,7 @@ export default function AboutContent() {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
             ref={storyImgRef}
             className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-muted"
@@ -118,13 +118,13 @@ export default function AboutContent() {
 
       {/* Stats */}
       <section className="bg-background py-20 w-full border-y border-border">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '-60px' }}
+              viewport={{ once: false, margin: '0px 0px -60px 0px' }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
               className="text-center md:text-left"
             >
@@ -137,11 +137,11 @@ export default function AboutContent() {
 
       {/* Core Values */}
       <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col items-center text-center mb-16"
           >
@@ -160,7 +160,7 @@ export default function AboutContent() {
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-60px' }}
+                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
                 className="bg-card border border-border rounded-xl p-6"
               >
@@ -178,7 +178,7 @@ export default function AboutContent() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-100px' }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >

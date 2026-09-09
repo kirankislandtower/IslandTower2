@@ -9,7 +9,7 @@ interface FooterProps {
 export default function Footer({ onDemoClick }: FooterProps) {
   return (
     <footer className="bg-[#1c1f24] w-full pt-32 pb-16" id="contact">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-32 gap-8">

@@ -78,7 +78,7 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      viewport={{ once: false, margin: '-100px' }}
+      viewport={{ once: false, margin: '0px 0px -100px 0px' }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
     >
@@ -157,7 +157,7 @@ export default function ProjectsContent() {
 
       {/* Filter Bar */}
       <section className="bg-card w-full border-b border-border sticky top-0 z-30 backdrop-blur-md bg-card/95">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex gap-3 overflow-x-auto no-scrollbar">
+        <div className="max-w-[1400px] mx-auto px-6 py-5 flex gap-3 overflow-x-auto no-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -176,7 +176,7 @@ export default function ProjectsContent() {
 
       {/* Projects List */}
       <section className="bg-card py-24 md:py-32 w-full">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex flex-col gap-24">
             {filtered.map((project, idx) => (
               <ProjectCard key={project.title} project={project} idx={idx} />
@@ -193,7 +193,7 @@ export default function ProjectsContent() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '-100px' }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
         >

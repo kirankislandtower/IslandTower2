@@ -60,13 +60,13 @@ export default function Platform() {
 
   return (
     <section className="bg-card py-32 w-full" id="about">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Centered Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
+          viewport={{ once: false, margin: "0px 0px -100px 0px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex flex-col items-center text-center mb-24"
         >
@@ -128,7 +128,7 @@ export default function Platform() {
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: false, margin: "0px 0px -100px 0px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             ref={parallaxRef}
             className="relative w-full aspect-[4/3] lg:aspect-square rounded-3xl overflow-hidden shadow-2xl bg-muted lg:sticky lg:top-32"
