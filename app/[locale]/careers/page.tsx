@@ -8,27 +8,41 @@ const ogImage = {
   alt: 'Island Tower — Careers',
 };
 
-export const metadata: Metadata = {
-  title: 'Careers',
-  description:
-    'Build your career with Island Tower Electro Mechanical Works LLC. We hire engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines in the UAE and Saudi Arabia.',
-  alternates: { canonical: '/careers' },
-  openGraph: {
-    type: 'website',
-    title: 'Careers | Island Tower',
-    description:
-      'Build your career with Island Tower — hiring engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines.',
-    url: '/careers',
-    images: [ogImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Careers | Island Tower',
-    description:
-      'Build your career with Island Tower — hiring engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines.',
-    images: [ogImage.url],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === 'ar';
+
+  const title = isAr ? 'الوظائف' : 'Careers';
+  const description = isAr
+    ? 'ابنِ مسيرتك المهنية مع شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م. نوظف مهندسين ومختصين ميدانيين في تخصصات الأعمال الكهروميكانيكية والبنية التحتية والأعمال المدنية والطاقة والمياه في الإمارات والسعودية.'
+    : 'Build your career with Island Tower Electro Mechanical Works LLC. We hire engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines in the UAE and Saudi Arabia.';
+  const ogDescription = isAr
+    ? 'ابنِ مسيرتك المهنية مع جزيرة البرج — نوظف مهندسين ومختصين ميدانيين في تخصصات متعددة.'
+    : 'Build your career with Island Tower — hiring engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines.';
+
+  return {
+    title,
+    description,
+    alternates: { canonical: isAr ? '/ar/careers' : '/careers' },
+    openGraph: {
+      type: 'website',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      url: isAr ? '/ar/careers' : '/careers',
+      images: [ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      images: [ogImage.url],
+    },
+  };
+}
 
 export default function CareersPage() {
   return <CareersContent />;

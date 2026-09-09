@@ -2,38 +2,25 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 
-const disciplines = [
-  'MEP Engineering',
-  'Infrastructure',
-  'Civil Works',
-  'Chemical Facilities',
-  'Water Treatment',
-  'Energy Solutions',
-  'Research & Development',
-];
-
-const values = [
-  {
-    title: 'Real Responsibility',
-    description: 'Our engineers own their scope end to end, from design coordination through site handover.',
-  },
-  {
-    title: 'Safety First, Always',
-    description: 'HSE protocols are non-negotiable — no schedule pressure outweighs a safe site.',
-  },
-  {
-    title: 'Room to Grow',
-    description: 'A track record of promoting from within as our project pipeline across the region grows.',
-  },
-];
-
 export default function CareersContent() {
+  const t = useTranslations('CareersPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const disciplines = [
+    t('d1'), t('d2'), t('d3'), t('d4'), t('d5'), t('d6'), t('d7'),
+  ];
+
+  const values = [
+    { title: t('value1Title'), description: t('value1Desc') },
+    { title: t('value2Title'), description: t('value2Desc') },
+    { title: t('value3Title'), description: t('value3Desc') },
+  ];
 
   return (
     <>
@@ -56,17 +43,15 @@ export default function CareersContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">Careers</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Build the region&apos;s
+            {t('title1')}
             <br />
-            infrastructure with us.
+            {t('title2')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            We don&apos;t always have open roles posted — but we&apos;re always interested in hearing from
-            experienced engineers and site professionals ready to work on major projects across the UAE and
-            Saudi Arabia.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -83,10 +68,10 @@ export default function CareersContent() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Why Island Tower</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('whyEyebrow')}</span>
             </div>
             <h2 className="text-4xl md:text-6xl text-foreground font-normal tracking-tight">
-              Work that matters.
+              {t('whyHeadline')}
             </h2>
           </motion.div>
 
@@ -114,7 +99,7 @@ export default function CareersContent() {
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="flex flex-col items-center text-center mb-10"
           >
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">Disciplines We Hire For</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">{t('disciplinesEyebrow')}</span>
             <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
               {disciplines.map((d) => (
                 <span
@@ -146,23 +131,22 @@ export default function CareersContent() {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-normal text-foreground mb-2">Thanks for reaching out</h3>
+                <h3 className="text-2xl font-normal text-foreground mb-2">{t('thanksTitle')}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
-                  We&apos;ll keep your details on file and reach out when a role matching your experience opens up.
+                  {t('thanksDesc')}
                 </p>
               </div>
             ) : (
               <>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 bg-accent" />
-                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Express Interest</span>
+                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('expressInterest')}</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl text-foreground font-normal tracking-tight mb-2">
-                  No open role listed for you right now?
+                  {t('formHeadline')}
                 </h2>
                 <p className="text-muted-foreground text-sm mb-8">
-                  Tell us about your background and we&apos;ll reach out when a fit comes up — or email your CV
-                  directly to <a href="mailto:careers@islandtoweruae.ae" className="text-accent hover:underline">careers@islandtoweruae.ae</a>.
+                  {t('formDesc')} <a href="mailto:careers@islandtoweruae.ae" className="text-accent hover:underline">careers@islandtoweruae.ae</a>.
                 </p>
 
                 <form
@@ -175,7 +159,7 @@ export default function CareersContent() {
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="careers-name" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                        Full Name
+                        {t('fullName')}
                       </label>
                       <input
                         id="careers-name"
@@ -186,7 +170,7 @@ export default function CareersContent() {
                     </div>
                     <div>
                       <label htmlFor="careers-email" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                        Email
+                        {t('email')}
                       </label>
                       <input
                         id="careers-email"
@@ -199,12 +183,12 @@ export default function CareersContent() {
 
                   <div>
                     <label htmlFor="careers-discipline" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Discipline / Role
+                      {t('disciplineRole')}
                     </label>
                     <input
                       id="careers-discipline"
                       type="text"
-                      placeholder="e.g. MEP Site Engineer"
+                      placeholder={t('disciplinePlaceholder')}
                       required
                       className="w-full px-4 py-3 bg-card border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                     />
@@ -212,7 +196,7 @@ export default function CareersContent() {
 
                   <div>
                     <label htmlFor="careers-experience" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Relevant Experience
+                      {t('relevantExperience')}
                     </label>
                     <textarea
                       id="careers-experience"
@@ -226,7 +210,7 @@ export default function CareersContent() {
                     type="submit"
                     className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
                   >
-                    Submit
+                    {t('submit')}
                   </button>
                 </form>
               </>
