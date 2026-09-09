@@ -36,7 +36,7 @@ export default function WhatWeDo() {
   ];
 
   return (
-    <section className="bg-background py-24 w-full">
+    <section className="bg-background pt-8 pb-24 w-full">
       <div className="max-w-[1400px] mx-auto px-6">
         {/* No entrance animation here on purpose: the hero's shrink-reveal
             transition (see components/Hero.tsx) already plays this exact

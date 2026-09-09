@@ -34,14 +34,20 @@ export default function Hero() {
   // handoff a clean sequential fade instead of a cross-fade.
   const heroTextOpacity = useTransform(pinProgress, [0.4, 0.6], [1, 0]);
   const revealOpacity = useTransform(pinProgress, [0.6, 0.85], [0, 1]);
-  // Once revealed, immediately fade the whole pinned frame to transparent.
-  // Sticky positioning always needs one full viewport-height of extra
-  // scroll to release the pin (there's no way to shortcut that in CSS) -
-  // during that release the frame is still on-screen sliding away while
-  // the real What We Do section slides up from below. Without this fade
-  // that produces a visible double-exposure of the same "Our Expertise"
-  // text; fading the frame out first means nothing is visible to double up.
-  const frameOpacity = useTransform(pinProgress, [0.85, 1], [1, 0]);
+  // Once revealed, fade the whole pinned frame to transparent right before
+  // release. Sticky positioning always needs one full viewport-height of
+  // extra scroll to release the pin (there's no way to shortcut that in
+  // CSS) - during that release the frame is still on-screen sliding away
+  // while the real What We Do section slides up from below. Without this
+  // fade that produces a visible double-exposure of the same "Our
+  // Expertise" text; fading the frame out first means nothing is visible
+  // to double up. Held off until 0.95 (not 0.85) so the frame stays solid
+  // for as much of the pin as possible, shrinking the blank stretch between
+  // the frame disappearing and the real section scrolling into view -
+  // that stretch is fixed at one viewport height by CSS sticky regardless,
+  // but starting the fade later means less of it is spent looking blank
+  // before release even begins.
+  const frameOpacity = useTransform(pinProgress, [0.95, 1], [1, 0]);
 
   // Defensive belt-and-suspenders on top of heroTextOpacity: on this
   // project's framer-motion version, derived useTransform values driven by
@@ -77,11 +83,9 @@ export default function Hero() {
       >
 
         {/* Reveal layer: the real What We Do intro, sitting behind the hero.
-            Bottom-anchored to match the video's bottom-up recede below - the
-            vacated (uncovered) screen area appears at the bottom first as
-            the video shrinks, so the incoming content meets it there. */}
-        <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-end">
-          <div className="w-full max-w-[1400px] mx-auto px-6 pb-24">
+            Vertically centered in the frame. */}
+        <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-center">
+          <div className="w-full max-w-[1400px] mx-auto px-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
               <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
