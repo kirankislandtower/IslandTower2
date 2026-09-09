@@ -1,52 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { useParallax } from '@/hooks/useParallax';
+import { projects as allProjects } from '@/lib/projects';
 
-const projects = [
-  {
-    title: 'Marina Business Bay Tower',
-    location: 'Dubai, UAE',
-    category: 'MEP Engineering',
-    description: 'Full mechanical, electrical, and plumbing fit-out for a 42-storey mixed-use tower, coordinated across a compressed 18-month construction schedule.',
-    image: 'https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Jebel Ali Water Treatment Expansion',
-    location: 'Dubai, UAE',
-    category: 'Water Treatment',
-    description: 'Capacity expansion of a regional water treatment facility, including new clarifier basins and an upgraded filtration line.',
-    image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Riyadh Industrial Energy Plant',
-    location: 'Riyadh, KSA',
-    category: 'Energy Solutions',
-    description: 'Electro-mechanical works for an industrial power facility, from switchgear installation through to commissioning and handover.',
-    image: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'King Abdullah Logistics Hub',
-    location: 'Jeddah, KSA',
-    category: 'Infrastructure',
-    description: 'Site-wide utilities and infrastructure works for a large-scale logistics and distribution hub serving the western region.',
-    image: 'https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Abu Dhabi Corporate Campus',
-    location: 'Abu Dhabi, UAE',
-    category: 'Civil Works',
-    description: 'Structural and civil works for a low-rise corporate campus, delivered to exacting quality and HSE standards from foundation to finishing.',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop',
-  },
-  {
-    title: 'Sharjah Chemical Processing Facility',
-    location: 'Sharjah, UAE',
-    category: 'Chemical Facilities',
-    description: 'Specialized construction and MEP integration for a chemical processing plant, built to strict process-safety requirements.',
-    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1200&auto=format&fit=crop',
-  },
-];
+const projects = allProjects.slice(0, 6);
 
 function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx: number }) {
   const { ref: parallaxRef, y: parallaxY } = useParallax(24);
@@ -83,9 +42,19 @@ function ProjectCard({ project, idx }: { project: (typeof projects)[number]; idx
         <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-5">
           {project.location}
         </p>
-        <p className="text-muted-foreground text-base leading-relaxed max-w-md">
+        <p className="text-muted-foreground text-base leading-relaxed max-w-md mb-6">
           {project.description}
         </p>
+        <Link
+          href={`/projects/${project.slug}`}
+          className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-foreground hover:text-accent transition-colors focus-ring"
+        >
+          View Case Study
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </Link>
       </div>
     </motion.div>
   );
