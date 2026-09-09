@@ -2,16 +2,18 @@
 
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export default function Solutions() {
+  const t = useTranslations('Solutions');
   const solutions = [
-    { num: '01', title: 'INFRASTRUCTURE', image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=500' },
-    { num: '02', title: 'MEP ENGINEERING', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500' },
-    { num: '03', title: 'CIVIL WORKS', image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500' },
-    { num: '04', title: 'CHEMICAL FACILITIES', image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=500' },
-    { num: '05', title: 'WATER TREATMENT', image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=500' },
-    { num: '06', title: 'ENERGY SOLUTIONS', image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=500' },
-    { num: '07', title: 'RESEARCH & DEVELOPMENT', image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=500' },
+    { num: '01', title: t('s1'), image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=500' },
+    { num: '02', title: t('s2'), image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500' },
+    { num: '03', title: t('s3'), image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500' },
+    { num: '04', title: t('s4'), image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=500' },
+    { num: '05', title: t('s5'), image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=500' },
+    { num: '06', title: t('s6'), image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=500' },
+    { num: '07', title: t('s7'), image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=500' },
   ];
 
   return (
@@ -28,24 +30,24 @@ export default function Solutions() {
         >
           <div className="md:sticky md:top-32 w-full">
             <h2 className="text-6xl md:text-7xl text-foreground font-normal tracking-tight mb-6 flex items-start">
-              Expertise
-              <sup className="text-2xl md:text-3xl mt-4 ml-1 font-light text-muted-foreground">7</sup>
+              {t('heading')}
+              <sup className="text-2xl md:text-3xl mt-4 ms-1 font-light text-muted-foreground">7</sup>
             </h2>
             <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed max-w-sm">
-              Built for major projects across the Middle East, our team delivers high-quality engineering, procurement, and construction solutions across multiple specialized sectors.
+              {t('description')}
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/projects"
                 className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
               >
-                VIEW ALL PROJECTS
+                {t('viewAllProjects')}
               </Link>
               <Link
                 href="/services"
                 className="inline-block border border-border text-foreground font-mono uppercase tracking-widest text-sm px-6 py-4 hover:border-accent hover:text-accent transition-colors cursor-pointer focus-ring"
               >
-                ALL SERVICES
+                {t('allServices')}
               </Link>
             </div>
           </div>

@@ -2,35 +2,37 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useParallax } from '@/hooks/useParallax';
 
 export default function WhatWeDo() {
+  const t = useTranslations('WhatWeDo');
   const [activeTab, setActiveTab] = useState(1);
   const { ref: parallaxRef, y: parallaxY } = useParallax(30);
 
   const tabs = [
     {
       id: 1,
-      title: 'MEP Engineering',
-      desc: 'Full mechanical, electrical, and plumbing engineering execution with precise quality control.',
+      title: t('tab1Title'),
+      desc: t('tab1Desc'),
       image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop'
     },
     {
       id: 2,
-      title: 'Infrastructure',
-      desc: 'Building robust utilities and transport infrastructure networks to power the future.',
+      title: t('tab2Title'),
+      desc: t('tab2Desc'),
       image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2070&auto=format&fit=crop'
     },
     {
       id: 3,
-      title: 'Civil Works',
-      desc: 'From foundation to finishing, delivering structural integrity and excellence on every site.',
+      title: t('tab3Title'),
+      desc: t('tab3Desc'),
       image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop'
     },
     {
       id: 4,
-      title: 'Energy & Water',
-      desc: 'Specialized solutions for the chemical, water treatment, and renewable energy sectors.',
+      title: t('tab4Title'),
+      desc: t('tab4Desc'),
       image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop'
     },
   ];
@@ -62,10 +64,10 @@ export default function WhatWeDo() {
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </div>
           <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
-            Island Tower delivers comprehensive engineering, procurement, and construction services for major projects.
+            {t('headline')}
           </h2>
         </div>
 
@@ -93,7 +95,7 @@ export default function WhatWeDo() {
 
           <div className="absolute top-8 left-8 right-8 flex justify-between items-start z-10 pointer-events-none">
             <div className="font-mono text-white/90 text-sm md:text-lg tracking-widest uppercase max-w-[200px] leading-relaxed">
-              Delivering Excellence
+              {t('deliveringExcellence')}
             </div>
             <div className="font-mono text-white/90 text-4xl md:text-5xl font-light">
               0{activeTab}

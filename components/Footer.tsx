@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
 interface FooterProps {
@@ -7,6 +8,8 @@ interface FooterProps {
 }
 
 export default function Footer({ onDemoClick }: FooterProps) {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="bg-[#1c1f24] w-full pt-32 pb-16" id="contact">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -14,13 +17,13 @@ export default function Footer({ onDemoClick }: FooterProps) {
         {/* Top Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-32 gap-8">
           <h2 className="text-6xl md:text-8xl text-white font-normal tracking-tight">
-            Contact Us
+            {t('contactUs')}
           </h2>
           <button
             onClick={onDemoClick}
             className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors whitespace-nowrap cursor-pointer focus-ring"
           >
-            GET A QUOTE
+            {t('getQuote')}
           </button>
         </div>
 
@@ -29,11 +32,11 @@ export default function Footer({ onDemoClick }: FooterProps) {
 
           {/* Column 1 */}
           <div className="flex flex-col gap-4">
-            <span className="text-white/40">GET IN TOUCH</span>
+            <span className="text-white/40">{t('getInTouch')}</span>
             <a href="tel:+97142573677" className="hover:text-accent transition-colors focus-ring w-fit">
-              ISLAND TOWER LLC<br />
-              DUBAI, UAE<br />
-              RIYADH, SAUDI ARABIA<br />
+              {t('companyName')}<br />
+              {t('dubaiUae')}<br />
+              {t('riyadhSaudi')}<br />
               +971 4 257 3677
             </a>
             <a href="mailto:info@islandtoweruae.ae" className="hover:text-accent transition-colors focus-ring w-fit">
@@ -43,29 +46,29 @@ export default function Footer({ onDemoClick }: FooterProps) {
 
           {/* Column 2 */}
           <div className="flex flex-col gap-4">
-            <span className="text-white/40">COMPANY</span>
-            <Link href="/" className="hover:text-accent transition-colors focus-ring">HOME</Link>
-            <Link href="/about" className="hover:text-accent transition-colors focus-ring">ABOUT US</Link>
-            <Link href="/services" className="hover:text-accent transition-colors focus-ring">EXPERTISE</Link>
-            <Link href="/projects" className="hover:text-accent transition-colors focus-ring">PROJECTS</Link>
-            <Link href="/news" className="hover:text-accent transition-colors focus-ring">INSIGHTS</Link>
-            <Link href="/careers" className="hover:text-accent transition-colors focus-ring">CAREERS</Link>
-            <Link href="/portal" className="hover:text-accent transition-colors focus-ring">CLIENT PORTAL</Link>
+            <span className="text-white/40">{t('company')}</span>
+            <Link href="/" className="hover:text-accent transition-colors focus-ring">{t('home')}</Link>
+            <Link href="/about" className="hover:text-accent transition-colors focus-ring">{t('aboutUs')}</Link>
+            <Link href="/services" className="hover:text-accent transition-colors focus-ring">{t('expertise')}</Link>
+            <Link href="/projects" className="hover:text-accent transition-colors focus-ring">{t('projects')}</Link>
+            <Link href="/news" className="hover:text-accent transition-colors focus-ring">{t('insights')}</Link>
+            <Link href="/careers" className="hover:text-accent transition-colors focus-ring">{t('careers')}</Link>
+            <Link href="/portal" className="hover:text-accent transition-colors focus-ring">{t('clientPortal')}</Link>
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-4">
-            <span className="text-white/40">HOW WE WORK</span>
-            <Link href="/services#quality" className="hover:text-accent transition-colors focus-ring">QUALITY</Link>
-            <Link href="/services#hse" className="hover:text-accent transition-colors focus-ring">HSE</Link>
-            <Link href="/services#sustainability" className="hover:text-accent transition-colors focus-ring">SUSTAINABILITY</Link>
-            <Link href="/contact" className="hover:text-accent transition-colors focus-ring">CONTACT US</Link>
-            <a href="/island-tower-company-profile.pdf" download className="hover:text-accent transition-colors focus-ring">COMPANY PROFILE (PDF)</a>
+            <span className="text-white/40">{t('howWeWork')}</span>
+            <Link href="/services#quality" className="hover:text-accent transition-colors focus-ring">{t('quality')}</Link>
+            <Link href="/services#hse" className="hover:text-accent transition-colors focus-ring">{t('hse')}</Link>
+            <Link href="/services#sustainability" className="hover:text-accent transition-colors focus-ring">{t('sustainability')}</Link>
+            <Link href="/contact" className="hover:text-accent transition-colors focus-ring">{t('contactUsLink')}</Link>
+            <a href="/island-tower-company-profile.pdf" download className="hover:text-accent transition-colors focus-ring">{t('companyProfile')}</a>
           </div>
 
           {/* Column 4 */}
           <div className="flex flex-col gap-4">
-            <span className="text-white/40">FOLLOW US</span>
+            <span className="text-white/40">{t('followUs')}</span>
             <a
               href="https://www.linkedin.com/company/island-tower-electromechanical-works/"
               target="_blank"
@@ -83,8 +86,8 @@ export default function Footer({ onDemoClick }: FooterProps) {
 
         {/* Legal Bar */}
         <div className="mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-white/40">
-          <span>&copy; {new Date().getFullYear()} Island Tower Electro Mechanical Works LLC. All rights reserved.</span>
-          <span>Dubai, UAE &middot; Riyadh, KSA</span>
+          <span>{t('copyright', { year: new Date().getFullYear() })}</span>
+          <span>{t('locations')}</span>
         </div>
       </div>
     </footer>

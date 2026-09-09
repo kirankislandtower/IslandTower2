@@ -2,8 +2,10 @@
 
 import { useRef, useState } from 'react';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export default function Hero() {
+  const t = useTranslations('Hero');
   const shouldReduceMotion = useReducedMotion();
   const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
 
@@ -88,10 +90,10 @@ export default function Hero() {
           <div className="w-full max-w-[1400px] mx-auto px-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
-              Island Tower delivers comprehensive engineering, procurement, and construction services for major projects.
+              {t('revealHeadline')}
             </h2>
           </div>
         </motion.div>
@@ -141,7 +143,7 @@ export default function Hero() {
             <div className="flex items-center gap-4 mb-4">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <h1 className="text-4xl md:text-5xl lg:text-6xl text-white font-mono uppercase tracking-tight">
-                Excellence in Electro-Mechanical Engineering
+                {t('title')}
               </h1>
             </div>
 
@@ -158,8 +160,7 @@ export default function Hero() {
               transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.2 }}
             >
               <p className="text-white/90 text-sm md:text-base max-w-2xl font-sans font-light leading-relaxed">
-                Island Tower Electro Mechanical Works LLC is a leading provider of Infrastructure,<br className="hidden md:block" />
-                MEP, and Civil Engineering solutions in Dubai and Saudi Arabia.
+                {t('subtitle')}
               </p>
             </motion.div>
           </motion.div>
@@ -174,7 +175,7 @@ export default function Hero() {
               {/* EMPOWER */}
               <div className="flex flex-col items-center">
                 <span className="text-white text-lg font-bold tracking-widest uppercase">Empower</span>
-                <span className="text-white/70 text-[10px] tracking-widest uppercase mt-1">Energy Solutions</span>
+                <span className="text-white/70 text-[10px] tracking-widest uppercase mt-1">{t('energySolutions')}</span>
               </div>
 
               {/* EMICOOL */}
@@ -197,7 +198,7 @@ export default function Hero() {
               {/* DUBAI MUNICIPALITY */}
               <div className="flex flex-col items-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="mb-1"><path d="M12 2L2 22h20L12 2z"/></svg>
-                <span className="text-white text-sm font-semibold tracking-wide">Dubai Municipality</span>
+                <span className="text-white text-sm font-semibold tracking-wide">{t('dubaiMunicipality')}</span>
               </div>
 
               {/* NAKHEEL */}

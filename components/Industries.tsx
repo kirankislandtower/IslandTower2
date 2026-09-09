@@ -1,20 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useParallax } from '@/hooks/useParallax';
 
-const industries = [
-  { title: 'Infrastructure', image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Energy & Power', image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Water Treatment', image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Commercial', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Residential', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Industrial', image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Aviation', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop' },
-  { title: 'Oil & Gas', image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop' },
+const industryImages = [
+  'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop',
 ];
 
-function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: number }) {
+function SectorCard({ item, idx }: { item: { title: string; image: string }; idx: number }) {
   const row = Math.floor(idx / 4);
   const col = idx % 4;
   const delay = (row + col) * 0.09;
@@ -47,12 +48,12 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
         whileInView={{ opacity: 1 }}
         viewport={{ once: false, margin: "0px 0px -60px 0px" }}
         transition={{ duration: 0.4, delay: delay + 0.5 }}
-        className="absolute top-6 right-6 font-mono text-white/60 text-xs tracking-widest"
+        className="absolute top-6 end-6 font-mono text-white/60 text-xs tracking-widest"
       >
         0{idx + 1}
       </motion.span>
 
-      <h3 className="absolute top-6 left-6 right-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
+      <h3 className="absolute top-6 start-6 end-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
         {item.title}
       </h3>
     </motion.div>
@@ -60,6 +61,10 @@ function SectorCard({ item, idx }: { item: (typeof industries)[number]; idx: num
 }
 
 export default function Industries() {
+  const t = useTranslations('Industries');
+  const industryKeys = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8'] as const;
+  const industries = industryKeys.map((key, idx) => ({ title: t(key), image: industryImages[idx] }));
+
   return (
     <section className="bg-background py-24 w-full">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -74,7 +79,7 @@ export default function Industries() {
             className="flex items-center gap-3 mb-6"
           >
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">SECTORS</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </motion.div>
 
           <div className="overflow-hidden mb-6">
@@ -85,7 +90,7 @@ export default function Industries() {
               transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
               className="text-5xl md:text-7xl text-foreground font-normal tracking-tight"
             >
-              Serving Critical Sectors
+              {t('headline')}
             </motion.h2>
           </div>
 
@@ -96,7 +101,7 @@ export default function Industries() {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
           >
-            Island Tower provides specialized engineering, construction, and MEP services across a wide range of challenging industries and sectors throughout the region.
+            {t('description')}
           </motion.p>
         </div>
 

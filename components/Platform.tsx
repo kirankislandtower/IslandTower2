@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useParallax } from '@/hooks/useParallax';
 
 export default function Platform() {
+  const t = useTranslations('Platform');
   const [activeTab, setActiveTab] = useState(0);
   const { ref: parallaxRef, y: parallaxY } = useParallax(30);
 
   const features = [
     {
-      title: 'QUALITY',
-      description: 'We maintain the highest standards of quality control in all our electro-mechanical projects, ensuring longevity and performance.',
+      title: t('qualityTitle'),
+      description: t('qualityDesc'),
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="8" r="7"></circle>
@@ -22,8 +24,8 @@ export default function Platform() {
       image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop'
     },
     {
-      title: 'HSE (HEALTH & SAFETY)',
-      description: 'Ensuring a safe working environment is our top priority across all sites. We strictly adhere to global HSE protocols.',
+      title: t('hseTitle'),
+      description: t('hseDesc'),
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -34,8 +36,8 @@ export default function Platform() {
       image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop'
     },
     {
-      title: 'SUSTAINABILITY',
-      description: 'We integrate sustainable practices to minimize environmental impact and maximize resource efficiency in every project.',
+      title: t('sustainabilityTitle'),
+      description: t('sustainabilityDesc'),
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
@@ -44,8 +46,8 @@ export default function Platform() {
       image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop'
     },
     {
-      title: 'TECHNOLOGY',
-      description: 'Leveraging modern construction technologies, software, and R&D for precise execution, monitoring, and delivery.',
+      title: t('technologyTitle'),
+      description: t('technologyDesc'),
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="4 14 10 14 10 20"></polyline>
@@ -72,10 +74,10 @@ export default function Platform() {
         >
           <div className="flex items-center gap-3 mb-8">
             <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">HOW WE WORK</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </div>
           <h2 className="text-5xl md:text-7xl text-foreground font-normal tracking-tight leading-[1.1]">
-            Committed to Quality<br />& Safety
+            {t('headline1')}<br />{t('headline2')}
           </h2>
         </motion.div>
 
@@ -106,7 +108,7 @@ export default function Platform() {
                       isActive ? 'max-h-40 opacity-100 mb-6' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed pl-12 pr-4">
+                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed ps-12 pe-4">
                       {feature.description}
                     </p>
                   </div>
@@ -119,7 +121,7 @@ export default function Platform() {
                 href="/services#quality"
                 className="inline-block bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
               >
-                LEARN MORE
+                {t('learnMore')}
               </Link>
             </div>
           </div>
