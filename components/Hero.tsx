@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -24,9 +24,16 @@ export default function Hero() {
   const heroHeight = useTransform(pinProgress, [0, 0.4, 0.78], ['100%', '100%', '0%']);
   // Hero's own text/logos live in a separate, non-shrinking overlay so they
   // never reposition with the shrinking video box - they simply crossfade
-  // out ahead of the reveal layer crossfading in, avoiding any overlap.
+  // out before the reveal layer starts crossfading in. These ranges must
+  // not overlap (0.4-0.6 vs 0.6-0.85): with the reveal layer's tall
+  // multi-line heading spanning much of the same vertical band as the
+  // hero's own centered headline, any shared progress window where both
+  // are simultaneously above 0 opacity produces a visible double-exposure
+  // ghosting effect - the outgoing headline/logos show through the
+  // incoming text. Ending one exactly where the other begins keeps the
+  // handoff a clean sequential fade instead of a cross-fade.
   const heroTextOpacity = useTransform(pinProgress, [0.4, 0.6], [1, 0]);
-  const revealOpacity = useTransform(pinProgress, [0.55, 0.8], [0, 1]);
+  const revealOpacity = useTransform(pinProgress, [0.6, 0.85], [0, 1]);
   // Once revealed, immediately fade the whole pinned frame to transparent.
   // Sticky positioning always needs one full viewport-height of extra
   // scroll to release the pin (there's no way to shortcut that in CSS) -
@@ -35,6 +42,21 @@ export default function Hero() {
   // that produces a visible double-exposure of the same "Our Expertise"
   // text; fading the frame out first means nothing is visible to double up.
   const frameOpacity = useTransform(pinProgress, [0.85, 1], [1, 0]);
+
+  // Defensive belt-and-suspenders on top of heroTextOpacity: on this
+  // project's framer-motion version, derived useTransform values driven by
+  // rapid scroll updates were observed to occasionally settle on a stale
+  // intermediate reading well past where they should be fully clamped to 0
+  // (reproduced directly via getComputedStyle against the DOM, independent
+  // of any test-harness artifact) - which reads as the outgoing headline
+  // and client-logo row faintly ghosting through the incoming content.
+  // Actually unmounting the hero text past the fade-out point removes any
+  // possibility of that, regardless of what the opacity transform reports.
+  const [showHeroText, setShowHeroText] = useState(true);
+  useMotionValueEvent(pinProgress, 'change', (v) => {
+    if (v > 0.62 && showHeroText) setShowHeroText(false);
+    else if (v < 0.58 && !showHeroText) setShowHeroText(true);
+  });
 
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
@@ -55,11 +77,11 @@ export default function Hero() {
       >
 
         {/* Reveal layer: the real What We Do intro, sitting behind the hero.
-            Top-anchored to match where the real section's content sits once
-            unpinned - the video above it recedes from the top down, not the
-            bottom up, so the handoff lands at the same screen position. */}
-        <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-start">
-          <div className="w-full max-w-[1400px] mx-auto px-6 pt-24">
+            Bottom-anchored to match the video's bottom-up recede below - the
+            vacated (uncovered) screen area appears at the bottom first as
+            the video shrinks, so the incoming content meets it there. */}
+        <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-end">
+          <div className="w-full max-w-[1400px] mx-auto px-6 pb-24">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
               <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">Our Expertise</span>
@@ -70,13 +92,13 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Video/background layer: bottom-anchored, recedes from the top
-            down as the pin scrolls. Text-free, so its shrinking box never
-            has to worry about repositioning readable content. */}
+        {/* Video/background layer: top-anchored, recedes bottom-up as the
+            pin scrolls. Text-free, so its shrinking box never has to worry
+            about repositioning readable content. */}
         <motion.section
           ref={sectionRef}
           style={{ height: heroHeight }}
-          className="absolute bottom-0 left-0 w-full overflow-hidden bg-[#111]"
+          className="absolute top-0 left-0 w-full overflow-hidden bg-[#111]"
         >
           <motion.video
             autoPlay
@@ -98,7 +120,10 @@ export default function Hero() {
 
         {/* Hero text overlay: fixed to the full sticky frame regardless of
             the video's shrinking height, so it only ever crossfades - it
-            never has to reposition itself as the box beneath it shrinks. */}
+            never has to reposition itself as the box beneath it shrinks.
+            Conditionally rendered (see showHeroText above) so it's fully
+            removed from the DOM once faded out, not just transparent. */}
+        {showHeroText && (
         <motion.div
           style={{ opacity: heroTextOpacity }}
           className="absolute inset-0 flex flex-col justify-center pointer-events-none"
@@ -179,6 +204,7 @@ export default function Hero() {
             </div>
           </motion.div>
         </motion.div>
+        )}
 
       </motion.div>
     </div>
