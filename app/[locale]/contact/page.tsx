@@ -8,27 +8,41 @@ const ogImage = {
   alt: 'Island Tower — Contact',
 };
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia. Reach our team for MEP, infrastructure, and civil engineering projects.',
-  alternates: { canonical: '/contact' },
-  openGraph: {
-    type: 'website',
-    title: 'Contact | Island Tower',
-    description:
-      'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia.',
-    url: '/contact',
-    images: [ogImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Contact | Island Tower',
-    description:
-      'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia.',
-    images: [ogImage.url],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === 'ar';
+
+  const title = isAr ? 'تواصل معنا' : 'Contact';
+  const description = isAr
+    ? 'تواصل مع شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م — مكاتبنا في دبي والرياض. تواصل مع فريقنا لمشاريع الأعمال الكهروميكانيكية والبنية التحتية والهندسة المدنية.'
+    : 'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia. Reach our team for MEP, infrastructure, and civil engineering projects.';
+  const ogDescription = isAr
+    ? 'تواصل مع شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م — مكاتبنا في دبي والرياض.'
+    : 'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia.';
+
+  return {
+    title,
+    description,
+    alternates: { canonical: isAr ? '/ar/contact' : '/contact' },
+    openGraph: {
+      type: 'website',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      url: isAr ? '/ar/contact' : '/contact',
+      images: [ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      images: [ogImage.url],
+    },
+  };
+}
 
 export default function ContactPage() {
   return <ContactContent />;

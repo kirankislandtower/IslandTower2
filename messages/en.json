@@ -192,5 +192,30 @@
     "ctaHeadline": "Need a specialist EPC partner?",
     "ctaSubtitle": "Tell us which discipline your project needs and our engineering team will follow up with next steps.",
     "getQuote": "Get a Quote"
+  },
+  "ContactPage": {
+    "eyebrow": "Contact",
+    "title": "Let's build something exceptional together.",
+    "subtitle": "Whether you're scoping a new project or need a specialist EPC partner for an existing one, our engineering team is ready to talk through the details.",
+    "sendMessage": "Send a Message",
+    "formHeadline": "Tell us about your project.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "companyOptional": "Company (optional)",
+    "phoneOptional": "Phone (optional)",
+    "message": "Message",
+    "sendMessageBtn": "Send Message",
+    "messageReceived": "Message received",
+    "messageReceivedDesc": "Thank you for reaching out. Our team will get back to you within one business day.",
+    "dubaiCity": "Dubai, UAE",
+    "riyadhCity": "Riyadh, Saudi Arabia",
+    "headOffice": "Head Office",
+    "regionalOffice": "Regional Office",
+    "companyName": "Island Tower Electro Mechanical Works LLC",
+    "dubaiLine": "Dubai, United Arab Emirates",
+    "riyadhLine": "Riyadh, Kingdom of Saudi Arabia",
+    "directContact": "Direct Contact",
+    "callUs": "Call Us",
+    "emailUs": "Email Us"
   }
 }
