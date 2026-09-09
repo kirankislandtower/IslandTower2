@@ -188,12 +188,26 @@ export default function AboutContent() {
           <p className="text-white/70 text-base max-w-xl">
             Tell us what you're building and our team will follow up with next steps.
           </p>
-          <button
-            onClick={() => setShowDemoModal(true)}
-            className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
-          >
-            Get a Quote
-          </button>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <button
+              onClick={() => setShowDemoModal(true)}
+              className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+            >
+              Get a Quote
+            </button>
+            <a
+              href="/island-tower-company-profile.pdf"
+              download
+              className="inline-flex items-center gap-2 border border-white/20 text-white font-mono uppercase tracking-widest text-sm px-8 py-4 hover:border-white/40 transition-colors focus-ring"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Company Profile
+            </a>
+          </div>
         </motion.div>
       </section>
 

@@ -60,6 +60,7 @@ export default function Footer({ onDemoClick }: FooterProps) {
             <Link href="/services#hse" className="hover:text-accent transition-colors focus-ring">HSE</Link>
             <Link href="/services#sustainability" className="hover:text-accent transition-colors focus-ring">SUSTAINABILITY</Link>
             <Link href="/contact" className="hover:text-accent transition-colors focus-ring">CONTACT US</Link>
+            <a href="/island-tower-company-profile.pdf" download className="hover:text-accent transition-colors focus-ring">COMPANY PROFILE (PDF)</a>
           </div>
 
           {/* Column 4 */}
