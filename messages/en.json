@@ -250,5 +250,30 @@
     "submit": "Submit",
     "thanksTitle": "Thanks for reaching out",
     "thanksDesc": "We'll keep your details on file and reach out when a role matching your experience opens up."
+  },
+  "PortalPage": {
+    "eyebrow": "Client Portal",
+    "title": "Your project, always in view.",
+    "subtitle": "The Island Tower client portal keeps active clients connected to their project's progress, documentation, and delivery team — request access below to get started.",
+    "whatsInside": "What's Inside",
+    "builtForClients": "Built for active clients.",
+    "feature1Title": "Project Tracking",
+    "feature1Desc": "Real-time status on every active workstream, from procurement through commissioning.",
+    "feature2Title": "Document Library",
+    "feature2Desc": "Drawings, submittals, inspection reports, and compliance records in one place.",
+    "feature3Title": "Progress Reports",
+    "feature3Desc": "Scheduled milestone and safety reporting, delivered directly through your dashboard.",
+    "feature4Title": "Direct Messaging",
+    "feature4Desc": "A single thread with your assigned project manager and engineering lead.",
+    "alreadyClient": "Already an active client with portal credentials? Your project manager can share your direct sign-in link — the form here is for requesting new access.",
+    "requestAccess": "Request Access",
+    "requestAccessDesc": "For clients with an active project. We'll verify and follow up with your login details.",
+    "fullName": "Full Name",
+    "workEmail": "Work Email",
+    "company": "Company",
+    "projectReference": "Project Reference (optional)",
+    "projectReferencePlaceholder": "e.g. project name or contract number",
+    "requestReceived": "Request received",
+    "requestReceivedDesc": "Our team will verify your project details and follow up with portal access within one business day."
   }
 }

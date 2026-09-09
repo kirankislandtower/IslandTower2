@@ -2,58 +2,60 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 
-const features = [
-  {
-    title: 'Project Tracking',
-    description: 'Real-time status on every active workstream, from procurement through commissioning.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-      </svg>
-    ),
-  },
-  {
-    title: 'Document Library',
-    description: 'Drawings, submittals, inspection reports, and compliance records in one place.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-        <polyline points="14 2 14 8 20 8"></polyline>
-      </svg>
-    ),
-  },
-  {
-    title: 'Progress Reports',
-    description: 'Scheduled milestone and safety reporting, delivered directly through your dashboard.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10"></line>
-        <line x1="12" y1="20" x2="12" y2="4"></line>
-        <line x1="6" y1="20" x2="6" y2="14"></line>
-      </svg>
-    ),
-  },
-  {
-    title: 'Direct Messaging',
-    description: 'A single thread with your assigned project manager and engineering lead.',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-      </svg>
-    ),
-  },
-];
-
 export default function PortalContent() {
+  const t = useTranslations('PortalPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const features = [
+    {
+      title: t('feature1Title'),
+      description: t('feature1Desc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+        </svg>
+      ),
+    },
+    {
+      title: t('feature2Title'),
+      description: t('feature2Desc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+      ),
+    },
+    {
+      title: t('feature3Title'),
+      description: t('feature3Desc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+      ),
+    },
+    {
+      title: t('feature4Title'),
+      description: t('feature4Desc'),
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -76,14 +78,13 @@ export default function PortalContent() {
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">Client Portal</span>
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            Your project, always in view.
+            {t('title')}
           </h1>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            The Island Tower client portal keeps active clients connected to their project&apos;s progress,
-            documentation, and delivery team — request access below to get started.
+            {t('subtitle')}
           </p>
         </motion.div>
       </section>
@@ -100,10 +101,10 @@ export default function PortalContent() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">What&apos;s Inside</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('whatsInside')}</span>
             </div>
             <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight leading-[1.1] mb-10">
-              Built for active clients.
+              {t('builtForClients')}
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-6">
@@ -117,8 +118,7 @@ export default function PortalContent() {
             </div>
 
             <p className="text-muted-foreground text-sm leading-relaxed mt-10">
-              Already an active client with portal credentials? Your project manager can share your direct
-              sign-in link — the form here is for requesting new access.
+              {t('alreadyClient')}
             </p>
           </motion.div>
 
@@ -137,19 +137,18 @@ export default function PortalContent() {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-normal text-foreground mb-2">Request received</h3>
+                <h3 className="text-2xl font-normal text-foreground mb-2">{t('requestReceived')}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
-                  Our team will verify your project details and follow up with portal access within one
-                  business day.
+                  {t('requestReceivedDesc')}
                 </p>
               </div>
             ) : (
               <>
                 <h2 className="text-2xl md:text-3xl text-foreground font-normal tracking-tight mb-2">
-                  Request Access
+                  {t('requestAccess')}
                 </h2>
                 <p className="text-muted-foreground text-sm mb-8">
-                  For clients with an active project. We&apos;ll verify and follow up with your login details.
+                  {t('requestAccessDesc')}
                 </p>
 
                 <form
@@ -161,7 +160,7 @@ export default function PortalContent() {
                 >
                   <div>
                     <label htmlFor="portal-name" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Full Name
+                      {t('fullName')}
                     </label>
                     <input
                       id="portal-name"
@@ -173,7 +172,7 @@ export default function PortalContent() {
 
                   <div>
                     <label htmlFor="portal-email" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Work Email
+                      {t('workEmail')}
                     </label>
                     <input
                       id="portal-email"
@@ -185,7 +184,7 @@ export default function PortalContent() {
 
                   <div>
                     <label htmlFor="portal-company" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Company
+                      {t('company')}
                     </label>
                     <input
                       id="portal-company"
@@ -197,12 +196,12 @@ export default function PortalContent() {
 
                   <div>
                     <label htmlFor="portal-project" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      Project Reference (optional)
+                      {t('projectReference')}
                     </label>
                     <input
                       id="portal-project"
                       type="text"
-                      placeholder="e.g. project name or contract number"
+                      placeholder={t('projectReferencePlaceholder')}
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                     />
                   </div>
@@ -211,7 +210,7 @@ export default function PortalContent() {
                     type="submit"
                     className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
                   >
-                    Request Access
+                    {t('requestAccess')}
                   </button>
                 </form>
               </>

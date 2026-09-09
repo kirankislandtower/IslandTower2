@@ -8,27 +8,41 @@ const ogImage = {
   alt: 'Island Tower — Client Portal',
 };
 
-export const metadata: Metadata = {
-  title: 'Client Portal',
-  description:
-    'Island Tower client portal — track active projects, access documents and reports, and stay in sync with your project team. Request access to get started.',
-  alternates: { canonical: '/portal' },
-  openGraph: {
-    type: 'website',
-    title: 'Client Portal | Island Tower',
-    description:
-      'Track active projects, access documents and reports, and stay in sync with your Island Tower project team.',
-    url: '/portal',
-    images: [ogImage],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Client Portal | Island Tower',
-    description:
-      'Track active projects, access documents and reports, and stay in sync with your Island Tower project team.',
-    images: [ogImage.url],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === 'ar';
+
+  const title = isAr ? 'بوابة العملاء' : 'Client Portal';
+  const description = isAr
+    ? 'بوابة عملاء جزيرة البرج — تتبع المشاريع النشطة، والوصول إلى الوثائق والتقارير، والبقاء على تواصل مع فريق مشروعك. اطلب الوصول للبدء.'
+    : 'Island Tower client portal — track active projects, access documents and reports, and stay in sync with your project team. Request access to get started.';
+  const ogDescription = isAr
+    ? 'تتبع المشاريع النشطة والوصول إلى الوثائق والتقارير والبقاء على تواصل مع فريق مشروعك في جزيرة البرج.'
+    : 'Track active projects, access documents and reports, and stay in sync with your Island Tower project team.';
+
+  return {
+    title,
+    description,
+    alternates: { canonical: isAr ? '/ar/portal' : '/portal' },
+    openGraph: {
+      type: 'website',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      url: isAr ? '/ar/portal' : '/portal',
+      images: [ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Island Tower`,
+      description: ogDescription,
+      images: [ogImage.url],
+    },
+  };
+}
 
 export default function PortalPage() {
   return <PortalContent />;
