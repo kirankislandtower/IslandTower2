@@ -88,7 +88,7 @@ const organizationJsonLd = {
   name: siteName,
   alternateName: "Island Tower",
   url: siteUrl,
-  logo: "https://www.islandtoweruae.ae/images/logo.png",
+  logo: "https://cdn.jsdelivr.net/gh/kirank860/island-tower-assets@main/main-logo.jpeg",
   image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
   description: siteDescription,
   telephone: "+971-4-257-3677",
@@ -106,7 +106,9 @@ const organizationJsonLd = {
     },
   ],
   areaServed: ["United Arab Emirates", "Saudi Arabia"],
-  sameAs: [] as string[],
+  sameAs: [
+    "https://www.linkedin.com/company/island-tower-electromechanical-works/",
+  ],
   makesOffer: [
     "MEP Engineering",
     "Infrastructure",
