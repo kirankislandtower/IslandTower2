@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 
 const inter = Inter({
@@ -138,7 +139,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="bg-background text-foreground font-sans">{children}</body>
+      <body className="bg-background text-foreground font-sans">
+        {children}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }

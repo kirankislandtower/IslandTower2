@@ -81,7 +81,7 @@ export default function Header({ onDemoClick }: HeaderProps) {
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-4">
           <Link
-            href="#"
+            href="/portal"
             className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${
               isScrolled ? 'text-gray-700 hover:text-black bg-black/5 hover:bg-black/10' : 'text-gray-300 hover:text-white bg-white/5 hover:bg-white/10'
             }`}
