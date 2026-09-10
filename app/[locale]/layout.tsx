@@ -135,7 +135,7 @@ const organizationJsonLd = {
   ],
   areaServed: ["United Arab Emirates", "Saudi Arabia"],
   sameAs: [
-    "https://www.linkedin.com/company/island-tower-electromechanical-works/",
+    "https://www.linkedin.com/company/island-tower-electromech/posts/",
   ],
   makesOffer: [
     "MEP Engineering",

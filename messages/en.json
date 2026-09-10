@@ -98,7 +98,9 @@
     "eyebrow": "Featured Work",
     "headline": "Selected Projects",
     "description": "A cross-section of the engineering, procurement, and construction work Island Tower has delivered across the UAE and Saudi Arabia.",
-    "viewCaseStudy": "View Case Study"
+    "viewCaseStudy": "View Case Study",
+    "previous": "Previous project",
+    "next": "Next project"
   },
   "ProjectsPage": {
     "eyebrow": "Featured Work",
@@ -135,6 +137,15 @@
     "ctaHeadline": "Have a project in this sector?",
     "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
     "getQuote": "Get a Quote"
+  },
+  "InsightsPreview": {
+    "eyebrow": "Insights",
+    "headline": "Perspectives from the field",
+    "description": "Practical lessons on MEP engineering, HSE, and EPC delivery from projects across the UAE and Saudi Arabia.",
+    "previous": "Previous article",
+    "next": "Next article",
+    "readArticle": "Read Article",
+    "viewAll": "View All Insights"
   },
   "Testimonials": {
     "eyebrow": "Client Testimonials",
@@ -297,6 +308,12 @@
   },
   "ArticleDetail": {
     "allInsights": "All Insights",
-    "moreInsights": "More Insights"
+    "moreInsights": "More Insights",
+    "articleInfo": "Article Info",
+    "category": "Category",
+    "published": "Published",
+    "readTime": "Read Time",
+    "share": "Share",
+    "linkCopied": "Link copied"
   }
 }

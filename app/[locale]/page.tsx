@@ -9,6 +9,7 @@ import Solutions from '@/components/Solutions';
 import Platform from '@/components/Platform';
 import Industries from '@/components/Industries';
 import Projects from '@/components/Projects';
+import InsightsPreview from '@/components/InsightsPreview';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
@@ -25,6 +26,7 @@ export default function Home() {
       <Platform />
       <Industries />
       <Projects />
+      <InsightsPreview />
       <Testimonials />
       <Footer onDemoClick={() => setShowDemoModal(true)} />
       <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />

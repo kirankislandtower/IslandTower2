@@ -70,7 +70,7 @@ export default function Footer({ onDemoClick }: FooterProps) {
           <div className="flex flex-col gap-4">
             <span className="text-white/40">{t('followUs')}</span>
             <a
-              href="https://www.linkedin.com/company/island-tower-electromechanical-works/"
+              href="https://www.linkedin.com/company/island-tower-electromech/posts/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
