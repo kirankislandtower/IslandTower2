@@ -10,6 +10,8 @@ interface QuoteModalProps {
 
 export default function QuoteModal({ open, onClose }: QuoteModalProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -27,7 +29,10 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
   }, [open, onClose]);
 
   useEffect(() => {
-    if (!open) setSubmitted(false);
+    if (!open) {
+      setSubmitted(false);
+      setError(false);
+    }
   }, [open]);
 
   return (
@@ -88,9 +93,30 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                 </p>
 
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    setSubmitted(true);
+                    setSubmitting(true);
+                    setError(false);
+                    const formData = new FormData(e.currentTarget);
+                    try {
+                      const res = await fetch('/api/inquiry', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          formType: 'quote',
+                          name: formData.get('name'),
+                          email: formData.get('email'),
+                          company: formData.get('company'),
+                          message: formData.get('message'),
+                        }),
+                      });
+                      if (!res.ok) throw new Error('Request failed');
+                      setSubmitted(true);
+                    } catch {
+                      setError(true);
+                    } finally {
+                      setSubmitting(false);
+                    }
                   }}
                   className="flex flex-col gap-4"
                 >
@@ -100,6 +126,7 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                     </label>
                     <input
                       id="quote-name"
+                      name="name"
                       type="text"
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -112,6 +139,7 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                     </label>
                     <input
                       id="quote-email"
+                      name="email"
                       type="email"
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -124,6 +152,7 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                     </label>
                     <input
                       id="quote-company"
+                      name="company"
                       type="text"
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                     />
@@ -135,17 +164,25 @@ export default function QuoteModal({ open, onClose }: QuoteModalProps) {
                     </label>
                     <textarea
                       id="quote-details"
+                      name="message"
                       rows={3}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm resize-none focus-ring focus:border-accent"
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-sm text-red-600" role="alert">
+                      Something went wrong. Please try again, or email us directly.
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+                    disabled={submitting}
+                    className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Submit Request
+                    {submitting ? 'Sending...' : 'Submit Request'}
                   </button>
                 </form>
               </>

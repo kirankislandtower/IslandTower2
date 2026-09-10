@@ -11,6 +11,8 @@ export default function ContactContent() {
   const t = useTranslations('ContactPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   const offices = [
     {
@@ -136,9 +138,31 @@ export default function ContactContent() {
                 </h2>
 
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    setSubmitted(true);
+                    setSubmitting(true);
+                    setError(false);
+                    const formData = new FormData(e.currentTarget);
+                    try {
+                      const res = await fetch('/api/inquiry', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          formType: 'contact',
+                          name: formData.get('name'),
+                          email: formData.get('email'),
+                          company: formData.get('company'),
+                          phone: formData.get('phone'),
+                          message: formData.get('message'),
+                        }),
+                      });
+                      if (!res.ok) throw new Error('Request failed');
+                      setSubmitted(true);
+                    } catch {
+                      setError(true);
+                    } finally {
+                      setSubmitting(false);
+                    }
                   }}
                   className="flex flex-col gap-5"
                 >
@@ -149,6 +173,7 @@ export default function ContactContent() {
                       </label>
                       <input
                         id="contact-name"
+                        name="name"
                         type="text"
                         required
                         className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -160,6 +185,7 @@ export default function ContactContent() {
                       </label>
                       <input
                         id="contact-email"
+                        name="email"
                         type="email"
                         required
                         className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -174,6 +200,7 @@ export default function ContactContent() {
                       </label>
                       <input
                         id="contact-company"
+                        name="company"
                         type="text"
                         className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                       />
@@ -184,6 +211,7 @@ export default function ContactContent() {
                       </label>
                       <input
                         id="contact-phone"
+                        name="phone"
                         type="tel"
                         className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                       />
@@ -196,17 +224,25 @@ export default function ContactContent() {
                     </label>
                     <textarea
                       id="contact-message"
+                      name="message"
                       rows={5}
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm resize-none focus-ring focus:border-accent"
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-sm text-red-600" role="alert">
+                      {t('formError')}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="mt-2 w-full sm:w-fit bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+                    disabled={submitting}
+                    className="mt-2 w-full sm:w-fit bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {t('sendMessageBtn')}
+                    {submitting ? t('sending') : t('sendMessageBtn')}
                   </button>
                 </form>
               </>

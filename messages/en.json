@@ -214,6 +214,8 @@
     "phoneOptional": "Phone (optional)",
     "message": "Message",
     "sendMessageBtn": "Send Message",
+    "sending": "Sending...",
+    "formError": "Something went wrong. Please try again, or email us directly.",
     "messageReceived": "Message received",
     "messageReceivedDesc": "Thank you for reaching out. Our team will get back to you within one business day.",
     "dubaiCity": "Dubai, UAE",
