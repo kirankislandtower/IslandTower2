@@ -127,6 +127,15 @@
     "ctaSubtitle": "أخبرنا بما تخطط لبنائه وسيتواصل معك فريقنا بالخطوات التالية.",
     "getQuote": "اطلب عرض سعر"
   },
+  "IndustryDetail": {
+    "allIndustries": "جميع القطاعات",
+    "overview": "نظرة عامة",
+    "capabilities": "الإمكانيات",
+    "relatedProjects": "مشاريع ذات صلة",
+    "ctaHeadline": "هل لديك مشروع في هذا القطاع؟",
+    "ctaSubtitle": "أخبرنا بما تخطط لبنائه وسيتواصل معك فريقنا بالخطوات التالية.",
+    "getQuote": "اطلب عرض سعر"
+  },
   "Testimonials": {
     "eyebrow": "آراء عملائنا",
     "previous": "الشهادة السابقة",

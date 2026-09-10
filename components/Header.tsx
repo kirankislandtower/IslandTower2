@@ -50,16 +50,21 @@ export default function Header({ onDemoClick }: HeaderProps) {
   return (
     <header className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
       <div
-        className={`w-full max-w-6xl backdrop-blur-md rounded-[10px] px-6 py-3 flex justify-between items-center shadow-xl transition-colors duration-300 ${
-          isScrolled ? 'bg-white/95' : 'bg-[#1c1f24]/90'
-        }`}
+        className={`w-full max-w-6xl backdrop-blur-md rounded-[10px] px-6 py-3 flex justify-between items-center shadow-xl transition-colors duration-300 ${isScrolled ? 'bg-white/95' : 'bg-[#1c1f24]/90'
+          }`}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity focus-ring">
+        <Link href="/" className="relative flex items-center hover:opacity-80 transition-opacity">
           <img
-            src="https://cdn.jsdelivr.net/gh/kirank860/island-tower-assets@main/main-logo.jpeg"
+            src="/images/logo/island-tower-logo-horizontal.png"
             alt="Island Tower Logo"
-            className="h-8 md:h-9 w-auto object-contain rounded-md bg-white p-1 shadow-sm"
+            className={`h-12 md:h-13 w-30 md:w-40 object-fill transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
+          />
+          <img
+            src="/images/logo/island-tower-logo-horizontal-light.png"
+            alt=""
+            aria-hidden="true"
+            className={`absolute inset-0 h-12 md:h-13 w-30 md:w-40 object-fill transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100'}`}
           />
         </Link>
 
@@ -69,11 +74,10 @@ export default function Header({ onDemoClick }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className={`relative pb-1 transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${
-                pathname === link.href
-                  ? 'text-accent'
-                  : isScrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'
-              }`}
+              className={`relative pb-1 transition-colors text-xs font-mono font-medium tracking-widest uppercase focus-ring ${pathname === link.href
+                ? 'text-accent'
+                : isScrolled ? 'text-gray-600 hover:text-black' : 'text-gray-300 hover:text-white'
+                }`}
             >
               {link.label}
               {pathname === link.href && (
@@ -92,9 +96,8 @@ export default function Header({ onDemoClick }: HeaderProps) {
           <LocaleSwitcher isScrolled={isScrolled} />
           <Link
             href="/portal"
-            className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${
-              isScrolled ? 'text-gray-700 hover:text-black bg-black/5 hover:bg-black/10' : 'text-gray-300 hover:text-white bg-white/5 hover:bg-white/10'
-            }`}
+            className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${isScrolled ? 'text-gray-700 hover:text-black bg-black/5 hover:bg-black/10' : 'text-gray-300 hover:text-white bg-white/5 hover:bg-white/10'
+              }`}
           >
             {t('clientPortal')}
           </Link>
@@ -149,9 +152,8 @@ export default function Header({ onDemoClick }: HeaderProps) {
               >
                 <Link
                   href={link.href}
-                  className={`block py-3 text-sm font-mono tracking-widest uppercase border-b border-white/10 transition-colors focus-ring ${
-                    pathname === link.href ? 'text-accent' : 'text-white/80 hover:text-white'
-                  }`}
+                  className={`block py-3 text-sm font-mono tracking-widest uppercase border-b border-white/10 transition-colors focus-ring ${pathname === link.href ? 'text-accent' : 'text-white/80 hover:text-white'
+                    }`}
                 >
                   {link.label}
                 </Link>

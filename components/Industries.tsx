@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { useParallax } from '@/hooks/useParallax';
 
 const industryImages = [
@@ -15,58 +16,71 @@ const industryImages = [
   'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop',
 ];
 
-function SectorCard({ item, idx }: { item: { title: string; image: string }; idx: number }) {
+const industrySlugs = [
+  'infrastructure',
+  'energy-power',
+  'water-treatment',
+  'commercial',
+  'residential',
+  'industrial',
+  'aviation',
+  'oil-gas',
+];
+
+function SectorCard({ item, idx }: { item: { title: string; image: string; slug: string }; idx: number }) {
   const row = Math.floor(idx / 4);
   const col = idx % 4;
   const delay = (row + col) * 0.09;
   const { ref: parallaxRef, y: parallaxY } = useParallax(30);
 
   return (
-    <motion.div
-      initial={{ clipPath: 'inset(100% 0 0 0)' }}
-      whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-      viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-      transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
-      ref={parallaxRef}
-      className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-    >
-      <motion.img
-        src={item.image}
-        alt={item.title}
-        initial={{ scale: 1.4 }}
-        whileInView={{ scale: 1.15 }}
-        whileHover={{ scale: 1.22 }}
+    <Link href={`/industries/${item.slug}`} className="block focus-ring rounded-2xl">
+      <motion.div
+        initial={{ clipPath: 'inset(100% 0 0 0)' }}
+        whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
         viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-        transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
-        style={{ y: parallaxY }}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
-
-      <motion.span
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-        transition={{ duration: 0.4, delay: delay + 0.5 }}
-        className="absolute top-6 end-6 font-mono text-white/60 text-xs tracking-widest"
+        transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
+        ref={parallaxRef}
+        className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
       >
-        0{idx + 1}
-      </motion.span>
+        <motion.img
+          src={item.image}
+          alt={item.title}
+          initial={{ scale: 1.4 }}
+          whileInView={{ scale: 1.15 }}
+          whileHover={{ scale: 1.22 }}
+          viewport={{ once: false, margin: "0px 0px -60px 0px" }}
+          transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
+          style={{ y: parallaxY }}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
 
-      <h3 className="absolute top-6 start-6 end-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
-        {item.title}
-      </h3>
-    </motion.div>
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, margin: "0px 0px -60px 0px" }}
+          transition={{ duration: 0.4, delay: delay + 0.5 }}
+          className="absolute top-6 end-6 font-mono text-white/60 text-xs tracking-widest"
+        >
+          0{idx + 1}
+        </motion.span>
+
+        <h3 className="absolute top-6 start-6 end-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
+          {item.title}
+        </h3>
+      </motion.div>
+    </Link>
   );
 }
 
 export default function Industries() {
   const t = useTranslations('Industries');
   const industryKeys = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8'] as const;
-  const industries = industryKeys.map((key, idx) => ({ title: t(key), image: industryImages[idx] }));
+  const industries = industryKeys.map((key, idx) => ({ title: t(key), image: industryImages[idx], slug: industrySlugs[idx] }));
 
   return (
-    <section className="bg-background py-24 w-full">
+    <section id="industries" className="bg-background py-24 w-full scroll-mt-28">
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header */}

@@ -88,8 +88,8 @@ export const projects: Project[] = [
     },
     image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
     gallery: [
-      'https://images.unsplash.com/photo-1548611716-3922abcae1c8?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1533163238111-4a7ced54f2e4?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
     ],
     challenge: {
       en: 'Expanding treatment capacity at a live facility that could not go offline, with new clarifier basins and a filtration line upgrade needing to tie into an active process stream.',
@@ -198,10 +198,10 @@ export const projects: Project[] = [
       en: 'Specialized construction and MEP integration for a chemical processing plant, built to strict process-safety requirements.',
       ar: 'أعمال إنشاء وتكامل كهروميكانيكي متخصصة لمصنع معالجة كيميائية، نُفذت وفق متطلبات سلامة تشغيلية صارمة.',
     },
-    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1200&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1678984240126-70bcddd7a228?q=80&w=1200&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1678984240126-70bcddd7a228?q=80&w=1200&auto=format&fit=crop',
     ],
     challenge: {
       en: 'MEP integration for a chemical processing plant where hazardous-area classification governed nearly every electrical and mechanical routing decision on site.',

@@ -116,7 +116,7 @@ const organizationJsonLd = {
   name: siteName,
   alternateName: "Island Tower",
   url: siteUrl,
-  logo: "https://cdn.jsdelivr.net/gh/kirank860/island-tower-assets@main/main-logo.jpeg",
+  logo: `${siteUrl}/images/logo/island-tower-logo.png`,
   image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
   description: siteDescription,
   telephone: "+971-4-257-3677",

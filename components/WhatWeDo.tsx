@@ -50,7 +50,7 @@ export default function WhatWeDo() {
           otherwise be a truly blank pause with a subtle branded presence
           instead, with no fragile scroll-position math involved. */}
       <img
-        src="https://cdn.jsdelivr.net/gh/kirank860/island-tower-assets@main/main-logo.jpeg"
+        src="/images/logo/island-tower-logo.png"
         alt=""
         aria-hidden="true"
         className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] md:w-[640px] max-w-none opacity-[0.05] mix-blend-multiply"

@@ -127,6 +127,15 @@
     "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
     "getQuote": "Get a Quote"
   },
+  "IndustryDetail": {
+    "allIndustries": "All Sectors",
+    "overview": "Overview",
+    "capabilities": "Capabilities",
+    "relatedProjects": "Related Projects",
+    "ctaHeadline": "Have a project in this sector?",
+    "ctaSubtitle": "Tell us what you're building and our team will follow up with next steps.",
+    "getQuote": "Get a Quote"
+  },
   "Testimonials": {
     "eyebrow": "Client Testimonials",
     "previous": "Previous testimonial",
