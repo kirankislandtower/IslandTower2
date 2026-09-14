@@ -28,7 +28,7 @@ const spaceGrotesk = Space_Grotesk({
 const siteUrl = "https://www.islandtoweruae.ae";
 const siteName = "Island Tower Electro Mechanical Works LLC";
 const siteDescription =
-  "Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. 15+ years delivering EPC projects across the region.";
+  "Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. 20+ years delivering EPC projects across the region.";
 const siteDescriptionAr =
   "شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م رائدة في تقديم حلول البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في دبي والإمارات العربية المتحدة والمملكة العربية السعودية.";
 
@@ -116,7 +116,7 @@ const organizationJsonLd = {
   name: siteName,
   alternateName: "Island Tower",
   url: siteUrl,
-  logo: `${siteUrl}/images/logo/island-tower-logo.png`,
+  logo: `${siteUrl}/images/logo/island-tower-logo-full.png`,
   image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
   description: siteDescription,
   telephone: "+971-4-257-3677",

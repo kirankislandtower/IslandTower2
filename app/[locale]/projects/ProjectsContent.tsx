@@ -10,7 +10,7 @@ import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
 import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 
-const CATEGORY_KEYS = ['all', 'MEP Engineering', 'Infrastructure', 'Civil Works', 'Water Treatment', 'Energy Solutions', 'Chemical Facilities'] as const;
+const CATEGORY_KEYS = ['all', 'District Cooling', 'MEP Engineering', 'Infrastructure'] as const;
 
 function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number }) {
   const t = useTranslations('ProjectsPage');
@@ -89,12 +89,9 @@ export default function ProjectsContent() {
   const categoryLabel = (key: (typeof CATEGORY_KEYS)[number]) => {
     const map: Record<(typeof CATEGORY_KEYS)[number], string> = {
       all: t('categoryAll'),
+      'District Cooling': t('categoryDistrictCooling'),
       'MEP Engineering': t('categoryMep'),
       Infrastructure: t('categoryInfrastructure'),
-      'Civil Works': t('categoryCivil'),
-      'Water Treatment': t('categoryWater'),
-      'Energy Solutions': t('categoryEnergy'),
-      'Chemical Facilities': t('categoryChemical'),
     };
     return map[key];
   };

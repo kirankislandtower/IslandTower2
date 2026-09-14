@@ -56,15 +56,15 @@ export default function Header({ onDemoClick }: HeaderProps) {
         {/* Logo */}
         <Link href="/" className="relative flex items-center hover:opacity-80 transition-opacity">
           <img
-            src="/images/logo/island-tower-logo-horizontal.png"
+            src="/images/logo/island-tower-logo-dark.png"
             alt="Island Tower Logo"
-            className={`h-12 md:h-13 w-30 md:w-40 object-fill transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
+            className={`h-4 md:h-5 w-auto object-contain transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
           <img
-            src="/images/logo/island-tower-logo-horizontal-light.png"
+            src="/images/logo/island-tower-logo.png"
             alt=""
             aria-hidden="true"
-            className={`absolute inset-0 h-12 md:h-13 w-30 md:w-40 object-fill transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100'}`}
+            className={`absolute inset-0 h-4 md:h-5 w-auto object-contain transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100'}`}
           />
         </Link>
 

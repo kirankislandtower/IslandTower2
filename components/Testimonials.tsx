@@ -1,113 +1,54 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useParallax } from '@/hooks/useParallax';
 
 export default function Testimonials() {
-  const t = useTranslations('Testimonials');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const { ref: parallaxRef, y: parallaxY } = useParallax(25);
+  const t = useTranslations('TrackRecord');
 
-  const testimonials = [
-    {
-      quote: t('quote1'),
-      author: "EMAAR PROPERTIES",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop"
-    },
-    {
-      quote: t('quote2'),
-      author: "DAMAC PROPERTIES",
-      image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1000&auto=format&fit=crop"
-    }
+  const stats = [
+    { value: t('stat1Value'), label: t('stat1Label') },
+    { value: t('stat2Value'), label: t('stat2Label') },
+    { value: t('stat3Value'), label: t('stat3Label') },
+    { value: t('stat4Value'), label: t('stat4Label') },
   ];
-
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const current = testimonials[currentIndex];
 
   return (
     <section className="bg-background py-24 w-full">
       <div className="max-w-[1400px] mx-auto px-6">
 
-        {/* Header and Controls */}
-        <div className="flex justify-between items-center mb-10">
-          <div className="flex items-center gap-3">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="flex flex-col items-center text-center mb-14"
+        >
+          <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 bg-accent" />
             <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={prevSlide}
-              aria-label={t('previous')}
-              className="p-3 border border-border hover:border-accent transition-colors bg-card cursor-pointer focus-ring"
+          <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-2xl">
+            {t('headline')}
+          </h2>
+        </motion.div>
+
+        {/* Stats */}
+        <div className="bg-muted rounded-sm p-8 md:p-12 grid grid-cols-2 md:grid-cols-4 gap-10">
+          {stats.map((stat, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
+              className="text-center"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-            <button
-              onClick={nextSlide}
-              aria-label={t('next')}
-              className="p-3 border border-border hover:border-accent transition-colors bg-card cursor-pointer focus-ring"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Testimonial Box */}
-        <div className="bg-muted rounded-sm p-6 md:p-8 grid md:grid-cols-2 gap-12 lg:gap-24 items-stretch overflow-hidden">
-
-          {/* Image */}
-          <div ref={parallaxRef} className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden bg-card rounded-sm">
-            <AnimatePresence initial={false} mode="wait">
-              <motion.img
-                key={current.image}
-                src={current.image}
-                alt={current.author}
-                initial={{ opacity: 0, x: direction * 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction * -16 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                style={{ y: parallaxY, scale: 1.15 }}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </AnimatePresence>
-          </div>
-
-          {/* Quote Content */}
-          <div className="flex flex-col justify-center pe-0 lg:pe-12">
-            <div className="text-accent text-5xl md:text-6xl font-serif leading-none mb-6">&ldquo;</div>
-            <AnimatePresence initial={false} mode="wait">
-              <motion.p
-                key={current.quote}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="font-mono text-lg md:text-2xl leading-relaxed text-foreground mb-16"
-              >
-                {current.quote}
-              </motion.p>
-            </AnimatePresence>
-            <div className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mt-auto">
-              {current.author}
-            </div>
-          </div>
-
+              <div className="font-mono text-3xl md:text-4xl text-accent font-light mb-2 whitespace-nowrap">{stat.value}</div>
+              <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground">{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
 
       </div>

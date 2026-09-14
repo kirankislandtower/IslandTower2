@@ -14,8 +14,8 @@ export default function AboutContent() {
   const { ref: storyImgRef, y: storyImgY } = useParallax(28);
 
   const stats = [
-    { value: '15+', label: t('stat1') },
-    { value: '200+', label: t('stat2') },
+    { value: '20+', label: t('stat1') },
+    { value: '500+', label: t('stat2') },
     { value: '2', label: t('stat3') },
     { value: '0', label: t('stat4') },
   ];
@@ -25,6 +25,15 @@ export default function AboutContent() {
     { title: t('value2Title'), description: t('value2Desc') },
     { title: t('value3Title'), description: t('value3Desc') },
     { title: t('value4Title'), description: t('value4Desc') },
+    { title: t('value5Title'), description: t('value5Desc') },
+    { title: t('value6Title'), description: t('value6Desc') },
+  ];
+
+  const capabilities = [
+    { title: t('capability1Title'), description: t('capability1Desc') },
+    { title: t('capability2Title'), description: t('capability2Desc') },
+    { title: t('capability3Title'), description: t('capability3Desc') },
+    { title: t('capability4Title'), description: t('capability4Desc') },
   ];
 
   return (
@@ -92,12 +101,134 @@ export default function AboutContent() {
             className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-muted"
           >
             <motion.img
-              src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop"
+              src="/images/site/excavation-team-trench.jpg"
               alt="Island Tower site team"
               style={{ y: storyImgY, scale: 1.15 }}
               className="absolute inset-0 w-full h-full object-cover"
             />
           </motion.div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="bg-card py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex flex-col items-center text-center mb-16"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('capabilitiesEyebrow')}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
+              {t('capabilitiesHeadline')}
+            </h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {capabilities.map((capability, idx) => (
+              <motion.div
+                key={capability.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
+                whileHover={{ y: -4 }}
+                className="bg-background border border-border rounded-2xl p-8 transition-shadow hover:shadow-lg"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+                  transition={{ delay: idx * 0.1 + 0.15, type: 'spring', stiffness: 260, damping: 16 }}
+                  className="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center font-mono text-sm mb-5"
+                >
+                  0{idx + 1}
+                </motion.div>
+                <h3 className="text-lg text-foreground font-medium mb-3">{capability.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{capability.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership / Vision / Mission */}
+      <section className="bg-background py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex items-center gap-3 mb-10"
+          >
+            <div className="w-2 h-2 bg-accent" />
+            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('leadershipEyebrow')}</span>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="bg-card border border-border rounded-2xl p-8 md:p-10 flex flex-col"
+            >
+              <div className="flex items-center gap-5 mb-6">
+                <img
+                  src="/images/team/sasikumar-chairman.png"
+                  alt={t('chairmanName')}
+                  className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover shrink-0"
+                />
+                <div>
+                  <div className="text-foreground font-medium">{t('chairmanName')}</div>
+                  <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground mt-1">{t('chairmanTitle')}</div>
+                </div>
+              </div>
+
+              <motion.div
+                initial={{ scale: 0, rotate: -15 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+                transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 14 }}
+                className="text-accent text-5xl font-serif leading-none mb-6"
+              >
+                &ldquo;
+              </motion.div>
+              <p className="text-foreground text-base leading-relaxed mb-6">{t('chairmanQuote')}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed mt-auto pt-6 border-t border-border">{t('chairmanBio')}</p>
+            </motion.div>
+
+            <div className="flex flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+                transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+                whileHover={{ y: -4 }}
+                className="bg-card border border-border rounded-2xl p-8 flex-1 transition-shadow hover:shadow-lg"
+              >
+                <h3 className="font-mono text-xs tracking-widest uppercase text-accent mb-3">{t('visionTitle')}</h3>
+                <p className="text-foreground text-base leading-relaxed">{t('visionText')}</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+                transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+                whileHover={{ y: -4 }}
+                className="bg-card border border-border rounded-2xl p-8 flex-1 transition-shadow hover:shadow-lg"
+              >
+                <h3 className="font-mono text-xs tracking-widest uppercase text-accent mb-3">{t('missionTitle')}</h3>
+                <p className="text-foreground text-base leading-relaxed">{t('missionText')}</p>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -139,7 +270,7 @@ export default function AboutContent() {
             </h2>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value, idx) => (
               <motion.div
                 key={idx}

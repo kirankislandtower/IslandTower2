@@ -30,6 +30,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# internal reference documents - not meant to be served publicly
+/public/content/
+
 
 # typescript
 *.tsbuildinfo

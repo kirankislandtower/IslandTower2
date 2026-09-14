@@ -68,49 +68,48 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
         </motion.div>
       </section>
 
-      {/* Challenge / Approach / Results */}
+      {/* Scope of Work / Project Details */}
       <section className="bg-background py-24 md:py-32 w-full">
         <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-3 gap-12">
-          {[
-            { label: t('theChallenge'), text: project.challenge },
-            { label: t('ourApproach'), text: project.approach },
-          ].map((block, idx) => (
-            <motion.div
-              key={block.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-2 h-2 bg-accent" />
-                <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{block.label}</span>
-              </div>
-              <p className="text-foreground text-base leading-relaxed">{block.text}</p>
-            </motion.div>
-          ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="lg:col-span-2"
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('scopeOfWork')}</span>
+            </div>
+            <p className="text-foreground text-base leading-relaxed">{project.scope}</p>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
             className="bg-card border border-border rounded-2xl p-8"
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('results')}</span>
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('projectDetails')}</span>
             </div>
-            <ul className="flex flex-col gap-4">
-              {project.results.map((result) => (
-                <li key={result} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent shrink-0 mt-0.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  {result}
-                </li>
-              ))}
-            </ul>
+            <dl className="flex flex-col gap-4 text-sm">
+              <div className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{t('client')}</dt>
+                <dd className="text-foreground text-end">{project.client}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{t('consultant')}</dt>
+                <dd className="text-foreground text-end">{project.consultant}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{t('contractValue')}</dt>
+                <dd className="text-foreground text-end">{project.contractValue}</dd>
+              </div>
+            </dl>
           </motion.div>
         </div>
       </section>

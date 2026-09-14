@@ -9,13 +9,13 @@ import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
 
 const serviceImages = [
-  'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop',
+  '/images/projects/jvt-tank-installation.jpg',
+  '/images/projects/electrical-panel-works.jpg',
+  '/images/projects/chilled-water-pump-replacement.jpg',
   'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1000&auto=format&fit=crop',
+  '/images/projects/fabrication-piping-skid.jpg',
   'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1000&auto=format&fit=crop',
+  '/images/projects/weld-inspection-tecom.jpg',
 ];
 
 function ServiceCard({ service, idx }: { service: { num: string; title: string; description: string; image: string }; idx: number }) {

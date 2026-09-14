@@ -27,11 +27,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
 
-  const formType = body.formType === 'quote' ? 'quote' : 'contact';
+  const validTypes = ['quote', 'contact', 'careers', 'portal'] as const;
+  const formType = validTypes.includes(body.formType as typeof validTypes[number])
+    ? (body.formType as typeof validTypes[number])
+    : 'contact';
   const name = typeof body.name === 'string' ? body.name.trim() : '';
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   const company = typeof body.company === 'string' ? body.company.trim() : '';
   const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
+  const discipline = typeof body.discipline === 'string' ? body.discipline.trim() : '';
+  const projectReference = typeof body.projectReference === 'string' ? body.projectReference.trim() : '';
   const message = typeof body.message === 'string' ? body.message.trim() : '';
 
   if (!name || !email || !message) {
@@ -42,25 +47,44 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
   }
 
-  const subject =
-    formType === 'quote'
-      ? `New quote request from ${name}`
-      : `New contact form message from ${name}`;
+  const subjectByType: Record<typeof validTypes[number], string> = {
+    quote: `New quote request from ${name}`,
+    contact: `New contact form message from ${name}`,
+    careers: `New career application from ${name}`,
+    portal: `New client portal access request from ${name}`,
+  };
+  const subject = subjectByType[formType];
+
+  const titleByType: Record<typeof validTypes[number], string> = {
+    quote: 'New Quote Request',
+    contact: 'New Contact Message',
+    careers: 'New Career Application',
+    portal: 'New Client Portal Access Request',
+  };
+
+  const messageLabelByType: Record<typeof validTypes[number], string> = {
+    quote: 'Message',
+    contact: 'Message',
+    careers: 'Relevant Experience',
+    portal: 'Message',
+  };
 
   const rows = [
     ['Name', name],
     ['Email', email],
     company && ['Company', company],
     phone && ['Phone', phone],
+    discipline && ['Discipline / Role', discipline],
+    projectReference && ['Project Reference', projectReference],
   ].filter((row): row is [string, string] => Boolean(row));
 
   const html = `
     <div style="font-family: sans-serif; font-size: 14px; color: #111;">
-      <h2 style="margin: 0 0 16px;">${formType === 'quote' ? 'New Quote Request' : 'New Contact Message'}</h2>
+      <h2 style="margin: 0 0 16px;">${titleByType[formType]}</h2>
       <table cellpadding="4" cellspacing="0">
         ${rows.map(([label, value]) => `<tr><td style="font-weight:600; padding-right: 12px;">${label}</td><td>${escapeHtml(value)}</td></tr>`).join('')}
       </table>
-      <p style="font-weight:600; margin-top: 20px;">Message</p>
+      <p style="font-weight:600; margin-top: 20px;">${messageLabelByType[formType]}</p>
       <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
     </div>
   `;
