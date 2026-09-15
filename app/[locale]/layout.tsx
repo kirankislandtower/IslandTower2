@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Mulish, JetBrains_Mono } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,7 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-const inter = Inter({
+const mulish = Mulish({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -19,8 +19,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const mulishHeading = Mulish({
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-heading",
   display: "swap",
 });
@@ -169,7 +170,7 @@ export default async function LocaleLayout({
       lang={locale}
       dir={dir}
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
+      className={`${mulish.variable} ${jetbrainsMono.variable} ${mulishHeading.variable}`}
     >
       <head>
         <script

@@ -32,7 +32,7 @@ body {
 }
 
 /* Elevated display typography: every heading site-wide picks up the
-   Space Grotesk headline face automatically, layered under whatever
+   Archivo headline face automatically, layered under whatever
    Tailwind size/weight/tracking utilities a given heading already uses.
    This upgrades every page's typography from one place instead of
    touching each component's className. */

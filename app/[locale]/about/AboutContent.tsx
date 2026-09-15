@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
+import MilestoneCarousel from '@/components/MilestoneCarousel';
 import { useParallax } from '@/hooks/useParallax';
 
 export default function AboutContent() {
@@ -17,7 +18,7 @@ export default function AboutContent() {
     { value: '20+', label: t('stat1') },
     { value: '500+', label: t('stat2') },
     { value: '2', label: t('stat3') },
-    { value: '0', label: t('stat4') },
+    { value: 'ISO 9001:2015', label: t('stat4') },
   ];
 
   const values = [
@@ -27,6 +28,15 @@ export default function AboutContent() {
     { title: t('value4Title'), description: t('value4Desc') },
     { title: t('value5Title'), description: t('value5Desc') },
     { title: t('value6Title'), description: t('value6Desc') },
+  ];
+
+  const milestones = [
+    { year: t('milestone1Year'), label: t('milestone1Label'), text: t('milestone1Text'), image: '/images/site/excavation-team-trench.jpg' },
+    { year: t('milestone2Year'), label: t('milestone2Label'), text: t('milestone2Text'), image: '/images/projects/chilled-water-flushing-works.jpg' },
+    { year: t('milestone3Year'), label: t('milestone3Label'), text: t('milestone3Text'), image: '/images/projects/fabrication-piping-skid.jpg' },
+    { year: t('milestone4Year'), label: t('milestone4Label'), text: t('milestone4Text'), image: '/images/projects/jvt-tank-installation.jpg' },
+    { year: t('milestone5Year'), label: t('milestone5Label'), text: t('milestone5Text'), image: '/images/site/large-diameter-pipe-install.jpg' },
+    { year: t('milestone6Year'), label: t('milestone6Label'), text: t('milestone6Text'), image: '/images/projects/hse-safety-briefing-difc.jpg' },
   ];
 
   const capabilities = [
@@ -107,6 +117,29 @@ export default function AboutContent() {
               className="absolute inset-0 w-full h-full object-cover"
             />
           </motion.div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="bg-background py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex flex-col items-center text-center mb-16"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('timelineEyebrow')}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
+              {t('timelineHeadline')}
+            </h2>
+          </motion.div>
+
+          <MilestoneCarousel milestones={milestones} />
         </div>
       </section>
 

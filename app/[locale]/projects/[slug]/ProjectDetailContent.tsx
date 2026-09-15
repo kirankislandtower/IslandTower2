@@ -32,21 +32,16 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
     <>
       <Header onDemoClick={() => setShowDemoModal(true)} />
 
-      {/* Hero */}
-      <section className="relative min-h-[60vh] w-full flex flex-col justify-end overflow-hidden bg-[#111]">
+      {/* Intro band */}
+      <section className="relative min-h-[48vh] w-full flex flex-col justify-end overflow-hidden bg-[#111]">
         <img
           src={project.image}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="absolute inset-0 w-full h-full object-cover opacity-45"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/60 via-[#111]/40 to-[#111]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/70 via-[#111]/40 to-[#111]" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-[1400px] mx-auto px-6 mt-20 pb-16"
-        >
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 pt-28 pb-12 md:pb-16">
           <Link
             href="/projects"
             className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
@@ -57,95 +52,126 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
             </svg>
             {t('allProjects')}
           </Link>
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{project.category}</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            {project.title}
-          </h1>
-          <p className="font-mono text-xs tracking-widest uppercase text-white/60 mt-6">{project.location}</p>
-        </motion.div>
-      </section>
-
-      {/* Scope of Work / Project Details */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-3 gap-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="lg:col-span-2"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('scopeOfWork')}</span>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{project.category}</span>
             </div>
-            <p className="text-foreground text-base leading-relaxed">{project.scope}</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="bg-card border border-border rounded-2xl p-8"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('projectDetails')}</span>
-            </div>
-            <dl className="flex flex-col gap-4 text-sm">
-              <div className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{t('client')}</dt>
-                <dd className="text-foreground text-end">{project.client}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{t('consultant')}</dt>
-                <dd className="text-foreground text-end">{project.consultant}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{t('contractValue')}</dt>
-                <dd className="text-foreground text-end">{project.contractValue}</dd>
-              </div>
-            </dl>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
+              {project.title}
+            </h1>
+            <p className="font-mono text-xs tracking-widest uppercase text-white/60 mt-6">{project.location}</p>
           </motion.div>
         </div>
       </section>
 
-      {/* Gallery */}
-      {project.gallery.length > 0 && (
-        <section className="bg-card py-24 md:py-32 w-full border-t border-border">
-          <div className="max-w-[1400px] mx-auto px-6">
+      {/* Story + sticky project spec */}
+      <section className="bg-background py-16 md:py-24 w-full">
+        <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-[1fr_320px] gap-12 items-start">
+          <div className="flex flex-col gap-14 lg:order-1">
             <motion.div
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false, margin: '0px 0px -100px 0px' }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               ref={heroImgRef}
-              className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl mb-6"
+              className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl"
             >
               <motion.img
-                src={project.gallery[0]}
+                src={project.image}
                 alt={project.title}
                 style={{ y: heroImgY, scale: 1.15 }}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </motion.div>
-            {project.gallery[1] && (
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                  <img src={project.gallery[1]} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                  <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
-                </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-2 h-2 bg-accent" />
+                <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('scopeOfWork')}</span>
               </div>
+              <p className="text-foreground text-base leading-relaxed">{project.scope}</p>
+            </motion.div>
+
+            {project.gallery.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              >
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-2 h-2 bg-accent" />
+                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('gallery')}</span>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {project.gallery.map((src, idx) => (
+                    <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+                      <img src={src} alt={project.title} className="absolute inset-0 w-full h-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             )}
           </div>
-        </section>
-      )}
+
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+            className="order-first lg:order-2 lg:sticky lg:top-28 bg-card border border-border rounded-2xl p-8 flex flex-col gap-5"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('projectDetails')}</span>
+            </div>
+            <dl className="flex flex-col gap-4 text-sm">
+              <div className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{t('category')}</dt>
+                <dd className="text-foreground text-end">{project.category}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-muted-foreground">{t('location')}</dt>
+                <dd className="text-foreground text-end">{project.location}</dd>
+              </div>
+              {project.client && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">{t('client')}</dt>
+                  <dd className="text-foreground text-end">{project.client}</dd>
+                </div>
+              )}
+              {project.consultant && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">{t('consultant')}</dt>
+                  <dd className="text-foreground text-end">{project.consultant}</dd>
+                </div>
+              )}
+              {project.contractValue && (
+                <div className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">{t('contractValue')}</dt>
+                  <dd className="text-foreground text-end">{project.contractValue}</dd>
+                </div>
+              )}
+            </dl>
+            <button
+              onClick={() => setShowDemoModal(true)}
+              className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-xs px-6 py-3.5 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+            >
+              {t('getQuote')}
+            </button>
+          </motion.aside>
+        </div>
+      </section>
 
       {/* Related Projects */}
       <section className="bg-background py-24 md:py-32 w-full">

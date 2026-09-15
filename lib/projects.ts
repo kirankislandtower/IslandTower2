@@ -13,9 +13,9 @@ export interface Project {
   description: LocalizedText;
   image: string;
   gallery: string[];
-  client: string;
-  consultant: string;
-  contractValue: LocalizedText;
+  client?: string;
+  consultant?: string;
+  contractValue?: LocalizedText;
   scope: LocalizedText;
 }
 
@@ -28,9 +28,9 @@ export interface LocalizedProject {
   description: string;
   image: string;
   gallery: string[];
-  client: string;
-  consultant: string;
-  contractValue: string;
+  client?: string;
+  consultant?: string;
+  contractValue?: string;
   scope: string;
 }
 
@@ -46,7 +46,7 @@ export function localizeProject(project: Project, locale: Locale): LocalizedProj
     gallery: project.gallery,
     client: project.client,
     consultant: project.consultant,
-    contractValue: project.contractValue[locale],
+    contractValue: project.contractValue?.[locale],
     scope: project.scope[locale],
   };
 }
@@ -138,7 +138,8 @@ export const projects: Project[] = [
     image: '/images/projects/hse-safety-briefing-difc.jpg',
     gallery: [
       '/images/projects/weld-inspection-tecom.jpg',
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
+      '/images/projects/tecom-mechanical-room.jpg',
+      '/images/projects/difc-trial-pit-excavation.jpg',
     ],
     client: 'Empower',
     consultant: 'Khatib & Alami',
@@ -159,8 +160,8 @@ export const projects: Project[] = [
     },
     image: '/images/site/large-diameter-pipe-install.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop',
+      '/images/projects/dragonmart-electrical-panel.jpg',
+      '/images/projects/dragonmart-corridor-cabling.jpg',
     ],
     client: 'Empower',
     consultant: 'Empower',
@@ -203,8 +204,8 @@ export const projects: Project[] = [
     },
     image: '/images/projects/rta-shindagha-valve-chamber.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1678984240126-70bcddd7a228?q=80&w=1200&auto=format&fit=crop',
+      '/images/projects/shindagha-valve-chamber-formwork.jpg',
+      '/images/projects/shindagha-pipe-trench-shoring.jpg',
     ],
     client: 'RTA',
     consultant: 'Parsons',
@@ -256,6 +257,66 @@ export const projects: Project[] = [
     scope: {
       en: 'ETS room installation and related chilled water piping works at Vantage Tower.',
       ar: 'تركيب غرفة ETS وأعمال أنابيب المياه المبردة ذات الصلة في برج فانتاج.',
+    },
+  },
+  {
+    slug: 'green-field-dubai-process-piping',
+    title: { en: 'Process Piping — Green Field, Dubai', ar: 'أعمال أنابيب العمليات — جرين فيلد، دبي' },
+    location: { en: 'Dubai, UAE', ar: 'دبي، الإمارات العربية المتحدة' },
+    category: { en: 'MEP Engineering', ar: 'الهندسة الكهروميكانيكية' },
+    description: {
+      en: 'Fabrication and installation of industrial process piping, including insulated pipe runs, valve assemblies, and pressure vessels, at the Green Field facility in Dubai.',
+      ar: 'تصنيع وتركيب أنابيب العمليات الصناعية، بما يشمل خطوط الأنابيب المعزولة، ومجموعات الصمامات، وأوعية الضغط، في منشأة جرين فيلد بدبي.',
+    },
+    image: '/images/projects/fabrication-piping-skid.jpg',
+    gallery: [
+      '/images/projects/green-field-piping-insulation.jpg',
+      '/images/projects/green-field-storage-tank.jpg',
+      '/images/projects/green-field-plant-piping.jpg',
+    ],
+    scope: {
+      en: 'Fabrication, installation, and testing of industrial process piping systems — including insulated pipework, valve assemblies, and pressure vessels — for the Green Field facility.',
+      ar: 'تصنيع وتركيب واختبار أنظمة أنابيب العمليات الصناعية — بما يشمل الأنابيب المعزولة، ومجموعات الصمامات، وأوعية الضغط — لمنشأة جرين فيلد.',
+    },
+  },
+  {
+    slug: 'saadiyat-chilled-water-flushing',
+    title: { en: 'Chilled Water Flushing — Saadiyat Island', ar: 'غسيل المياه المبردة — جزيرة السعديات' },
+    location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
+    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    description: {
+      en: 'Rooftop chilled water flushing works for a development on Saadiyat Island, Abu Dhabi.',
+      ar: 'أعمال غسيل المياه المبردة على سطح مبنى ضمن مشروع تطوير في جزيرة السعديات، أبوظبي.',
+    },
+    image: '/images/projects/chilled-water-flushing-works.jpg',
+    gallery: [
+      '/images/projects/saadiyat-flushing-equipment.jpg',
+      '/images/projects/saadiyat-pump-skid.jpg',
+      '/images/projects/saadiyat-chiller-units.jpg',
+    ],
+    scope: {
+      en: 'Chilled water flushing and treatment works for rooftop plant equipment at a Saadiyat Island development.',
+      ar: 'أعمال غسيل ومعالجة المياه المبردة لمعدات المحطة على سطح المبنى في مشروع بجزيرة السعديات.',
+    },
+  },
+  {
+    slug: 'chilled-water-pump-replacement-works',
+    title: { en: 'Chilled Water Pump Replacement Works', ar: 'أعمال استبدال مضخات المياه المبردة' },
+    location: { en: 'Dubai, UAE', ar: 'دبي، الإمارات العربية المتحدة' },
+    category: { en: 'MEP Engineering', ar: 'الهندسة الكهروميكانيكية' },
+    description: {
+      en: 'Replacement of chilled water pumps and associated insulated piping within an existing plant room.',
+      ar: 'استبدال مضخات المياه المبردة وأعمال الأنابيب المعزولة المرتبطة بها داخل غرفة محطة قائمة.',
+    },
+    image: '/images/projects/chilled-water-pump-replacement.jpg',
+    gallery: [
+      '/images/projects/pump-replacement-motor-install.jpg',
+      '/images/projects/pump-replacement-ductwork.jpg',
+      '/images/projects/pump-replacement-plant-room.jpg',
+    ],
+    scope: {
+      en: 'Removal and replacement of chilled water pumps, motors, and associated insulated piping within an operational plant room, minimizing disruption to ongoing building operations.',
+      ar: 'إزالة واستبدال مضخات المياه المبردة والمحركات وأعمال الأنابيب المعزولة المرتبطة بها داخل غرفة محطة تشغيلية، مع تقليل التأثير على عمليات المبنى الجارية.',
     },
   },
 ];

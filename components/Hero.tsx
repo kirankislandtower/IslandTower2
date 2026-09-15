@@ -1,13 +1,29 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 export default function Hero() {
   const t = useTranslations('Hero');
   const shouldReduceMotion = useReducedMotion();
   const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
+
+  // Slide cycling
+  const slides = [
+    { title: t('title'), subtitle: t('subtitle') },
+    { title: t('slide2Title'), subtitle: t('slide2Subtitle') },
+    { title: t('slide3Title'), subtitle: t('slide3Subtitle') },
+  ];
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion, slides.length]);
 
   // Pin spacer: gives the shrink-reveal transition scroll room without the
   // browser fighting itself over layout height (sticky + a taller spacer,
@@ -132,82 +148,58 @@ export default function Hero() {
         {showHeroText && (
         <motion.div
           style={{ opacity: heroTextOpacity }}
-          className="absolute inset-0 flex flex-col justify-center pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: d(1), ease: "easeOut", delay: shouldReduceMotion ? 0 : 0.2 }}
-            className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-12 sm:mt-16 md:mt-20"
-          >
-            <div className="flex items-start gap-3 sm:gap-4 mb-4">
-              <div className="w-2 h-2 rounded-full bg-accent animate-pulse mt-2 sm:mt-3 shrink-0" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-mono uppercase tracking-tight leading-tight">
-                {t('title')}
-              </h1>
+          {/* Centered title */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <div className="relative z-10 w-full max-w-6xl mx-auto">
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={activeSlide}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white/80 font-sans font-thin uppercase leading-[1.1] max-w-4xl mx-auto"
+                  style={{ wordSpacing: '0.3em' }}
+                >
+                  {slides[activeSlide].title}
+                </motion.h1>
+              </AnimatePresence>
             </div>
+          </div>
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="w-full h-[1px] bg-white/40 my-6 origin-left"
-            />
+          {/* Bottom subtitle + slide dots */}
+          <div className="absolute bottom-12 md:bottom-20 w-full px-6 flex flex-col items-center gap-5">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={activeSlide}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                className="text-white/90 text-base md:text-lg lg:text-xl max-w-3xl text-center font-sans font-light leading-relaxed"
+              >
+                {slides[activeSlide].subtitle}
+              </motion.p>
+            </AnimatePresence>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.2 }}
-            >
-              <p className="text-white/90 text-sm md:text-base max-w-2xl font-sans font-light leading-relaxed">
-                {t('subtitle')}
-              </p>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: d(1), delay: shouldReduceMotion ? 0 : 1.5, ease: "easeOut" }}
-            className="absolute bottom-20 sm:bottom-10 left-0 right-0 z-10 w-full max-w-6xl mx-auto px-6"
-          >
-            <div className="flex flex-wrap justify-center sm:justify-between items-center opacity-70 gap-x-6 gap-y-3 sm:gap-8">
-              {/* EMPOWER */}
-              <div className="flex flex-col items-center">
-                <span className="text-white text-sm sm:text-lg font-bold tracking-widest uppercase">Empower</span>
-                <span className="text-white/70 text-[9px] sm:text-[10px] tracking-widest uppercase mt-1">{t('energySolutions')}</span>
-              </div>
-
-              {/* EMICOOL */}
-              <div className="flex items-center gap-2">
-                <svg width="18" height="18" className="sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                <span className="text-white text-base sm:text-xl font-black italic tracking-widest uppercase">Emicool</span>
-              </div>
-
-              {/* RTA */}
-              <div className="bg-white rounded-full w-10 h-10 sm:w-14 sm:h-14 flex items-center justify-center relative overflow-hidden">
-                <span className="text-black text-sm sm:text-xl font-black italic z-10 relative top-1">RTA</span>
-                <div className="absolute top-1/2 left-0 right-0 h-4 bg-black/10 -rotate-12 translate-y-[-50%]"></div>
-              </div>
-
-              {/* EMAAR */}
-              <div className="text-white text-lg sm:text-2xl font-serif tracking-widest uppercase">
-                EMAAR
-              </div>
-
-              {/* DUBAI MUNICIPALITY */}
-              <div className="flex flex-col items-center">
-                <svg width="18" height="18" className="mb-1 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 22h20L12 2z"/></svg>
-                <span className="text-white text-xs sm:text-sm font-semibold tracking-wide">{t('dubaiMunicipality')}</span>
-              </div>
-
-              {/* NAKHEEL */}
-              <div className="flex flex-col items-center">
-                <svg width="18" height="18" className="sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4"/></svg>
-                <span className="text-white text-sm sm:text-lg font-bold tracking-widest uppercase mt-1">Nakheel</span>
-              </div>
+            {/* Slide indicator dots */}
+            <div className="flex items-center gap-2">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveSlide(i)}
+                  className={`pointer-events-auto transition-all duration-500 rounded-full ${
+                    i === activeSlide
+                      ? 'w-6 h-1.5 bg-white'
+                      : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/70'
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
         )}
 
@@ -215,3 +207,4 @@ export default function Hero() {
     </div>
   );
 }
+

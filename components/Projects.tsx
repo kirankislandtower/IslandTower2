@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
+import CircularGallery from './CircularGallery';
 
 function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number }) {
   const t = useTranslations('Projects');
@@ -53,6 +54,7 @@ export default function Projects() {
   const isRtl = locale === 'ar';
   const projects = allProjects.slice(0, 6).map((p) => localizeProject(p, locale));
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const scrollByCard = (forward: boolean) => {
     const el = scrollerRef.current;
@@ -62,6 +64,14 @@ export default function Projects() {
     const sign = forward ? 1 : -1;
     const rtlAdjusted = isRtl ? -sign : sign;
     el.scrollBy({ left: rtlAdjusted * amount, behavior: 'smooth' });
+  };
+
+  const step = (forward: boolean) => {
+    scrollByCard(forward);
+    setActiveIndex((prev) => {
+      const next = forward ? prev + 1 : prev - 1;
+      return ((next % projects.length) + projects.length) % projects.length;
+    });
   };
 
   return (
@@ -102,7 +112,7 @@ export default function Projects() {
 
           <div className="flex gap-2 shrink-0">
             <button
-              onClick={() => scrollByCard(false)}
+              onClick={() => step(false)}
               aria-label={t('previous')}
               className="p-3 border border-border hover:border-accent transition-colors bg-background cursor-pointer focus-ring"
             >
@@ -111,7 +121,7 @@ export default function Projects() {
               </svg>
             </button>
             <button
-              onClick={() => scrollByCard(true)}
+              onClick={() => step(true)}
               aria-label={t('next')}
               className="p-3 border border-border hover:border-accent transition-colors bg-background cursor-pointer focus-ring"
             >
@@ -122,9 +132,11 @@ export default function Projects() {
           </div>
         </div>
 
+        <CircularGallery items={projects} activeIndex={activeIndex} />
+
         <div
           ref={scrollerRef}
-          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {projects.map((project, idx) => (
             <div key={project.slug} data-card>
