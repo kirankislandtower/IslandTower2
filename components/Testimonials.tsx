@@ -11,6 +11,7 @@ export default function Testimonials() {
     { value: t('stat2Value'), label: t('stat2Label') },
     { value: t('stat3Value'), label: t('stat3Label') },
     { value: t('stat4Value'), label: t('stat4Label') },
+    { value: t('stat5Value'), label: t('stat5Label') },
   ];
 
   return (
@@ -32,10 +33,13 @@ export default function Testimonials() {
           <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-2xl">
             {t('headline')}
           </h2>
+          <p className="text-muted-foreground text-sm md:text-base mt-4 max-w-xl">
+            {t('subheadline')}
+          </p>
         </motion.div>
 
         {/* Stats */}
-        <div className="bg-muted rounded-sm p-8 md:p-12 grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="bg-muted rounded-sm p-8 md:p-12 grid grid-cols-2 md:grid-cols-5 gap-10">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
@@ -43,7 +47,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: '0px 0px -60px 0px' }}
               transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-              className="text-center"
+              className={`text-center ${idx === 4 ? 'col-span-2 md:col-span-1' : ''}`}
             >
               <div className="font-mono text-3xl md:text-4xl text-accent font-light mb-2 whitespace-nowrap">{stat.value}</div>
               <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground">{stat.label}</div>

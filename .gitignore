@@ -33,6 +33,12 @@ yarn-error.log*
 # internal reference documents - not meant to be served publicly
 /public/content/
 
+# backup archive of the old islandtoweruae.ae site's full content (all sectors,
+# including sister-company pages out of scope for this site) - kept locally
+# as a safety net before the domain's old hosting is disconnected, not part
+# of this site's build or design
+/content-archive/
+
 
 # typescript
 *.tsbuildinfo

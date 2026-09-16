@@ -69,7 +69,7 @@ export async function generateMetadata({
     applicationName: siteName,
     authors: [{ name: siteName }],
     icons: {
-      icon: "https://www.islandtoweruae.ae/images/favicon.png",
+      icon: "/images/favicon.png",
     },
     alternates: {
       canonical: isAr ? "/ar" : "/",
@@ -118,7 +118,7 @@ const organizationJsonLd = {
   alternateName: "Island Tower",
   url: siteUrl,
   logo: `${siteUrl}/images/logo/island-tower-logo-full.png`,
-  image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
+  image: `${siteUrl}/images/site/large-diameter-pipe-install.jpg`,
   description: siteDescription,
   telephone: "+971-4-257-3677",
   email: "info@islandtoweruae.ae",

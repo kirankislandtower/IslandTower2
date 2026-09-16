@@ -10,6 +10,7 @@ import Platform from '@/components/Platform';
 import Industries from '@/components/Industries';
 import Projects from '@/components/Projects';
 import InsightsPreview from '@/components/InsightsPreview';
+import CareersTeaser from '@/components/CareersTeaser';
 import Testimonials from '@/components/Testimonials';
 import ClientLogos from '@/components/ClientLogos';
 import Footer from '@/components/Footer';
@@ -23,13 +24,14 @@ export default function Home() {
       <Header onDemoClick={() => setShowDemoModal(true)} />
       <Hero />
       <WhatWeDo />
+      <ClientLogos />
       <Solutions />
       <Platform />
       <Industries />
       <Projects />
       <InsightsPreview />
+      <CareersTeaser />
       <Testimonials />
-      <ClientLogos />
       <Footer onDemoClick={() => setShowDemoModal(true)} />
       <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </>

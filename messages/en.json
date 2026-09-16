@@ -36,12 +36,12 @@
   "Hero": {
     "eyebrow": "Our Expertise",
     "revealHeadline": "Pioneers of the chilled water flushing industry in the UAE, delivering comprehensive MEP and district cooling services for major projects.",
-    "title": "Excellence in Electro-Mechanical Engineering",
-    "subtitle": "Island Tower Electro Mechanical Works LLC is a leading provider of MEP, district cooling, and chilled water flushing solutions in Dubai and Saudi Arabia.",
+    "title": "Leading Infrastructure Contractor",
+    "subtitle": "Island Tower is building the future by being a leading infrastructure contractor.",
     "slide2Title": "Pioneers in Chilled Water Flushing",
     "slide2Subtitle": "Island Tower leads the industry in chilled water system technologies, providing comprehensive flushing and treatment services that enhance system efficiency and longevity.",
-    "slide3Title": "Engineering Tomorrow's Solutions Today",
-    "slide3Subtitle": "Island Tower is at the forefront of transforming the electromechanical industry through innovation in MEP, district cooling, and chilled water technologies, paving the way to an innovative future.",
+    "slide3Title": "Engineering Tomorrow's Future Today",
+    "slide3Subtitle": "Island Tower is at the forefront of transforming the industry through innovation in Electromechanical, Civil and MEP contracting, paving the way to an innovative future.",
     "energySolutions": "Energy Solutions",
     "dubaiMunicipality": "Dubai Municipality"
   },
@@ -156,6 +156,7 @@
   "TrackRecord": {
     "eyebrow": "Track Record",
     "headline": "Two decades of work that speaks for itself",
+    "subheadline": "An industry leader in providing integrated solutions across multiple sectors.",
     "stat1Value": "500+",
     "stat1Label": "Projects Completed",
     "stat2Value": "90%",
@@ -163,11 +164,19 @@
     "stat3Value": "20+",
     "stat3Label": "Years in Operation",
     "stat4Value": "RTA + DM",
-    "stat4Label": "Approved Contractor"
+    "stat4Label": "Approved Contractor",
+    "stat5Value": "AED 500M+",
+    "stat5Label": "Turnover"
   },
   "ClientLogos": {
     "eyebrow": "Clients",
     "headline": "Trusted by leading organizations"
+  },
+  "CareersTeaser": {
+    "eyebrow": "Careers",
+    "headline": "Build your career in electromechanical engineering.",
+    "subtitle": "We're always looking for experienced engineers and site professionals ready to work on major MEP and district cooling projects across the UAE and Saudi Arabia.",
+    "cta": "Explore Careers"
   },
   "AboutPage": {
     "eyebrow": "About Island Tower",

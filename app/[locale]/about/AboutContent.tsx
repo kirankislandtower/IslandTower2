@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import MilestoneCarousel from '@/components/MilestoneCarousel';
+import CapabilitiesCarousel from '@/components/CapabilitiesCarousel';
 import { useParallax } from '@/hooks/useParallax';
 
 export default function AboutContent() {
@@ -40,10 +41,10 @@ export default function AboutContent() {
   ];
 
   const capabilities = [
-    { title: t('capability1Title'), description: t('capability1Desc') },
-    { title: t('capability2Title'), description: t('capability2Desc') },
-    { title: t('capability3Title'), description: t('capability3Desc') },
-    { title: t('capability4Title'), description: t('capability4Desc') },
+    { title: t('capability1Title'), description: t('capability1Desc'), image: '/images/site/pump-room-team.jpg' },
+    { title: t('capability2Title'), description: t('capability2Desc'), image: '/images/projects/tecom-mechanical-room.jpg' },
+    { title: t('capability3Title'), description: t('capability3Desc'), image: '/images/site/excavation-team-trench.jpg' },
+    { title: t('capability4Title'), description: t('capability4Desc'), image: '/images/projects/jvt-tank-installation.jpg' },
   ];
 
   return (
@@ -162,31 +163,7 @@ export default function AboutContent() {
             </h2>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {capabilities.map((capability, idx) => (
-              <motion.div
-                key={capability.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
-                whileHover={{ y: -4 }}
-                className="bg-background border border-border rounded-2xl p-8 transition-shadow hover:shadow-lg"
-              >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                  transition={{ delay: idx * 0.1 + 0.15, type: 'spring', stiffness: 260, damping: 16 }}
-                  className="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center font-mono text-sm mb-5"
-                >
-                  0{idx + 1}
-                </motion.div>
-                <h3 className="text-lg text-foreground font-medium mb-3">{capability.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{capability.description}</p>
-              </motion.div>
-            ))}
-          </div>
+          <CapabilitiesCarousel capabilities={capabilities} />
         </div>
       </section>
 
