@@ -29,9 +29,9 @@ export default function Solutions() {
           className="md:col-span-4 flex flex-col items-start relative"
         >
           <div className="md:sticky md:top-32 w-full">
-            <h2 className="text-6xl md:text-7xl text-foreground font-normal tracking-tight mb-6 flex items-start">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl text-foreground font-normal tracking-tight mb-6 flex items-start">
               {t('heading')}
-              <sup className="text-2xl md:text-3xl mt-4 ms-1 font-light text-muted-foreground">7</sup>
+              <sup className="text-lg sm:text-xl md:text-3xl mt-2 sm:mt-4 ms-1 font-light text-muted-foreground">7</sup>
             </h2>
             <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed max-w-sm">
               {t('description')}
@@ -71,7 +71,7 @@ export default function Solutions() {
                 </div>
 
                 {/* Hover Image */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-48 h-64 md:w-56 md:h-72 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-2xl">
+                <div className="absolute end-0 top-1/2 -translate-y-1/2 z-10 w-48 h-64 md:w-56 md:h-72 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-2xl">
                   <img
                     src={item.image}
                     alt={item.title}

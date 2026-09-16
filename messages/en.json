@@ -389,7 +389,9 @@
     "projectReference": "Project Reference (optional)",
     "projectReferencePlaceholder": "e.g. project name or contract number",
     "requestReceived": "Request received",
-    "requestReceivedDesc": "Our team will verify your project details and follow up with portal access within one business day."
+    "requestReceivedDesc": "Our team will verify your project details and follow up with portal access within one business day.",
+    "sending": "Sending...",
+    "formError": "Something went wrong. Please try again, or email us directly at info@islandtoweruae.ae."
   },
   "NewsPage": {
     "eyebrow": "Insights",

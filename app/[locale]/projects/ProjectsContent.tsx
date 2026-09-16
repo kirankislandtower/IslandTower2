@@ -129,7 +129,7 @@ export default function ProjectsContent() {
       </section>
 
       {/* Filter Bar */}
-      <section className="bg-card w-full border-b border-border sticky top-0 z-30 backdrop-blur-md bg-card/95">
+      <section className="bg-card w-full border-b border-border sticky top-24 z-30 backdrop-blur-md bg-card/95">
         <div className="max-w-[1400px] mx-auto px-6 py-5 flex gap-3 overflow-x-auto no-scrollbar">
           {CATEGORY_KEYS.map((cat) => (
             <button

@@ -11,6 +11,8 @@ export default function PortalContent() {
   const t = useTranslations('PortalPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   const features = [
     {
@@ -152,9 +154,33 @@ export default function PortalContent() {
                 </p>
 
                 <form
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    setSubmitted(true);
+                    setSubmitting(true);
+                    setError(false);
+                    const formData = new FormData(e.currentTarget);
+                    const company = formData.get('company');
+                    const projectReference = formData.get('projectReference');
+                    try {
+                      const res = await fetch('/api/inquiry', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          formType: 'portal',
+                          name: formData.get('name'),
+                          email: formData.get('email'),
+                          company,
+                          projectReference,
+                          message: `Client portal access request.\nCompany: ${company}\nProject reference: ${projectReference || 'Not provided'}`,
+                        }),
+                      });
+                      if (!res.ok) throw new Error('Request failed');
+                      setSubmitted(true);
+                    } catch {
+                      setError(true);
+                    } finally {
+                      setSubmitting(false);
+                    }
                   }}
                   className="flex flex-col gap-5"
                 >
@@ -164,6 +190,7 @@ export default function PortalContent() {
                     </label>
                     <input
                       id="portal-name"
+                      name="name"
                       type="text"
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -176,6 +203,7 @@ export default function PortalContent() {
                     </label>
                     <input
                       id="portal-email"
+                      name="email"
                       type="email"
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -188,6 +216,7 @@ export default function PortalContent() {
                     </label>
                     <input
                       id="portal-company"
+                      name="company"
                       type="text"
                       required
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
@@ -200,17 +229,25 @@ export default function PortalContent() {
                     </label>
                     <input
                       id="portal-project"
+                      name="projectReference"
                       type="text"
                       placeholder={t('projectReferencePlaceholder')}
                       className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                     />
                   </div>
 
+                  {error && (
+                    <p className="text-sm text-red-600" role="alert">
+                      {t('formError')}
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+                    disabled={submitting}
+                    className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    {t('requestAccess')}
+                    {submitting ? t('sending') : t('requestAccess')}
                   </button>
                 </form>
               </>

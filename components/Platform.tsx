@@ -76,7 +76,7 @@ export default function Platform() {
             <div className="w-2 h-2 bg-accent" />
             <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
           </div>
-          <h2 className="text-5xl md:text-7xl text-foreground font-normal tracking-tight leading-[1.1]">
+          <h2 className="text-3xl sm:text-5xl md:text-7xl text-foreground font-normal tracking-tight leading-[1.1]">
             {t('headline1')}<br />{t('headline2')}
           </h2>
         </motion.div>
