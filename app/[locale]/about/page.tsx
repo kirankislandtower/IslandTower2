@@ -8,6 +8,8 @@ const ogImage = {
   alt: 'Island Tower — About Us',
 };
 
+const FOUNDED_YEAR = 1997;
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,14 +17,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const isAr = locale === 'ar';
+  const years = new Date().getFullYear() - FOUNDED_YEAR;
 
   const title = isAr ? 'من نحن' : 'About Us';
   const description = isAr
-    ? 'أمضت شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م أكثر من 15 عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في الإمارات العربية المتحدة والمملكة العربية السعودية.'
-    : "Island Tower Electro Mechanical Works LLC has spent over 15 years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia. Learn our story, values, and track record.";
+    ? `أمضت شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م أكثر من ${years} عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في الإمارات العربية المتحدة والمملكة العربية السعودية.`
+    : `Island Tower Electro Mechanical Works LLC has spent over ${years} years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia. Learn our story, values, and track record.`;
   const ogDescription = isAr
-    ? 'جزيرة البرج للأعمال الكهروميكانيكية — أكثر من 15 عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية.'
-    : 'Island Tower Electro Mechanical Works LLC — 15+ years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia.';
+    ? `جزيرة البرج للأعمال الكهروميكانيكية — أكثر من ${years} عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية.`
+    : `Island Tower Electro Mechanical Works LLC — ${years}+ years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia.`;
 
   return {
     title,

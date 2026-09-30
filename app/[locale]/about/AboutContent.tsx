@@ -11,13 +11,16 @@ import MilestoneCarousel from '@/components/MilestoneCarousel';
 import CapabilitiesCarousel from '@/components/CapabilitiesCarousel';
 import { useParallax } from '@/hooks/useParallax';
 
+const FOUNDED_YEAR = 1997;
+
 export default function AboutContent() {
   const t = useTranslations('AboutPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
   const { ref: storyImgRef, y: storyImgY } = useParallax(28);
+  const yearsInOperation = new Date().getFullYear() - FOUNDED_YEAR;
 
   const stats = [
-    { value: '20+', label: t('stat1') },
+    { value: `${yearsInOperation}+`, label: t('stat1') },
     { value: '500+', label: t('stat2') },
     { value: '2', label: t('stat3') },
     { value: 'ISO 9001:2015', label: t('stat4') },
@@ -212,15 +215,9 @@ export default function AboutContent() {
                 </div>
               </div>
 
-              <motion.div
-                initial={{ scale: 0, rotate: -15 }}
-                whileInView={{ scale: 1, rotate: 0 }}
-                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-                transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 14 }}
-                className="text-accent text-5xl font-serif leading-none mb-6"
-              >
+              <div className="text-accent text-5xl font-serif leading-none mb-6">
                 &ldquo;
-              </motion.div>
+              </div>
               <p className="text-foreground text-base leading-relaxed mb-6">{t('chairmanQuote')}</p>
               <p className="text-muted-foreground text-sm leading-relaxed mt-auto pt-6 border-t border-border">{t('chairmanBio')}</p>
             </motion.div>

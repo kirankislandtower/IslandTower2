@@ -28,8 +28,9 @@ const mulishHeading = Mulish({
 
 const siteUrl = "https://www.islandtoweruae.ae";
 const siteName = "Island Tower Electro Mechanical Works LLC";
-const siteDescription =
-  "Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. 20+ years delivering EPC projects across the region.";
+const FOUNDED_YEAR = 1997;
+const yearsInOperation = new Date().getFullYear() - FOUNDED_YEAR;
+const siteDescription = `Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. ${yearsInOperation}+ years delivering EPC projects across the region.`;
 const siteDescriptionAr =
   "شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م رائدة في تقديم حلول البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في دبي والإمارات العربية المتحدة والمملكة العربية السعودية.";
 

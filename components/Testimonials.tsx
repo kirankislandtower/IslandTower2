@@ -3,13 +3,16 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+const FOUNDED_YEAR = 1997;
+
 export default function Testimonials() {
   const t = useTranslations('TrackRecord');
+  const yearsInOperation = new Date().getFullYear() - FOUNDED_YEAR;
 
   const stats = [
     { value: t('stat1Value'), label: t('stat1Label') },
     { value: t('stat2Value'), label: t('stat2Label') },
-    { value: t('stat3Value'), label: t('stat3Label') },
+    { value: `${yearsInOperation}+`, label: t('stat3Label') },
     { value: t('stat4Value'), label: t('stat4Label') },
     { value: t('stat5Value'), label: t('stat5Label') },
   ];
