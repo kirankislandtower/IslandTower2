@@ -108,6 +108,9 @@ export async function generateMetadata({
         "max-image-preview": "large",
       },
     },
+    verification: {
+      google: "v0oE5QPx6QRUXWnzxFNK3-RchOl5LFJUoUe8vR03qBk",
+    },
   };
 }
 
