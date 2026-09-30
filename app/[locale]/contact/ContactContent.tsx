@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
@@ -78,10 +79,13 @@ export default function ContactContent() {
 
       {/* Hero */}
       <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2500&auto=format&fit=crop"
           alt="Engineering team reviewing plans"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
 

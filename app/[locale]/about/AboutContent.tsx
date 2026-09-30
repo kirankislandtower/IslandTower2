@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
@@ -53,10 +54,13 @@ export default function AboutContent() {
 
       {/* Hero */}
       <section className="relative min-h-[85vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2500&auto=format&fit=crop"
           alt="City skyline"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
 
@@ -111,12 +115,15 @@ export default function AboutContent() {
             ref={storyImgRef}
             className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-muted"
           >
-            <motion.img
-              src="/images/site/excavation-team-trench.jpg"
-              alt="Island Tower site team"
-              style={{ y: storyImgY, scale: 1.15 }}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            <motion.div style={{ y: storyImgY, scale: 1.15 }} className="absolute inset-0 w-full h-full">
+              <Image
+                src="/images/site/excavation-team-trench.jpg"
+                alt="Island Tower site team"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -190,11 +197,15 @@ export default function AboutContent() {
               className="bg-card border border-border rounded-2xl p-8 md:p-10 flex flex-col"
             >
               <div className="flex items-center gap-5 mb-6">
-                <img
-                  src="/images/team/sasikumar-chairman.png"
-                  alt={t('chairmanName')}
-                  className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover shrink-0"
-                />
+                <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden shrink-0">
+                  <Image
+                    src="/images/team/sasikumar-chairman.png"
+                    alt={t('chairmanName')}
+                    fill
+                    sizes="112px"
+                    className="object-cover"
+                  />
+                </div>
                 <div>
                   <div className="text-foreground font-medium">{t('chairmanName')}</div>
                   <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground mt-1">{t('chairmanTitle')}</div>

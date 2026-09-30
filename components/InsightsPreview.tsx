@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -92,17 +93,23 @@ export default function InsightsPreview() {
           {/* Image */}
           <div ref={parallaxRef} className="relative w-full aspect-[4/3] md:aspect-square overflow-hidden bg-card rounded-sm">
             <AnimatePresence initial={false} mode="wait">
-              <motion.img
+              <motion.div
                 key={current.image}
-                src={current.image}
-                alt={current.title}
                 initial={{ opacity: 0, x: direction * 16 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: direction * -16 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 style={{ y: parallaxY, scale: 1.15 }}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+                className="absolute inset-0 w-full h-full"
+              >
+                <Image
+                  src={current.image}
+                  alt={current.title}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </motion.div>
             </AnimatePresence>
           </div>
 

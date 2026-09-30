@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -136,15 +137,21 @@ export default function Platform() {
             className="relative w-full aspect-[4/3] lg:aspect-square rounded-3xl overflow-hidden shadow-2xl bg-muted lg:sticky lg:top-32"
           >
             {features.map((feature, idx) => (
-              <motion.img
+              <motion.div
                 key={idx}
-                src={feature.image}
-                alt={feature.title}
                 style={{ y: parallaxY, scale: 1.15 }}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+                className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
                   activeTab === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
-              />
+              >
+                <Image
+                  src={feature.image}
+                  alt={feature.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </motion.div>
             ))}
           </motion.div>
 

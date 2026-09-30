@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
 
-  const validTypes = ['quote', 'contact', 'careers', 'portal'] as const;
+  const validTypes = ['quote', 'contact', 'careers'] as const;
   const formType = validTypes.includes(body.formType as typeof validTypes[number])
     ? (body.formType as typeof validTypes[number])
     : 'contact';
@@ -51,7 +51,6 @@ export async function POST(request: Request) {
     quote: `New quote request from ${name}`,
     contact: `New contact form message from ${name}`,
     careers: `New career application from ${name}`,
-    portal: `New client portal access request from ${name}`,
   };
   const subject = subjectByType[formType];
 
@@ -59,14 +58,12 @@ export async function POST(request: Request) {
     quote: 'New Quote Request',
     contact: 'New Contact Message',
     careers: 'New Career Application',
-    portal: 'New Client Portal Access Request',
   };
 
   const messageLabelByType: Record<typeof validTypes[number], string> = {
     quote: 'Message',
     contact: 'Message',
     careers: 'Relevant Experience',
-    portal: 'Message',
   };
 
   const rows = [

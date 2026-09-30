@@ -53,7 +53,6 @@ export default function Footer({ onDemoClick }: FooterProps) {
             <Link href="/projects" className="hover:text-accent transition-colors focus-ring">{t('projects')}</Link>
             <Link href="/news" className="hover:text-accent transition-colors focus-ring">{t('insights')}</Link>
             <Link href="/careers" className="hover:text-accent transition-colors focus-ring">{t('careers')}</Link>
-            <Link href="/portal" className="hover:text-accent transition-colors focus-ring">{t('clientPortal')}</Link>
           </div>
 
           {/* Column 3 */}

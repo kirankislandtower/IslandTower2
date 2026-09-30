@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useParallax } from '@/hooks/useParallax';
@@ -49,11 +50,13 @@ export default function WhatWeDo() {
           this section's top edge enters the viewport - filling what would
           otherwise be a truly blank pause with a subtle branded presence
           instead, with no fragile scroll-position math involved. */}
-      <img
+      <Image
         src="/images/logo/island-tower-logo-full.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] md:w-[640px] max-w-none opacity-[0.05] mix-blend-multiply"
+        width={1654}
+        height={1400}
+        className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] md:w-[640px] h-auto max-w-none opacity-[0.05] mix-blend-multiply"
       />
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* No entrance animation here on purpose: the hero's shrink-reveal
@@ -80,15 +83,21 @@ export default function WhatWeDo() {
           className="relative w-full h-[600px] rounded-xl overflow-hidden bg-black shadow-2xl"
         >
           {tabs.map((tab) => (
-            <motion.img
+            <motion.div
               key={tab.id}
-              src={tab.image}
-              alt={tab.title}
               style={{ y: parallaxY, scale: 1.15 }}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
                 activeTab === tab.id ? 'opacity-100' : 'opacity-0'
               }`}
-            />
+            >
+              <Image
+                src={tab.image}
+                alt={tab.title}
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+            </motion.div>
           ))}
 
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/90 pointer-events-none" />

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
@@ -47,12 +48,14 @@ export default function ClientLogos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: '0px 0px -60px 0px' }}
               transition={{ duration: 0.4, delay: (idx % 6) * 0.05, ease: 'easeOut' }}
-              className="flex items-center justify-center h-24"
+              className="relative flex items-center justify-center h-24"
             >
-              <img
+              <Image
                 src={`/images/clients/${logo.file}.jpg`}
                 alt={logo.name}
-                className="max-h-20 max-w-full object-contain"
+                fill
+                sizes="150px"
+                className="object-contain p-2"
               />
             </motion.div>
           ))}

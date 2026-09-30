@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -43,17 +44,23 @@ function SectorCard({ item, idx }: { item: { title: string; image: string; slug:
         ref={parallaxRef}
         className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
       >
-        <motion.img
-          src={item.image}
-          alt={item.title}
+        <motion.div
           initial={{ scale: 1.4 }}
           whileInView={{ scale: 1.15 }}
           whileHover={{ scale: 1.22 }}
           viewport={{ once: false, margin: "0px 0px -60px 0px" }}
           transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
           style={{ y: parallaxY }}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+          className="absolute inset-0 w-full h-full"
+        >
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            sizes="(min-width: 768px) 25vw, 50vw"
+            className="object-cover"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
 
         <motion.span

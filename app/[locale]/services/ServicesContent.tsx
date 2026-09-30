@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
@@ -30,12 +31,18 @@ function ServiceCard({ service, idx }: { service: { num: string; title: string; 
       className="group relative flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/40 transition-colors"
     >
       <div ref={parallaxRef} className="relative aspect-[16/10] overflow-hidden">
-        <motion.img
-          src={service.image}
-          alt={service.title}
+        <motion.div
           style={{ y: parallaxY, scale: 1.15 }}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.22]"
-        />
+          className="absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-[1.22]"
+        >
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <span className="absolute top-4 start-4 font-mono text-white text-xs tracking-widest">{service.num}</span>
       </div>
@@ -116,10 +123,13 @@ export default function ServicesContent() {
 
       {/* Hero */}
       <section className="relative min-h-[70vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2500&auto=format&fit=crop"
           alt="MEP engineering works on site"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
 

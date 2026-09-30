@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -31,12 +32,15 @@ function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number 
         ref={parallaxRef}
         className={`relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl ${isEven ? 'md:order-1' : 'md:order-2'}`}
       >
-        <motion.img
-          src={project.image}
-          alt={project.title}
-          style={{ y: parallaxY, scale: 1.15 }}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <motion.div style={{ y: parallaxY, scale: 1.15 }} className="absolute inset-0 w-full h-full">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </motion.div>
         <span className="absolute top-5 start-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
           0{idx + 1}
         </span>
@@ -102,10 +106,13 @@ export default function ProjectsContent() {
 
       {/* Hero */}
       <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2500&auto=format&fit=crop"
           alt="Island Tower project site"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
 

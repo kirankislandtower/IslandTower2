@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -9,10 +10,12 @@ export default function CareersTeaser() {
 
   return (
     <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-      <img
+      <Image
         src="/images/site/pump-room-team.jpg"
         alt="Island Tower site team"
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
+        fill
+        sizes="100vw"
+        className="object-cover opacity-40"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-[#111]/70 via-[#111]/60 to-[#111]" />
 

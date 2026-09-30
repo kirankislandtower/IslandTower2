@@ -41,6 +41,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articles.map((a) => entry(`/news/${a.slug}`, 'yearly', 0.5, a.date)),
     entry('/contact', 'monthly', 0.7, now),
     entry('/careers', 'monthly', 0.5, now),
-    entry('/portal', 'yearly', 0.4, now),
   ];
 }

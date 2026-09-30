@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
@@ -60,10 +61,12 @@ export default function CircularGallery({ items, activeIndex }: CircularGalleryP
             >
               <div className="group relative h-full w-full">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl mb-5">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="270px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <span className="absolute top-4 start-4 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
                     0{i + 1}

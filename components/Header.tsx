@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
@@ -55,15 +56,21 @@ export default function Header({ onDemoClick }: HeaderProps) {
       >
         {/* Logo */}
         <Link href="/" className="relative flex items-center hover:opacity-80 transition-opacity">
-          <img
+          <Image
             src="/images/logo/island-tower-logo-dark.png"
             alt="Island Tower Logo"
+            width={267}
+            height={39}
+            priority
             className={`h-4 md:h-5 w-auto object-contain transition-opacity duration-300 ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
           />
-          <img
+          <Image
             src="/images/logo/island-tower-logo.png"
             alt=""
             aria-hidden="true"
+            width={267}
+            height={39}
+            priority
             className={`absolute inset-0 h-4 md:h-5 w-auto object-contain transition-opacity duration-300 ${isScrolled ? 'opacity-0' : 'opacity-100'}`}
           />
         </Link>
@@ -94,13 +101,6 @@ export default function Header({ onDemoClick }: HeaderProps) {
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-4">
           <LocaleSwitcher isScrolled={isScrolled} />
-          <Link
-            href="/portal"
-            className={`transition-colors text-xs font-mono font-medium tracking-widest uppercase px-4 py-2 rounded-[6px] focus-ring ${isScrolled ? 'text-gray-700 hover:text-black bg-black/5 hover:bg-black/10' : 'text-gray-300 hover:text-white bg-white/5 hover:bg-white/10'
-              }`}
-          >
-            {t('clientPortal')}
-          </Link>
           <button
             className="bg-accent text-on-accent hover:bg-accent/90 transition-colors px-5 py-2.5 rounded-[6px] text-xs font-mono font-medium tracking-widest uppercase cursor-pointer focus-ring"
             onClick={onDemoClick}

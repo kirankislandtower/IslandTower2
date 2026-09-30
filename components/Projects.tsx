@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -20,10 +21,12 @@ function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number 
     >
       <Link href={`/projects/${project.slug}`} className="group block focus-ring rounded-2xl">
         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mb-5">
-          <img
+          <Image
             src={project.image}
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(min-width: 768px) 380px, 300px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <span className="absolute top-5 start-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
             0{idx + 1}

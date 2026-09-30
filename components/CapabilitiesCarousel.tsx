@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export interface Capability {
@@ -76,7 +77,7 @@ function CapabilityCard({ capability, idx, className }: { capability: Capability
   return (
     <div className={`shrink-0 ${className}`}>
       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mb-5">
-        <img src={capability.image} alt={capability.title} className="absolute inset-0 w-full h-full object-cover" />
+        <Image src={capability.image} alt={capability.title} fill sizes="(min-width: 1024px) 36vw, (min-width: 640px) 55vw, 82vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
         <span className="absolute top-4 start-4 font-mono text-white text-xs tracking-widest bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
           0{idx + 1}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -26,10 +27,13 @@ export default function NewsContent() {
 
       {/* Hero */}
       <section className="relative min-h-[50vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2500&auto=format&fit=crop"
           alt="Engineering documents and blueprints"
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
 
@@ -63,10 +67,12 @@ export default function NewsContent() {
           >
             <Link href={`/news/${featured.slug}`} className="group grid md:grid-cols-2 gap-8 md:gap-16 items-center focus-ring rounded-2xl">
               <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-xl">
-                <img
+                <Image
                   src={featured.image}
                   alt={featured.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div>
@@ -102,10 +108,12 @@ export default function NewsContent() {
               >
                 <Link href={`/news/${article.slug}`} className="group flex flex-col h-full bg-background border border-border rounded-2xl overflow-hidden hover:border-accent/40 transition-colors focus-ring">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
+                    <Image
                       src={article.image}
                       alt={article.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-1">

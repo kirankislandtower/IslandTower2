@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
@@ -43,10 +44,13 @@ export default function ArticleContent({ article }: { article: LocalizedArticle 
 
       {/* Hero */}
       <section className="relative min-h-[60vh] w-full flex flex-col justify-end overflow-hidden bg-[#111]">
-        <img
+        <Image
           src={article.image}
           alt={article.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/60 via-[#111]/40 to-[#111]" />
 
@@ -192,10 +196,12 @@ export default function ArticleContent({ article }: { article: LocalizedArticle 
                 href={`/news/${a.slug}`}
                 className="group relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg focus-ring"
               >
-                <img
+                <Image
                   src={a.image}
                   alt={a.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-0 start-0 end-0 p-6">

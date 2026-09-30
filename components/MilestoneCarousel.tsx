@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface Milestone {
@@ -121,10 +122,12 @@ export default function MilestoneCarousel({ milestones }: MilestoneCarouselProps
                 transition={{ type: 'spring', stiffness: 260, damping: 25, mass: 0.8 }}
                 className="absolute inset-0 rounded-2xl overflow-hidden border-4 border-background bg-background origin-center shadow-2xl"
               >
-                <img
+                <Image
                   src={m.image}
                   alt={`${m.year} — ${m.text}`}
-                  className={`w-full h-full object-cover transition-all duration-700 ${
+                  fill
+                  sizes="440px"
+                  className={`object-cover transition-all duration-700 ${
                     isActive ? 'grayscale-0 blur-0' : 'grayscale blur-[2px] brightness-75'
                   }`}
                 />
