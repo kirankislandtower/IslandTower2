@@ -11,7 +11,7 @@ import MilestoneCarousel from '@/components/MilestoneCarousel';
 import CapabilitiesCarousel from '@/components/CapabilitiesCarousel';
 import { useParallax } from '@/hooks/useParallax';
 
-const FOUNDED_YEAR = 1997;
+const FOUNDED_YEAR = 2003;
 
 export default function AboutContent() {
   const t = useTranslations('AboutPage');

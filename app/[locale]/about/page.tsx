@@ -8,7 +8,7 @@ const ogImage = {
   alt: 'Island Tower — About Us',
 };
 
-const FOUNDED_YEAR = 1997;
+const FOUNDED_YEAR = 2003;
 
 export async function generateMetadata({
   params,

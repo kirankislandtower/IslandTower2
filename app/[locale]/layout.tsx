@@ -28,7 +28,7 @@ const mulishHeading = Mulish({
 
 const siteUrl = "https://www.islandtoweruae.ae";
 const siteName = "Island Tower Electro Mechanical Works LLC";
-const FOUNDED_YEAR = 1997;
+const FOUNDED_YEAR = 2003;
 const yearsInOperation = new Date().getFullYear() - FOUNDED_YEAR;
 const siteDescription = `Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. ${yearsInOperation}+ years delivering EPC projects across the region.`;
 const siteDescriptionAr =

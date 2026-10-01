@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
-const FOUNDED_YEAR = 1997;
+const FOUNDED_YEAR = 2003;
 
 export default function Testimonials() {
   const t = useTranslations('TrackRecord');
