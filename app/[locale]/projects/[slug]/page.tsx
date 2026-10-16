@@ -21,10 +21,14 @@ export async function generateMetadata({
   const title = isAr ? `${project.title} — دراسة حالة` : `${project.title} — Case Study`;
   const description = project.description;
   const ogImage = { url: project.image, width: 1200, height: 630, alt: project.title };
+  const keywords = isAr
+    ? [project.title, `${project.category} دبي`, project.location, 'مقاول EPC جزيرة البرج']
+    : [project.title, `${project.category} Dubai`, project.location, 'Island Tower EPC contractor', 'district cooling project UAE'];
 
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: {
       type: 'article',

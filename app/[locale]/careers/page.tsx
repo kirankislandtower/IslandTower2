@@ -24,9 +24,14 @@ export async function generateMetadata({
     ? 'ابنِ مسيرتك المهنية مع جزيرة البرج — نوظف مهندسين ومختصين ميدانيين في تخصصات متعددة.'
     : 'Build your career with Island Tower — hiring engineers and site professionals across MEP, infrastructure, civil works, and energy & water disciplines.';
 
+  const keywords = isAr
+    ? ['وظائف هندسة كهروميكانيكية دبي', 'وظائف مهندسين الإمارات', 'وظائف قطاع المقاولات دبي', 'التوظيف في جزيرة البرج']
+    : ['MEP jobs Dubai', 'engineering careers UAE', 'construction jobs Dubai', 'electromechanical jobs UAE', 'Island Tower careers'];
+
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: isAr ? '/ar/careers' : '/careers' },
     openGraph: {
       type: 'website',

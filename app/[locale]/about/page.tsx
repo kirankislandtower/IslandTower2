@@ -27,9 +27,14 @@ export async function generateMetadata({
     ? `جزيرة البرج للأعمال الكهروميكانيكية — أكثر من ${years} عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية.`
     : `Island Tower Electro Mechanical Works LLC — ${years}+ years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia.`;
 
+  const keywords = isAr
+    ? ['عن جزيرة البرج', 'مقاول كهروميكانيكي معتمد من هيئة الطرق والمواصلات', 'شركة جزيرة البرج للأعمال الكهروميكانيكية', 'مقاول معتمد من بلدية دبي', `${years} عاماً من الخبرة`, 'تاريخ شركة المقاولات']
+    : ['Island Tower Electro Mechanical Works LLC', 'RTA approved contractor Dubai', 'Dubai Municipality approved contractor', 'ISO 9001 MEP contractor UAE', `${years}+ years MEP contractor`, 'about Island Tower'];
+
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: isAr ? '/ar/about' : '/about' },
     openGraph: {
       type: 'website',

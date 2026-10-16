@@ -24,9 +24,14 @@ export async function generateMetadata({
     ? 'الهندسة الكهروميكانيكية والبنية التحتية والأعمال المدنية والمنشآت الكيميائية ومعالجة المياه وحلول الطاقة والبحث والتطوير — منفذة عبر الإمارات والسعودية.'
     : 'MEP engineering, infrastructure, civil works, chemical facilities, water treatment, energy solutions, and R&D — delivered across the UAE and Saudi Arabia.';
 
+  const keywords = isAr
+    ? ['خدمات الهندسة الكهروميكانيكية دبي', 'تنظيف خطوط المياه المبردة', 'مقاول تبريد مركزي دبي', 'خدمات الأعمال المدنية الإمارات', 'الجودة والصحة والسلامة في المقاولات']
+    : ['MEP services Dubai', 'chilled water flushing services UAE', 'district cooling piping installation', 'civil engineering services UAE', 'HSE compliant contractor Dubai', 'sustainable MEP contractor UAE'];
+
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: isAr ? '/ar/services' : '/services' },
     openGraph: {
       type: 'website',

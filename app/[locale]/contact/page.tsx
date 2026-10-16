@@ -24,9 +24,14 @@ export async function generateMetadata({
     ? 'تواصل مع شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م — مكاتبنا في دبي والرياض.'
     : 'Get in touch with Island Tower Electro Mechanical Works LLC — offices in Dubai, UAE and Riyadh, Saudi Arabia.';
 
+  const keywords = isAr
+    ? ['تواصل مع جزيرة البرج', 'مقاول كهروميكانيكي دبي', 'مكتب جزيرة البرج الرياض', 'طلب عرض سعر مقاولات']
+    : ['contact Island Tower', 'MEP contractor Dubai office', 'Island Tower Riyadh office', 'get a quote MEP contractor UAE'];
+
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: isAr ? '/ar/contact' : '/contact' },
     openGraph: {
       type: 'website',

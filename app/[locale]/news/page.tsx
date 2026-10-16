@@ -24,9 +24,14 @@ export async function generateMetadata({
     ? 'رؤى حول الهندسة الكهروميكانيكية والصحة والسلامة ومعالجة المياه وتنفيذ مشاريع EPC من فريق جزيرة البرج.'
     : 'Perspectives on MEP engineering, HSE, water treatment, and EPC delivery from the Island Tower team.';
 
+  const keywords = isAr
+    ? ['مقالات هندسة كهروميكانيكية', 'أخبار قطاع المقاولات الإمارات', 'رؤى تنفيذ مشاريع EPC', 'مدونة جزيرة البرج']
+    : ['MEP industry insights UAE', 'construction news Dubai', 'EPC delivery articles UAE', 'Island Tower blog'];
+
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: isAr ? '/ar/news' : '/news' },
     openGraph: {
       type: 'website',

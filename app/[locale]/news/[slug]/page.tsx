@@ -16,12 +16,17 @@ export async function generateMetadata({
   const raw = getArticleBySlug(slug);
   if (!raw) return {};
   const article = localizeArticle(raw, locale as Locale);
+  const isAr = locale === 'ar';
 
   const ogImage = { url: article.image, width: 1200, height: 630, alt: article.title };
+  const keywords = isAr
+    ? [article.title, `${article.category} الإمارات`, 'رؤى جزيرة البرج', 'مقالات هندسة كهروميكانيكية']
+    : [article.title, `${article.category} UAE`, 'Island Tower insights', 'MEP industry news'];
 
   return {
     title: article.title,
     description: article.excerpt,
+    keywords,
     alternates: { canonical: `/news/${article.slug}` },
     openGraph: {
       type: 'article',

@@ -12,6 +12,13 @@ export const metadata: Metadata = {
   title: 'Projects',
   description:
     'A cross-section of the engineering, procurement, and construction projects Island Tower has delivered across the UAE and Saudi Arabia — from MEP fit-outs to water treatment expansions.',
+  keywords: [
+    'EPC projects UAE',
+    'district cooling projects Dubai',
+    'MEP case studies UAE',
+    'chilled water network projects Dubai',
+    'Island Tower project portfolio',
+  ],
   alternates: { canonical: '/projects' },
   openGraph: {
     type: 'website',
