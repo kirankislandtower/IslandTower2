@@ -87,7 +87,7 @@ export default function Industries() {
   const industries = industryKeys.map((key, idx) => ({ title: t(key), image: industryImages[idx], slug: industrySlugs[idx] }));
 
   return (
-    <section id="industries" className="bg-background py-24 w-full scroll-mt-28">
+    <section id="industries" className="bg-background py-24 md:py-32 w-full scroll-mt-28">
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header */}

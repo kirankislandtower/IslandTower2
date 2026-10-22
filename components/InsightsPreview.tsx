@@ -48,7 +48,7 @@ export default function InsightsPreview() {
   const current = featured[currentIndex];
 
   return (
-    <section className="bg-background py-24 w-full">
+    <section className="bg-background py-24 md:py-32 w-full">
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header and Controls */}

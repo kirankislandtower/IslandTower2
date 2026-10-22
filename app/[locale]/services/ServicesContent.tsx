@@ -26,7 +26,7 @@ function ServiceCard({ service, idx }: { service: { num: string; title: string; 
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '0px 0px -80px 0px' }}
+      viewport={{ once: false, margin: '0px 0px -60px 0px' }}
       transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: 'easeOut' }}
       className="group relative flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:border-accent/40 transition-colors"
     >

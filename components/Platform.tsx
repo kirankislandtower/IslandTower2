@@ -62,7 +62,7 @@ export default function Platform() {
   ];
 
   return (
-    <section className="bg-card py-32 w-full" id="about">
+    <section className="bg-card py-24 md:py-32 w-full" id="about">
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Centered Header */}

@@ -18,7 +18,7 @@ export default function Solutions() {
   ];
 
   return (
-    <section className="bg-card py-32 w-full" id="expertise">
+    <section className="bg-card py-24 md:py-32 w-full" id="expertise">
       <div className="max-w-[1400px] mx-auto px-6 grid md:grid-cols-12 gap-12">
 
         {/* Left Column */}

@@ -78,7 +78,7 @@ export default function Projects() {
   };
 
   return (
-    <section className="bg-card py-32 w-full" id="projects">
+    <section className="bg-card py-24 md:py-32 w-full" id="projects">
       <div className="max-w-[1400px] mx-auto px-6">
 
         <div className="flex justify-between items-end mb-16 gap-6 flex-wrap">
