@@ -39,6 +39,11 @@ yarn-error.log*
 # of this site's build or design
 /content-archive/
 
+# company prequalification documents and similar internal records - contain
+# contract values, client relationships, and staff ID numbers, not for the
+# public repo
+/assets/
+
 
 # typescript
 *.tsbuildinfo
