@@ -44,6 +44,7 @@ export const industries: Industry[] = [
       ar: 'من المرافق على مستوى الموقع إلى المراكز اللوجستية والمنشآت المجاورة لقطاعات النقل، ننفذ البنية التحتية الأساسية التي تعتمد عليها المشاريع الكبرى والحكومية — بتنسيق عبر عدة مقاولين وعلى مراحل تضمن استمرار العمليات المجاورة دون انقطاع.',
     },
     capabilities: [
+      { en: 'Chilled water network infrastructure for the Al Shindagha Corridor, delivered for RTA', ar: 'بنية تحتية لشبكة المياه المبردة لممر الشندغة، منفذة لهيئة الطرق والمواصلات' },
       { en: 'Site-wide power, water, and drainage networks', ar: 'شبكات الكهرباء والمياه والصرف على مستوى الموقع' },
       { en: 'Utility coordination across multi-contractor sites', ar: 'تنسيق المرافق عبر المواقع متعددة المقاولين' },
       { en: 'Earthworks, roads, and site development', ar: 'أعمال الحفر والطرق وتطوير المواقع' },
@@ -92,6 +93,7 @@ export const industries: Industry[] = [
       ar: 'من المجمعات المؤسسية إلى الأبراج متعددة الاستخدامات، ننفذ الأعمال الإنشائية والمدنية وأعمال التجهيز الكهروميكانيكي وفق معايير تشطيب دقيقة وجداول زمنية مضغوطة تتطلبها المشاريع التجارية.',
     },
     capabilities: [
+      { en: 'Chilled water network works for Dragon Mart and the Dubai Beachfront Development', ar: 'أعمال شبكة المياه المبردة لدراغون مارت ومشروع دبي بيتش فرونت' },
       { en: 'Structural and civil works to tight finish tolerances', ar: 'أعمال إنشائية ومدنية وفق معايير تشطيب دقيقة' },
       { en: 'Full MEP fit-out for office and retail floors', ar: 'تجهيز كهروميكانيكي كامل للطوابق المكتبية والتجارية' },
       { en: 'Independent quality inspection at every milestone', ar: 'فحص جودة مستقل عند كل مرحلة إنشائية' },
@@ -108,6 +110,7 @@ export const industries: Industry[] = [
       ar: 'نتولى النطاق الكامل للأعمال الميكانيكية والكهربائية والصحية للأبراج والمجمعات السكنية، بتنسيق طابق بطابق عبر نمذجة معلومات البناء (BIM) بما يتيح تسليم الطوابق المشغولة بينما لا تزال الطوابق العليا قيد التجهيز.',
     },
     capabilities: [
+      { en: 'MEP works delivered for Vantage Tower, DAMAC', ar: 'أعمال كهروميكانيكية منفذة لبرج فانتاج، داماك' },
       { en: 'Full MEP fit-out for residential towers', ar: 'تجهيز كهروميكانيكي كامل للأبراج السكنية' },
       { en: 'Floor-by-floor BIM coordination', ar: 'تنسيق طابق بطابق عبر نمذجة معلومات البناء' },
       { en: 'Phased handover by zone', ar: 'تسليم على مراحل حسب المنطقة' },

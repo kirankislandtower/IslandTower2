@@ -23,7 +23,7 @@ export default function AboutContent() {
     { value: `${yearsInOperation}+`, label: t('stat1') },
     { value: '500+', label: t('stat2') },
     { value: '2', label: t('stat3') },
-    { value: 'ISO 9001:2015', label: t('stat4') },
+    { value: 'ISO 9001 · 14001 · 45001', label: t('stat4') },
   ];
 
   const values = [
