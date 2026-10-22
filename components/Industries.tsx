@@ -7,14 +7,14 @@ import { Link } from '@/i18n/navigation';
 import { useParallax } from '@/hooks/useParallax';
 
 const industryImages = [
-  'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600&auto=format&fit=crop',
+  '/images/site/underground-pipe-trench.jpg',
+  '/images/site/rooftop-cooling-equipment.jpg',
+  '/images/site/pump-filtration-room.jpg',
+  '/images/projects/dragonmart-electrical-panel.jpg',
+  '/images/site/rebar-formwork-crew.jpg',
+  '/images/site/steel-structure-piping.jpg',
+  '/images/site/rooftop-piping-install.jpg',
+  '/images/site/tunnel-piping-run.jpg',
 ];
 
 const industrySlugs = [

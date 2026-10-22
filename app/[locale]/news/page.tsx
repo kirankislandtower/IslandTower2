@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import NewsContent from './NewsContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/utility-tunnel-corridor.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — Insights',

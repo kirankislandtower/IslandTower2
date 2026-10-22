@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import AboutContent from './AboutContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/rooftop-piping-install.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — About Us',

@@ -13,9 +13,9 @@ const serviceImages = [
   '/images/projects/jvt-tank-installation.jpg',
   '/images/projects/electrical-panel-works.jpg',
   '/images/projects/chilled-water-pump-replacement.jpg',
-  'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1000&auto=format&fit=crop',
+  '/images/projects/green-field-storage-tank.jpg',
   '/images/projects/fabrication-piping-skid.jpg',
-  'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop',
+  '/images/projects/dragonmart-corridor-cabling.jpg',
   '/images/projects/weld-inspection-tecom.jpg',
 ];
 
@@ -124,7 +124,7 @@ export default function ServicesContent() {
       {/* Hero */}
       <section className="relative min-h-[70vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
         <Image
-          src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2500&auto=format&fit=crop"
+          src="/images/site/steel-structure-piping.jpg"
           alt="MEP engineering works on site"
           fill
           priority

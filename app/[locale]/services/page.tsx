@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ServicesContent from './ServicesContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/steel-structure-piping.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — Expertise & Services',

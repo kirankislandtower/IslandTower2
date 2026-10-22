@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ContactContent from './ContactContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/rebar-formwork-crew.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — Contact',

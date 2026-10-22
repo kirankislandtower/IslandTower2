@@ -51,7 +51,7 @@ export default function CareersContent() {
       {/* Hero */}
       <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
         <Image
-          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=2500&auto=format&fit=crop"
+          src="/images/site/scaffolding-piping-install.jpg"
           alt="Engineers on a construction site"
           fill
           priority

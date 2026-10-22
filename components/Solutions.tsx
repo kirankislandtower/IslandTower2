@@ -8,13 +8,13 @@ import { useTranslations } from 'next-intl';
 export default function Solutions() {
   const t = useTranslations('Solutions');
   const solutions = [
-    { num: '01', title: t('s1'), image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=500' },
-    { num: '02', title: t('s2'), image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=500' },
-    { num: '03', title: t('s3'), image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500' },
-    { num: '04', title: t('s4'), image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=500' },
-    { num: '05', title: t('s5'), image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=500' },
-    { num: '06', title: t('s6'), image: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=500' },
-    { num: '07', title: t('s7'), image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=500' },
+    { num: '01', title: t('s1'), image: '/images/projects/pump-replacement-ductwork.jpg' },
+    { num: '02', title: t('s2'), image: '/images/projects/pump-replacement-motor-install.jpg' },
+    { num: '03', title: t('s3'), image: '/images/projects/pump-replacement-plant-room.jpg' },
+    { num: '04', title: t('s4'), image: '/images/projects/saadiyat-pump-skid.jpg' },
+    { num: '05', title: t('s5'), image: '/images/projects/difc-trial-pit-excavation.jpg' },
+    { num: '06', title: t('s6'), image: '/images/site/fire-piping-plant-room.jpg' },
+    { num: '07', title: t('s7'), image: '/images/site/excavation-team-trench.jpg' },
   ];
 
   return (

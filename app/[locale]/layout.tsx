@@ -98,7 +98,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop",
+          url: "https://www.islandtoweruae.ae/images/site/large-diameter-pipe-install.jpg",
           width: 1200,
           height: 630,
           alt: "Island Tower Electro Mechanical Works",

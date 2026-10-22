@@ -16,25 +16,25 @@ export default function WhatWeDo() {
       id: 1,
       title: t('tab1Title'),
       desc: t('tab1Desc'),
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop'
+      image: '/images/projects/shindagha-pipe-trench-shoring.jpg'
     },
     {
       id: 2,
       title: t('tab2Title'),
       desc: t('tab2Desc'),
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2070&auto=format&fit=crop'
+      image: '/images/projects/shindagha-valve-chamber-formwork.jpg'
     },
     {
       id: 3,
       title: t('tab3Title'),
       desc: t('tab3Desc'),
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop'
+      image: '/images/projects/saadiyat-chiller-units.jpg'
     },
     {
       id: 4,
       title: t('tab4Title'),
       desc: t('tab4Desc'),
-      image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop'
+      image: '/images/projects/saadiyat-flushing-equipment.jpg'
     },
   ];
 

@@ -28,7 +28,7 @@ export default function NewsContent() {
       {/* Hero */}
       <section className="relative min-h-[50vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
         <Image
-          src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2500&auto=format&fit=crop"
+          src="/images/site/utility-tunnel-corridor.jpg"
           alt="Engineering documents and blueprints"
           fill
           priority

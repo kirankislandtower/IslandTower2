@@ -58,7 +58,7 @@ export default function AboutContent() {
       {/* Hero */}
       <section className="relative min-h-[85vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
         <Image
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2500&auto=format&fit=crop"
+          src="/images/site/rooftop-piping-install.jpg"
           alt="City skyline"
           fill
           priority

@@ -54,7 +54,7 @@ export const articles: Article[] = [
     category: { en: 'MEP Engineering', ar: 'الهندسة الكهروميكانيكية' },
     date: '2026-08-12',
     readTime: { en: '5 min read', ar: 'قراءة 5 دقائق' },
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1600&auto=format&fit=crop',
+    image: '/images/site/mep-corridor-interior.jpg',
     content: [
       {
         en: 'On most mixed-use tower projects, MEP coordination is treated as a downstream activity — something that starts once structural drawings are issued for construction. By that point, riser locations, slab penetrations, and ceiling voids are effectively fixed, and every MEP clash becomes a negotiation over an already-poured structure.',
@@ -87,7 +87,7 @@ export const articles: Article[] = [
     category: { en: 'Safety & HSE', ar: 'السلامة والصحة المهنية' },
     date: '2026-07-28',
     readTime: { en: '4 min read', ar: 'قراءة 4 دقائق' },
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop',
+    image: '/images/projects/hse-safety-briefing-difc.jpg',
     content: [
       {
         en: 'Every EPC contractor publishes a safety policy, and most of them look nearly identical: PPE requirements, toolbox talks, incident reporting procedures. The documents rarely explain what actually separates a site with a strong safety record from one that struggles with recurring near-misses.',
@@ -120,7 +120,7 @@ export const articles: Article[] = [
     category: { en: 'Industry Insight', ar: 'رؤى القطاع' },
     date: '2026-07-05',
     readTime: { en: '6 min read', ar: 'قراءة 6 دقائق' },
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1600&auto=format&fit=crop',
+    image: '/images/site/large-diameter-pipe-install.jpg',
     content: [
       {
         en: 'Most EPC contractor shortlists are built around the same three inputs: price, a portfolio of past projects, and a handful of client references. All three matter, but none of them answer the question that actually predicts project outcomes — how the contractor handles the inevitable moment when the schedule, the scope, and the site conditions stop agreeing with each other.',
@@ -153,7 +153,7 @@ export const articles: Article[] = [
     category: { en: 'Water Treatment', ar: 'معالجة المياه' },
     date: '2026-06-18',
     readTime: { en: '5 min read', ar: 'قراءة 5 دقائق' },
-    image: 'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1600&auto=format&fit=crop',
+    image: '/images/site/pump-filtration-room.jpg',
     content: [
       {
         en: 'A new-build water treatment facility gets to design its process train from a blank site. A capacity expansion at an existing, operating facility does not have that luxury — every new clarifier basin, filtration line, or pump station has to tie into a process that cannot go offline for the length of a typical construction program.',
@@ -186,7 +186,7 @@ export const articles: Article[] = [
     category: { en: 'MEP Engineering', ar: 'الهندسة الكهروميكانيكية' },
     date: '2026-05-22',
     readTime: { en: '4 min read', ar: 'قراءة 4 دقائق' },
-    image: 'https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?q=80&w=1600&auto=format&fit=crop',
+    image: '/images/projects/weld-inspection-tecom.jpg',
     content: [
       {
         en: 'The default assumption on most tower projects is that commissioning happens once, at the end, across the whole building. That assumption holds up fine on a generous schedule. It breaks down fast on a compressed one, where the developer needs to open retail or lower floors well before upper floors are anywhere near ready.',

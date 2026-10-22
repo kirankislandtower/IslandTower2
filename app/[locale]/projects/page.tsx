@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ProjectsContent from './ProjectsContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/tunnel-piping-run.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — Projects',

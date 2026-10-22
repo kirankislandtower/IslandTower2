@@ -22,7 +22,7 @@ export default function Platform() {
           <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1000&auto=format&fit=crop'
+      image: '/images/projects/weld-inspection-tecom.jpg'
     },
     {
       title: t('hseTitle'),
@@ -34,7 +34,7 @@ export default function Platform() {
           <line x1="8" y1="12" x2="16" y2="12"></line>
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop'
+      image: '/images/projects/hse-safety-briefing-difc.jpg'
     },
     {
       title: t('sustainabilityTitle'),
@@ -44,7 +44,7 @@ export default function Platform() {
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1000&auto=format&fit=crop'
+      image: '/images/projects/green-field-piping-insulation.jpg'
     },
     {
       title: t('technologyTitle'),
@@ -57,7 +57,7 @@ export default function Platform() {
           <line x1="3" y1="21" x2="10" y2="14"></line>
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1000&auto=format&fit=crop'
+      image: '/images/site/mep-corridor-interior.jpg'
     }
   ];
 

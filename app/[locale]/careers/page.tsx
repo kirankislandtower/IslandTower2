@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import CareersContent from './CareersContent';
 
 const ogImage = {
-  url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop',
+  url: '/images/site/scaffolding-piping-install.jpg',
   width: 1200,
   height: 630,
   alt: 'Island Tower — Careers',

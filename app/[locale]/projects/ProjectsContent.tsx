@@ -107,7 +107,7 @@ export default function ProjectsContent() {
       {/* Hero */}
       <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
         <Image
-          src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=2500&auto=format&fit=crop"
+          src="/images/site/tunnel-piping-run.jpg"
           alt="Island Tower project site"
           fill
           priority

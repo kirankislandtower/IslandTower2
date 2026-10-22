@@ -66,7 +66,7 @@ export const projects: Project[] = [
       en: 'Valve chamber construction and large-diameter GRP chilled water pipe installation for one of the largest district cooling contracts in our portfolio.',
       ar: 'إنشاء غرف الصمامات وتركيب أنابيب المياه المبردة من الألياف الزجاجية كبيرة القطر، ضمن أحد أكبر عقود التبريد المركزي في أعمالنا.',
     },
-    image: 'https://images.unsplash.com/photo-1678984240126-70bcddd7a228?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/site/underground-pipe-trench.jpg',
     gallery: [
       '/images/projects/fabrication-piping-skid.jpg',
       '/images/projects/chilled-water-pump-replacement.jpg',
@@ -94,7 +94,7 @@ export const projects: Project[] = [
     image: '/images/projects/jvt-tank-installation.jpg',
     gallery: [
       '/images/projects/chilled-water-pump-replacement.jpg',
-      'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
+      '/images/projects/dragonmart-corridor-cabling.jpg',
     ],
     client: 'Empower',
     consultant: 'Jouzy Consultant Engineers',
@@ -182,8 +182,8 @@ export const projects: Project[] = [
     },
     image: '/images/site/pump-room-team.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop',
+      '/images/projects/weld-inspection-tecom.jpg',
+      '/images/site/rooftop-cooling-equipment.jpg',
     ],
     client: 'Mubadala',
     consultant: 'AECOM / JACOBS',
@@ -226,8 +226,8 @@ export const projects: Project[] = [
     },
     image: '/images/site/tunnel-piping-run.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1200&auto=format&fit=crop',
+      '/images/site/mep-corridor-interior.jpg',
+      '/images/projects/difc-trial-pit-excavation.jpg',
     ],
     client: 'DAAC',
     consultant: 'DAR / ADPi',
@@ -248,8 +248,8 @@ export const projects: Project[] = [
     },
     image: '/images/site/rooftop-piping-install.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1644389355109-15b26f71c36b?q=80&w=1200&auto=format&fit=crop',
+      '/images/site/rebar-formwork-crew.jpg',
+      '/images/projects/saadiyat-chiller-units.jpg',
     ],
     client: 'DAMAC',
     consultant: 'Engineering Consortium',
