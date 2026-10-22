@@ -319,6 +319,76 @@ export const projects: Project[] = [
       ar: 'إزالة واستبدال مضخات المياه المبردة والمحركات وأعمال الأنابيب المعزولة المرتبطة بها داخل غرفة محطة تشغيلية، مع تقليل التأثير على عمليات المبنى الجارية.',
     },
   },
+  {
+    slug: 'abu-dhabi-airport-chilled-water-network',
+    title: {
+      en: 'Abu Dhabi Airport — Chilled Water Network Installation',
+      ar: 'مطار أبوظبي — تركيب شبكة المياه المبردة',
+    },
+    location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
+    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    description: {
+      en: 'Chilled water network installation delivered directly for Abu Dhabi Airport over a two-year contract.',
+      ar: 'تركيب شبكة المياه المبردة بشكل مباشر لمطار أبوظبي على مدى عقد استمر عامين.',
+    },
+    image: '/images/site/underground-pipe-trench.jpg',
+    gallery: [
+      '/images/site/mep-corridor-interior.jpg',
+      '/images/site/pump-filtration-room.jpg',
+    ],
+    client: 'Abu Dhabi Airport',
+    scope: {
+      en: 'Installation and commissioning of the chilled water network (CHWN) serving the airport building, from October 2010 to October 2012.',
+      ar: 'تركيب وتشغيل شبكة المياه المبردة الخاصة بمبنى المطار، من أكتوبر 2010 حتى أكتوبر 2012.',
+    },
+  },
+  {
+    slug: 'presidential-palace-abu-dhabi-chilled-water',
+    title: {
+      en: 'Presidential Palace, Abu Dhabi — Chilled Water Network',
+      ar: 'القصر الرئاسي، أبوظبي — شبكة المياه المبردة',
+    },
+    location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
+    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    description: {
+      en: 'Chilled water network installation, pipe fabrication, welding, and flushing works delivered for the Presidential Palace in Abu Dhabi across multiple contract phases.',
+      ar: 'أعمال تركيب شبكة المياه المبردة وتصنيع الأنابيب واللحام والتنظيف المنفذة للقصر الرئاسي في أبوظبي على مراحل تعاقدية متعددة.',
+    },
+    image: '/images/site/steel-structure-piping.jpg',
+    gallery: [
+      '/images/projects/electrical-panel-works.jpg',
+      '/images/site/excavation-team-trench.jpg',
+    ],
+    client: 'Presidential Palace',
+    consultant: 'Drake & Scull International',
+    scope: {
+      en: 'Chilled water network installation (2013), followed by pipe fabrication, welding, and flushing works carried out under the main contractor across later phases.',
+      ar: 'تركيب شبكة المياه المبردة (2013)، تلتها أعمال تصنيع الأنابيب واللحام والتنظيف المنفذة تحت إشراف المقاول الرئيسي في مراحل لاحقة.',
+    },
+  },
+  {
+    slug: 'midfield-terminal-abu-dhabi-chilled-water-flushing',
+    title: {
+      en: 'Midfield Terminal, Abu Dhabi — Chilled Water Flushing',
+      ar: 'مبنى ميدفيلد الطرفي (مطار زايد الدولي)، أبوظبي — تنظيف مياه التبريد',
+    },
+    location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
+    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    description: {
+      en: "Chilled water piping system flushing for the Midfield Terminal Building, now Zayed International Airport, delivered as part of the main contractor's construction team.",
+      ar: 'تنظيف شبكة أنابيب المياه المبردة لمبنى ميدفيلد الطرفي، المعروف حالياً بمطار زايد الدولي، ضمن فريق المقاول الرئيسي للمشروع.',
+    },
+    image: '/images/site/scaffolding-piping-install.jpg',
+    gallery: [
+      '/images/site/rebar-formwork-crew.jpg',
+      '/images/projects/weld-inspection-tecom.jpg',
+    ],
+    client: 'TCA JV (Arabtec / CCC / TAV)',
+    scope: {
+      en: 'Flushing of the chilled water piping system for the Midfield Terminal Building general contract, approved for full compliance with project specifications.',
+      ar: 'تنظيف شبكة أنابيب المياه المبردة ضمن عقد مبنى ميدفيلد الطرفي العام، بعد اعتماد المطابقة الكاملة لمواصفات المشروع.',
+    },
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
