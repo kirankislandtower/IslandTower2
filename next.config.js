@@ -43,14 +43,6 @@ const legacyRedirects = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
-  },
   async redirects() {
     return legacyRedirects.map(([source, destination]) => ({
       source,
