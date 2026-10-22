@@ -22,8 +22,8 @@ export async function generateMetadata({
   const description = industry.overview;
   const ogImage = { url: industry.image, width: 1200, height: 630, alt: industry.title };
   const keywords = isAr
-    ? [`مقاول ${industry.title}`, `${industry.title} الإمارات`, ...industry.capabilities.slice(0, 2), `جزيرة البرج ${industry.title}`]
-    : [`${industry.title} contractor UAE`, `${industry.title} MEP contractor Dubai`, ...industry.capabilities.slice(0, 2), `Island Tower ${industry.title}`];
+    ? [`مقاول ${industry.title}`, `${industry.title} الإمارات`, ...industry.capabilities.slice(0, 3), `جزيرة البرج ${industry.title}`]
+    : [`${industry.title} contractor UAE`, `${industry.title} MEP contractor Dubai`, ...industry.capabilities.slice(0, 3), `Island Tower ${industry.title}`];
 
   return {
     title,

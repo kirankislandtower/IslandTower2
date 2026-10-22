@@ -140,6 +140,7 @@ export const industries: Industry[] = [
       ar: 'ننفذ الأعمال المدنية والكهروميكانيكية المجاورة للعمليات الجوية النشطة، بتخطيط كل عملية دخول ورفع بالتعاون مع فرق السلامة الجوية بحيث يتكيف الإنشاء مع النوافذ الزمنية المعتمدة وليس العكس.',
     },
     capabilities: [
+      { en: 'Fresh air plant room works delivered for Dubai International Airport Terminal C3', ar: 'أعمال غرفة محطة الهواء النقي لمبنى C3 في مطار دبي الدولي' },
       { en: 'Civil and MEP works near active airside operations', ar: 'أعمال مدنية وكهروميكانيكية بجوار عمليات جوية نشطة' },
       { en: 'Site logistics planned with aviation safety teams', ar: 'تخطيط لوجستيات الموقع بالتعاون مع فرق السلامة الجوية' },
       { en: 'Access and lift scheduling within approved windows', ar: 'جدولة الدخول والرفع ضمن نوافذ زمنية معتمدة' },

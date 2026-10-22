@@ -25,8 +25,8 @@ export async function generateMetadata({
     : 'MEP engineering, infrastructure, civil works, chemical facilities, water treatment, energy solutions, and R&D — delivered across the UAE and Saudi Arabia.';
 
   const keywords = isAr
-    ? ['خدمات الهندسة الكهروميكانيكية دبي', 'تنظيف خطوط المياه المبردة', 'مقاول تبريد مركزي دبي', 'خدمات الأعمال المدنية الإمارات', 'الجودة والصحة والسلامة في المقاولات']
-    : ['MEP services Dubai', 'chilled water flushing services UAE', 'district cooling piping installation', 'civil engineering services UAE', 'HSE compliant contractor Dubai', 'sustainable MEP contractor UAE'];
+    ? ['خدمات الهندسة الكهروميكانيكية دبي', 'تنظيف خطوط المياه المبردة', 'مقاول تبريد مركزي دبي', 'خدمات الأعمال المدنية الإمارات', 'الجودة والصحة والسلامة في المقاولات', 'لحام مواسير HDPE دبي', 'تمديد مواسير GRP الإمارات']
+    : ['MEP services Dubai', 'chilled water flushing services UAE', 'district cooling piping installation', 'civil engineering services UAE', 'HSE compliant contractor Dubai', 'sustainable MEP contractor UAE', 'HDPE pipe welding Dubai', 'GRP pipe installation UAE', 'chilled water pump installation Dubai'];
 
   return {
     title,
