@@ -296,7 +296,7 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-                className="bg-card border border-border rounded-xl p-6"
+                className="bg-card border border-border rounded-2xl p-6"
               >
                 <div className="font-mono text-xs text-accent mb-4">0{idx + 1}</div>
                 <h3 className="text-lg text-foreground font-medium mb-3">{value.title}</h3>

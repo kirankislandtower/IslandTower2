@@ -108,7 +108,7 @@ export default function CareersContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-                className="bg-card border border-border rounded-xl p-8"
+                className="bg-card border border-border rounded-2xl p-8"
               >
                 <div className="font-mono text-xs text-accent mb-4">0{idx + 1}</div>
                 <h3 className="text-lg text-foreground font-medium mb-3">{value.title}</h3>
@@ -166,7 +166,7 @@ export default function CareersContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.15, ease: 'easeOut' }}
-                className="relative bg-background border border-border rounded-xl p-8"
+                className="relative bg-background border border-border rounded-2xl p-8"
               >
                 <motion.div
                   initial={{ scale: 0, rotate: -20 }}
@@ -227,7 +227,7 @@ export default function CareersContent() {
                 viewport={{ once: false, margin: '0px 0px -60px 0px' }}
                 transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
                 whileHover={{ y: -6 }}
-                className="bg-card border border-border rounded-xl p-8 transition-shadow hover:shadow-xl hover:border-accent/40 cursor-default"
+                className="bg-card border border-border rounded-2xl p-8 transition-shadow hover:shadow-xl hover:border-accent/40 cursor-default"
                 style={{ transition: 'box-shadow 0.3s ease, border-color 0.3s ease' }}
               >
                 <motion.div
@@ -272,7 +272,7 @@ export default function CareersContent() {
               return (
                 <motion.div
                   key={faq.q}
-                  className="bg-background border border-border rounded-xl overflow-hidden"
+                  className="bg-background border border-border rounded-2xl overflow-hidden"
                   animate={{ borderColor: isOpen ? 'var(--color-accent)' : 'var(--color-border)' }}
                   transition={{ duration: 0.3 }}
                 >

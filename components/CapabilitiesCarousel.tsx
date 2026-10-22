@@ -75,9 +75,9 @@ export default function CapabilitiesCarousel({ capabilities }: CapabilitiesCarou
 
 function CapabilityCard({ capability, idx, className }: { capability: Capability; idx: number; className: string }) {
   return (
-    <div className={`shrink-0 ${className}`}>
+    <div className={`group shrink-0 ${className}`}>
       <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mb-5">
-        <Image src={capability.image} alt={capability.title} fill sizes="(min-width: 1024px) 36vw, (min-width: 640px) 55vw, 82vw" className="object-cover" />
+        <Image src={capability.image} alt={capability.title} fill sizes="(min-width: 1024px) 36vw, (min-width: 640px) 55vw, 82vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
         <span className="absolute top-4 start-4 font-mono text-white text-xs tracking-widest bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
           0{idx + 1}
