@@ -22,15 +22,17 @@
   box-sizing: border-box;
 }
 
+/* clip, not hidden: overflow-x: hidden turns body into a scroll container,
+   which silently breaks every position: sticky pin on the site. */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Elevated display typography: every heading site-wide picks up the

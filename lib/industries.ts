@@ -8,6 +8,7 @@ interface LocalizedText {
 export interface Industry {
   slug: string;
   title: LocalizedText;
+  headline: LocalizedText;
   image: string;
   overview: LocalizedText;
   capabilities: LocalizedText[];
@@ -17,6 +18,7 @@ export interface Industry {
 export interface LocalizedIndustry {
   slug: string;
   title: string;
+  headline: string;
   image: string;
   overview: string;
   capabilities: string[];
@@ -27,6 +29,7 @@ export function localizeIndustry(industry: Industry, locale: Locale): LocalizedI
   return {
     slug: industry.slug,
     title: industry.title[locale],
+    headline: industry.headline[locale],
     image: industry.image,
     overview: industry.overview[locale],
     capabilities: industry.capabilities.map((c) => c[locale]),
@@ -38,6 +41,7 @@ export const industries: Industry[] = [
   {
     slug: 'infrastructure',
     title: { en: 'Infrastructure', ar: 'البنية التحتية' },
+    headline: { en: 'Chilled water networks under the UAE\'s roads', ar: 'شبكات المياه المبردة تحت طرق الإمارات' },
     image: '/images/site/underground-pipe-trench.jpg',
     overview: {
       en: 'From site-wide utilities to logistics hubs and transport-adjacent facilities, we deliver the underlying infrastructure that large-scale developments and government projects depend on — coordinated across multiple contractors and phased to keep neighboring operations running.',
@@ -55,6 +59,7 @@ export const industries: Industry[] = [
   {
     slug: 'energy-power',
     title: { en: 'Energy & Power', ar: 'الطاقة والكهرباء' },
+    headline: { en: 'Electromechanical works for power facilities', ar: 'أعمال كهروميكانيكية لمنشآت الطاقة' },
     image: '/images/site/fire-piping-plant-room.jpg',
     overview: {
       en: "We deliver electro-mechanical works for power generation and distribution facilities, from switchgear installation and high-voltage cabling through to commissioning — built to the safety and testing standards that energized infrastructure demands.",
@@ -71,6 +76,7 @@ export const industries: Industry[] = [
   {
     slug: 'water-treatment',
     title: { en: 'Water Treatment', ar: 'معالجة المياه' },
+    headline: { en: 'Water treatment works at live facilities', ar: 'أعمال معالجة المياه في المنشآت العاملة' },
     image: '/images/site/pump-filtration-room.jpg',
     overview: {
       en: "We expand and upgrade water treatment infrastructure at live facilities that can't go offline — building and testing new capacity in isolation before staged tie-ins to the active process stream.",
@@ -87,6 +93,7 @@ export const industries: Industry[] = [
   {
     slug: 'commercial',
     title: { en: 'Commercial', ar: 'القطاع التجاري' },
+    headline: { en: 'District cooling for the UAE\'s commercial landmarks', ar: 'التبريد المركزي لأبرز المعالم التجارية في الإمارات' },
     image: '/images/site/mep-corridor-interior.jpg',
     overview: {
       en: 'From corporate campuses to mixed-use towers, we deliver structural, civil, and MEP fit-out work to the tighter finish tolerances and compressed schedules that commercial developments demand.',
@@ -104,6 +111,7 @@ export const industries: Industry[] = [
   {
     slug: 'residential',
     title: { en: 'Residential', ar: 'القطاع السكني' },
+    headline: { en: 'Chilled water networks for whole communities', ar: 'شبكات المياه المبردة لمجتمعات سكنية كاملة' },
     image: '/images/site/rebar-formwork-crew.jpg',
     overview: {
       en: 'We handle the full mechanical, electrical, and plumbing scope for residential towers and communities, coordinating floor-by-floor through BIM so occupied floors can hand over while upper levels are still in fit-out.',
@@ -116,11 +124,12 @@ export const industries: Industry[] = [
       { en: 'Phased handover by zone', ar: 'تسليم على مراحل حسب المنطقة' },
       { en: 'Load profiling for mixed residential-retail use', ar: 'تحديد أحمال التشغيل للاستخدام السكني والتجاري المختلط' },
     ],
-    relatedProjectSlugs: ['vantage-tower-damac-mep-works'],
+    relatedProjectSlugs: ['jumeirah-village-triangle-district-cooling-phase-3', 'jumeirah-village-south-district-cooling', 'vantage-tower-damac-mep-works'],
   },
   {
     slug: 'industrial',
     title: { en: 'Industrial', ar: 'القطاع الصناعي' },
+    headline: { en: 'Process piping and MEP for industrial facilities', ar: 'أنابيب العمليات والأعمال الكهروميكانيكية للمنشآت الصناعية' },
     image: '/images/site/steel-structure-piping.jpg',
     overview: {
       en: 'We deliver construction and MEP integration for industrial and process facilities, where hazardous-area classification and safety documentation shape every routing and installation decision from day one.',
@@ -132,11 +141,12 @@ export const industries: Industry[] = [
       { en: 'Design coordination from process-safety documentation', ar: 'تنسيق تصميم استناداً إلى توثيق السلامة التشغيلية' },
       { en: 'Zero lost-time incident installation programs', ar: 'برامج تركيب دون أي حوادث تعطيل عمل' },
     ],
-    relatedProjectSlugs: ['jumeirah-village-south-district-cooling', 'jumeirah-village-triangle-district-cooling-phase-3'],
+    relatedProjectSlugs: ['green-field-dubai-process-piping'],
   },
   {
     slug: 'aviation',
     title: { en: 'Aviation', ar: 'القطاع الجوي' },
+    headline: { en: 'Chilled water for the UAE\'s airports', ar: 'المياه المبردة لمطارات الإمارات' },
     image: '/images/site/rooftop-cooling-equipment.jpg',
     overview: {
       en: 'We deliver civil and MEP works adjacent to live airside operations, planning every site access and lift jointly with aviation safety teams so construction moves around approved windows, not the other way around.',
@@ -149,11 +159,12 @@ export const industries: Industry[] = [
       { en: 'Access and lift scheduling within approved windows', ar: 'جدولة الدخول والرفع ضمن نوافذ زمنية معتمدة' },
       { en: 'Zero airside safety incidents across delivery', ar: 'صفر حوادث سلامة جوية طوال فترة التنفيذ' },
     ],
-    relatedProjectSlugs: ['dubai-airport-terminal-c3-fresh-air-plant'],
+    relatedProjectSlugs: ['abu-dhabi-airport-chilled-water-network', 'midfield-terminal-abu-dhabi-chilled-water-flushing', 'dubai-airport-terminal-c3-fresh-air-plant'],
   },
   {
     slug: 'oil-gas',
     title: { en: 'Oil & Gas', ar: 'النفط والغاز' },
+    headline: { en: 'MEP for process-safety facilities', ar: 'أعمال كهروميكانيكية لمنشآت السلامة الصناعية' },
     image: '/images/site/scaffolding-piping-install.jpg',
     overview: {
       en: 'We construct and integrate MEP systems for chemical and process facilities built to strict process-safety requirements, working from hazardous-area documentation from day one rather than retrofitting compliance later.',

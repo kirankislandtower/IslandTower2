@@ -283,7 +283,7 @@ export const projects: Project[] = [
     slug: 'saadiyat-chilled-water-flushing',
     title: { en: 'Chilled Water Flushing — Saadiyat Island', ar: 'غسيل المياه المبردة — جزيرة السعديات' },
     location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
-    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    category: { en: 'Flushing', ar: 'غسيل المياه المبردة' },
     description: {
       en: 'Rooftop chilled water flushing works for a development on Saadiyat Island, Abu Dhabi.',
       ar: 'أعمال غسيل المياه المبردة على سطح مبنى ضمن مشروع تطوير في جزيرة السعديات، أبوظبي.',
@@ -373,7 +373,7 @@ export const projects: Project[] = [
       ar: 'مبنى ميدفيلد الطرفي (مطار زايد الدولي)، أبوظبي — تنظيف مياه التبريد',
     },
     location: { en: 'Abu Dhabi, UAE', ar: 'أبوظبي، الإمارات العربية المتحدة' },
-    category: { en: 'District Cooling', ar: 'التبريد المركزي' },
+    category: { en: 'Flushing', ar: 'غسيل المياه المبردة' },
     description: {
       en: "Chilled water piping system flushing for the Midfield Terminal Building, now Zayed International Airport, delivered as part of the main contractor's construction team.",
       ar: 'تنظيف شبكة أنابيب المياه المبردة لمبنى ميدفيلد الطرفي، المعروف حالياً بمطار زايد الدولي، ضمن فريق المقاول الرئيسي للمشروع.',

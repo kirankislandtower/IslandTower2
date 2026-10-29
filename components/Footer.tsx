@@ -5,27 +5,40 @@ import { Link } from '@/i18n/navigation';
 
 interface FooterProps {
   onDemoClick: () => void;
+  // Pages that already end in their own form (Contact, Careers) hide the
+  // "Contact Us / Get a Quote" band so the page asks once, not twice.
+  hideCta?: boolean;
 }
 
-export default function Footer({ onDemoClick }: FooterProps) {
+export default function Footer({ onDemoClick, hideCta = false }: FooterProps) {
   const t = useTranslations('Footer');
 
   return (
-    <footer className="bg-[#1c1f24] w-full pt-32 pb-16" id="contact">
+    <footer className="bg-[#1c1f24] w-full pt-20 md:pt-24 pb-10 overflow-hidden" id="contact">
       <div className="max-w-[1400px] mx-auto px-6">
 
-        {/* Top Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-32 gap-8">
-          <h2 className="text-6xl md:text-8xl text-white font-normal tracking-tight">
-            {t('contactUs')}
-          </h2>
-          <button
-            onClick={onDemoClick}
-            className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors whitespace-nowrap cursor-pointer focus-ring"
-          >
-            {t('getQuote')}
-          </button>
-        </div>
+        {!hideCta && (
+          <div className="grid lg:grid-cols-12 gap-8 items-end pb-16 mb-16 border-b border-white/10">
+            <h2 className="lg:col-span-8 text-3xl md:text-5xl text-white font-light tracking-[-0.03em] leading-[1.08] text-balance">
+              {t('contactUs')}
+            </h2>
+            <div className="lg:col-span-4 lg:justify-self-end flex flex-wrap gap-3">
+              <button
+                onClick={onDemoClick}
+                className="bg-accent text-on-accent font-mono uppercase tracking-[0.14em] text-[13px] px-6 py-4 rounded-[6px] hover:bg-accent/90 transition-colors whitespace-nowrap cursor-pointer focus-ring"
+              >
+                {t('getQuote')}
+              </button>
+              <a
+                href="tel:+97142573677"
+                dir="ltr"
+                className="border border-white/30 text-white font-mono tracking-[0.12em] text-[13px] px-6 py-4 rounded-[6px] hover:border-white transition-colors whitespace-nowrap focus-ring"
+              >
+                +971 4 257 3677
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* Bottom Section (4 Columns) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 font-mono text-xs uppercase tracking-widest text-white/70 leading-relaxed">
@@ -49,19 +62,21 @@ export default function Footer({ onDemoClick }: FooterProps) {
             <span className="text-white/40">{t('company')}</span>
             <Link href="/" className="hover:text-accent transition-colors focus-ring">{t('home')}</Link>
             <Link href="/about" className="hover:text-accent transition-colors focus-ring">{t('aboutUs')}</Link>
-            <Link href="/services" className="hover:text-accent transition-colors focus-ring">{t('expertise')}</Link>
+            <Link href="/services" className="hover:text-accent transition-colors focus-ring">{t('services')}</Link>
             <Link href="/projects" className="hover:text-accent transition-colors focus-ring">{t('projects')}</Link>
             <Link href="/news" className="hover:text-accent transition-colors focus-ring">{t('insights')}</Link>
             <Link href="/careers" className="hover:text-accent transition-colors focus-ring">{t('careers')}</Link>
+            <Link href="/contact" className="hover:text-accent transition-colors focus-ring">{t('contactUsLink')}</Link>
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-4">
-            <span className="text-white/40">{t('howWeWork')}</span>
-            <Link href="/services#quality" className="hover:text-accent transition-colors focus-ring">{t('quality')}</Link>
-            <Link href="/services#hse" className="hover:text-accent transition-colors focus-ring">{t('hse')}</Link>
-            <Link href="/services#sustainability" className="hover:text-accent transition-colors focus-ring">{t('sustainability')}</Link>
-            <Link href="/contact" className="hover:text-accent transition-colors focus-ring">{t('contactUsLink')}</Link>
+            <span className="text-white/40">{t('servicesHeading')}</span>
+            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceNetworks')}</Link>
+            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceFlushing')}</Link>
+            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceEts')}</Link>
+            <Link href="/services#mep" className="hover:text-accent transition-colors focus-ring">{t('serviceMep')}</Link>
+            <Link href="/about#quality" className="hover:text-accent transition-colors focus-ring">{t('quality')}</Link>
             <a href="/island-tower-company-profile.pdf" download className="hover:text-accent transition-colors focus-ring">{t('companyProfile')}</a>
           </div>
 
@@ -84,7 +99,7 @@ export default function Footer({ onDemoClick }: FooterProps) {
         </div>
 
         {/* Legal Bar */}
-        <div className="mt-24 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-white/40">
+        <div className="mt-20 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-white/40">
           <span>{t('copyright', { year: new Date().getFullYear() })}</span>
           <span>{t('locations')}</span>
         </div>

@@ -1,27 +1,31 @@
 import type { Metadata } from "next";
-import { Mulish, JetBrains_Mono } from "next/font/google";
+import { Onest, Saira_Semi_Condensed } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SmoothScroll from "@/components/SmoothScroll";
 import { routing } from "@/i18n/routing";
+import "lenis/dist/lenis.css";
 import "../globals.css";
 
-const mulish = Mulish({
+const onest = Onest({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+// Small spaced-capital labels (nav, eyebrows, buttons).
+const sairaLabel = Saira_Semi_Condensed({
   subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
 
-const mulishHeading = Mulish({
+const onestHeading = Onest({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
   variable: "--font-heading",
   display: "swap",
 });
@@ -30,9 +34,9 @@ const siteUrl = "https://www.islandtoweruae.ae";
 const siteName = "Island Tower Electro Mechanical Works LLC";
 const FOUNDED_YEAR = 2003;
 const yearsInOperation = new Date().getFullYear() - FOUNDED_YEAR;
-const siteDescription = `Island Tower Electro Mechanical Works LLC is a leading provider of infrastructure, MEP, and civil engineering solutions in Dubai, UAE and Saudi Arabia. ${yearsInOperation}+ years delivering EPC projects across the region.`;
+const siteDescription = `District cooling and chilled water network specialist in the UAE since ${FOUNDED_YEAR}, with MEP building services and RTA-approved infrastructure works. ISO 9001, 14001 and 45001 certified.`;
 const siteDescriptionAr =
-  "شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م رائدة في تقديم حلول البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في دبي والإمارات العربية المتحدة والمملكة العربية السعودية.";
+  "متخصصون في التبريد المركزي وشبكات المياه المبردة في الإمارات منذ 2003، مع خدمات كهروميكانيكية متكاملة للمباني. معتمدون من هيئة الطرق والمواصلات وحاصلون على شهادات ISO 9001 و14001 و45001.";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -47,8 +51,8 @@ export async function generateMetadata({
   const isAr = locale === "ar";
   const description = isAr ? siteDescriptionAr : siteDescription;
   const title = isAr
-    ? "جزيرة البرج | الأعمال الكهروميكانيكية والهندسة المدنية"
-    : "Island Tower | Electro-Mechanical & Civil Engineering";
+    ? "جزيرة البرج | التبريد المركزي والكهروميكانيك والبنية التحتية في دبي"
+    : "Island Tower | District Cooling, MEP & Infrastructure, Dubai";
 
   return {
     metadataBase: new URL(siteUrl),
@@ -60,12 +64,15 @@ export async function generateMetadata({
     keywords: [
       "Island Tower",
       "Island Tower Electro Mechanical Works",
+      "district cooling contractor Dubai",
+      "chilled water network contractor UAE",
+      "chilled water flushing Dubai",
+      "chilled water flushing UAE",
+      "hot tapping chilled water Dubai",
+      "ETS installation Dubai",
       "electro mechanical works Dubai",
       "MEP contractor UAE",
       "MEP contractor Dubai",
-      "district cooling contractor Dubai",
-      "chilled water flushing Dubai",
-      "chilled water flushing UAE",
       "RTA approved contractor Dubai",
       "civil engineering Dubai",
       "infrastructure contractor UAE",
@@ -184,7 +191,7 @@ export default async function LocaleLayout({
       lang={locale}
       dir={dir}
       suppressHydrationWarning
-      className={`${mulish.variable} ${jetbrainsMono.variable} ${mulishHeading.variable}`}
+      className={`${onest.variable} ${sairaLabel.variable} ${onestHeading.variable}`}
     >
       <head>
         <script
@@ -197,6 +204,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           {children}
           <WhatsAppButton />
+          <SmoothScroll />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -21,7 +21,7 @@ export default function AboutContent() {
 
   const stats = [
     { value: `${yearsInOperation}+`, label: t('stat1') },
-    { value: '500+', label: t('stat2') },
+    { value: '200+', label: t('stat2') },
     { value: '2', label: t('stat3') },
     { value: 'ISO 9001 · 14001 · 45001', label: t('stat4') },
   ];
@@ -42,6 +42,20 @@ export default function AboutContent() {
     { year: t('milestone4Year'), label: t('milestone4Label'), text: t('milestone4Text'), image: '/images/projects/jvt-tank-installation.jpg' },
     { year: t('milestone5Year'), label: t('milestone5Label'), text: t('milestone5Text'), image: '/images/site/large-diameter-pipe-install.jpg' },
     { year: t('milestone6Year'), label: t('milestone6Label'), text: t('milestone6Text'), image: '/images/projects/hse-safety-briefing-difc.jpg' },
+  ];
+
+  const approvals = [
+    { kind: t('approvalAuthority'), code: t('rtaCode'), desc: t('rtaDesc') },
+    { kind: 'ISO', code: '9001:2015', desc: t('iso9001Desc') },
+    { kind: 'ISO', code: '14001:2015', desc: t('iso14001Desc') },
+    { kind: 'ISO', code: '45001:2018', desc: t('iso45001Desc') },
+  ];
+
+  const pillars = [
+    { id: 'quality-system', title: t('qualityTitle'), description: t('qualityDesc') },
+    { id: 'hse', title: t('hseTitle'), description: t('hseDesc') },
+    { id: 'sustainability', title: t('sustainabilityTitle'), description: t('sustainabilityDesc') },
+    { id: 'technology', title: t('technologyTitle'), description: t('technologyDesc') },
   ];
 
   const capabilities = [
@@ -71,7 +85,7 @@ export default function AboutContent() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20"
+          className="relative z-10 w-full px-6 md:px-10 mt-24"
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -131,52 +145,6 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('timelineEyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
-              {t('timelineHeadline')}
-            </h2>
-          </motion.div>
-
-          <MilestoneCarousel milestones={milestones} />
-        </div>
-      </section>
-
-      {/* Capabilities */}
-      <section className="bg-card py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('capabilitiesEyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
-              {t('capabilitiesHeadline')}
-            </h2>
-          </motion.div>
-
-          <CapabilitiesCarousel capabilities={capabilities} />
-        </div>
-      </section>
-
       {/* Leadership / Vision / Mission */}
       <section className="bg-background py-24 md:py-32 w-full">
         <div className="max-w-[1400px] mx-auto px-6">
@@ -215,6 +183,7 @@ export default function AboutContent() {
                 </div>
               </div>
 
+              <p className="text-2xl md:text-3xl text-foreground font-normal tracking-tight mb-6">{t('chairmanMotto')}</p>
               <div className="text-accent text-5xl font-serif leading-none mb-6">
                 &ldquo;
               </div>
@@ -250,22 +219,104 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-background py-20 w-full border-y border-border">
-        <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10">
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-              transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-              className="text-center md:text-start"
-            >
-              <div className="font-mono text-4xl md:text-5xl text-accent font-light mb-2">{stat.value}</div>
-              <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground">{stat.label}</div>
-            </motion.div>
-          ))}
+      {/* Timeline */}
+      <section className="bg-background py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex flex-col items-center text-center mb-16"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('timelineEyebrow')}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
+              {t('timelineHeadline')}
+            </h2>
+          </motion.div>
+
+          <MilestoneCarousel milestones={milestones} />
+        </div>
+      </section>
+
+      {/* Approvals & Quality */}
+      <section id="quality" className="bg-[#1c1f24] py-24 md:py-32 w-full scroll-mt-28">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="mb-14"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/60">{t('approvalsEyebrow')}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight leading-[1.1] max-w-3xl">
+              {t('approvalsHeadline')}
+            </h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {approvals.map((item, idx) => (
+              <motion.div
+                key={item.code}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
+                className="border border-white/15 rounded-2xl p-7"
+              >
+                <div className="font-mono text-[11px] tracking-[0.18em] uppercase text-accent mb-4">{item.kind}</div>
+                <div className="text-white text-2xl font-medium tracking-tight" dir="ltr">{item.code}</div>
+                <p className="text-white/65 text-sm leading-relaxed mt-3">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 mt-6">
+            {pillars.map((pillar, idx) => (
+              <motion.div
+                key={pillar.id}
+                id={pillar.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+                transition={{ duration: 0.5, delay: idx * 0.06, ease: 'easeOut' }}
+                className="scroll-mt-32 bg-white/[0.04] rounded-2xl p-7"
+              >
+                <h3 className="font-mono text-sm tracking-widest uppercase text-white mb-3">{pillar.title}</h3>
+                <p className="text-white/65 text-sm leading-relaxed">{pillar.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="bg-card py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="flex flex-col items-center text-center mb-16"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-accent" />
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('capabilitiesEyebrow')}</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight max-w-3xl">
+              {t('capabilitiesHeadline')}
+            </h2>
+          </motion.div>
+
+          <CapabilitiesCarousel capabilities={capabilities} />
         </div>
       </section>
 
@@ -307,42 +358,23 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="bg-[#1c1f24] py-20 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
-        >
-          <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            {t('ctaHeadline')}
-          </h2>
-          <p className="text-white/70 text-base max-w-xl">
-            {t('ctaSubtitle')}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={() => setShowDemoModal(true)}
-              className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
+      {/* Stats */}
+      <section className="bg-background py-20 w-full border-y border-border">
+        <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10">
+          {stats.map((stat, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
+              className="text-center md:text-start"
             >
-              {t('getQuote')}
-            </button>
-            <a
-              href="/island-tower-company-profile.pdf"
-              download
-              className="inline-flex items-center gap-2 border border-white/20 text-white font-mono uppercase tracking-widest text-sm px-8 py-4 hover:border-white/40 transition-colors focus-ring"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              {t('companyProfile')}
-            </a>
-          </div>
-        </motion.div>
+              <div className="font-mono text-4xl md:text-5xl text-accent font-light mb-2">{stat.value}</div>
+              <div className="font-mono text-xs tracking-widest uppercase text-muted-foreground">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       <Footer onDemoClick={() => setShowDemoModal(true)} />

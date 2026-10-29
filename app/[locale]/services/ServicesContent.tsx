@@ -3,20 +3,18 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 import { useParallax } from '@/hooks/useParallax';
+import { projects as allProjects, localizeProject, type Locale } from '@/lib/projects';
 
-const serviceImages = [
-  '/images/projects/jvt-tank-installation.jpg',
-  '/images/projects/electrical-panel-works.jpg',
-  '/images/projects/chilled-water-pump-replacement.jpg',
-  '/images/projects/green-field-storage-tank.jpg',
-  '/images/projects/fabrication-piping-skid.jpg',
-  '/images/projects/dragonmart-corridor-cabling.jpg',
-  '/images/projects/weld-inspection-tecom.jpg',
+const RELATED_SLUGS = [
+  'jumeirah-village-triangle-district-cooling-phase-3',
+  'saadiyat-chilled-water-flushing',
+  'al-shindagha-corridor-chilled-water',
 ];
 
 function ServiceCard({ service, idx }: { service: { num: string; title: string; description: string; image: string }; idx: number }) {
@@ -58,64 +56,49 @@ export default function ServicesContent() {
   const t = useTranslations('ServicesPage');
   const [showDemoModal, setShowDemoModal] = useState(false);
 
-  const services = [
-    { num: '01', title: t('s1Title'), description: t('s1Desc'), image: serviceImages[0] },
-    { num: '02', title: t('s2Title'), description: t('s2Desc'), image: serviceImages[1] },
-    { num: '03', title: t('s3Title'), description: t('s3Desc'), image: serviceImages[2] },
-    { num: '04', title: t('s4Title'), description: t('s4Desc'), image: serviceImages[3] },
-    { num: '05', title: t('s5Title'), description: t('s5Desc'), image: serviceImages[4] },
-    { num: '06', title: t('s6Title'), description: t('s6Desc'), image: serviceImages[5] },
-    { num: '07', title: t('s7Title'), description: t('s7Desc'), image: serviceImages[6] },
+  const locale = useLocale() as Locale;
+
+  const districtCooling = [
+    { num: '01', title: t('s1Title'), description: t('s1Desc'), image: '/images/projects/jvt-tank-installation.jpg' },
+    { num: '02', title: t('dc2Title'), description: t('dc2Desc'), image: '/images/projects/saadiyat-flushing-equipment.jpg' },
+    { num: '03', title: t('dc3Title'), description: t('dc3Desc'), image: '/images/projects/tecom-mechanical-room.jpg' },
+    { num: '04', title: t('dc4Title'), description: t('dc4Desc'), image: '/images/projects/shindagha-valve-chamber-formwork.jpg' },
+    { num: '05', title: t('dc5Title'), description: t('dc5Desc'), image: '/images/site/rooftop-cooling-equipment.jpg' },
+    { num: '06', title: t('dc6Title'), description: t('dc6Desc'), image: '/images/projects/weld-inspection-tecom.jpg' },
   ];
 
-  const pillars = [
-    {
-      id: 'quality',
-      title: t('qualityTitle'),
-      description: t('qualityDesc'),
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="8" r="7"></circle>
-          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-        </svg>
-      ),
-    },
-    {
-      id: 'hse',
-      title: t('hseTitle'),
-      description: t('hseDesc'),
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <line x1="12" y1="8" x2="12" y2="16"></line>
-          <line x1="8" y1="12" x2="16" y2="12"></line>
-        </svg>
-      ),
-    },
-    {
-      id: 'sustainability',
-      title: t('sustainabilityTitle'),
-      description: t('sustainabilityDesc'),
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-        </svg>
-      ),
-    },
-    {
-      id: 'technology',
-      title: t('technologyTitle'),
-      description: t('technologyDesc'),
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="4 14 10 14 10 20"></polyline>
-          <polyline points="20 10 14 10 14 4"></polyline>
-          <line x1="14" y1="10" x2="21" y2="3"></line>
-          <line x1="3" y1="21" x2="10" y2="14"></line>
-        </svg>
-      ),
-    },
+  const mep = [
+    { num: '01', title: t('s3Title'), description: t('s3Desc'), image: '/images/projects/chilled-water-pump-replacement.jpg' },
+    { num: '02', title: t('s2Title'), description: t('s2Desc'), image: '/images/projects/electrical-panel-works.jpg' },
+    { num: '03', title: t('s7Title'), description: t('s7Desc'), image: '/images/projects/dragonmart-corridor-cabling.jpg' },
+    { num: '04', title: t('s5Title'), description: t('s5Desc'), image: '/images/projects/fabrication-piping-skid.jpg' },
+    { num: '05', title: t('s4Title'), description: t('s4Desc'), image: '/images/projects/green-field-storage-tank.jpg' },
+    { num: '06', title: t('s6Title'), description: t('s6Desc'), image: '/images/site/mep-corridor-interior.jpg' },
   ];
+
+  const equipment = [
+    { value: '1,600', unit: 'm³/hr', label: t('equip1') },
+    { value: '450', unit: 'mm', label: t('equip2') },
+    { value: '1,400', unit: 'mm', label: t('equip3') },
+  ];
+
+  const related = RELATED_SLUGS.map((slug) => allProjects.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .map((p) => localizeProject(p, locale));
+
+  const groupHeading = (num: string, eyebrow: string, headline: string, description: string, light = false) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className="mb-14 max-w-3xl"
+    >
+      <span className={`font-mono text-xs tracking-[0.2em] uppercase ${light ? 'text-white/60' : 'text-accent'}`}>{num} · {eyebrow}</span>
+      <h2 className={`text-3xl md:text-5xl font-normal tracking-tight leading-[1.1] mt-4 ${light ? 'text-white' : 'text-foreground'}`}>{headline}</h2>
+      <p className={`text-base md:text-lg leading-relaxed mt-5 ${light ? 'text-white/70' : 'text-muted-foreground'}`}>{description}</p>
+    </motion.div>
+  );
 
   return (
     <>
@@ -137,7 +120,7 @@ export default function ServicesContent() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20"
+          className="relative z-10 w-full px-6 md:px-10 mt-24"
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -152,78 +135,76 @@ export default function ServicesContent() {
         </motion.div>
       </section>
 
-      {/* Services Grid */}
-      <section className="bg-background py-24 md:py-32 w-full">
+      {/* Group 1: District cooling */}
+      <section id="district-cooling" className="bg-background py-24 md:py-32 w-full scroll-mt-24">
         <div className="max-w-[1400px] mx-auto px-6">
+          {groupHeading('01', t('dcEyebrow'), t('dcHeadline'), t('dcDescription'))}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {services.map((service, idx) => (
-              <ServiceCard key={service.num} service={service} idx={idx} />
+            {districtCooling.map((service, idx) => (
+              <ServiceCard key={service.title} service={service} idx={idx} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* How We Work */}
-      <section className="bg-card py-24 md:py-32 w-full">
+      {/* Group 2: MEP building services */}
+      <section id="mep" className="bg-card py-24 md:py-32 w-full scroll-mt-24">
         <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('howWeWork')}</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl text-foreground font-normal tracking-tight">
-              {t('howWeWorkHeadline')}
-            </h2>
-          </motion.div>
+          {groupHeading('02', t('mepEyebrow'), t('mepHeadline'), t('mepDescription'))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {mep.map((service, idx) => (
+              <ServiceCard key={service.title} service={service} idx={idx} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {pillars.map((pillar, idx) => (
+      {/* Equipment */}
+      <section className="bg-[#1c1f24] py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          {groupHeading('03', t('equipEyebrow'), t('equipHeadline'), t('equipDescription'), true)}
+          <div className="grid md:grid-cols-3 border-t border-white/15">
+            {equipment.map((item, idx) => (
               <motion.div
-                key={pillar.id}
-                id={pillar.id}
-                initial={{ opacity: 0, y: 20 }}
+                key={item.label}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                transition={{ duration: 0.5, delay: idx * 0.06, ease: 'easeOut' }}
-                className="scroll-mt-32 bg-background border border-border rounded-2xl p-8"
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
+                className="pt-8 pe-6 pb-2"
               >
-                <div className="text-accent mb-5">{pillar.icon}</div>
-                <h3 className="text-lg text-foreground font-medium mb-3 font-mono uppercase tracking-widest">{pillar.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
+                <div className="text-white text-5xl md:text-6xl font-medium tracking-tight" dir="ltr">
+                  {item.value}<span className="text-xl md:text-2xl ms-1 text-white/70">{item.unit}</span>
+                </div>
+                <div className="text-white/65 text-sm mt-3">{item.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="bg-[#1c1f24] py-20 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
-        >
-          <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            {t('ctaHeadline')}
-          </h2>
-          <p className="text-white/70 text-base max-w-xl">
-            {t('ctaSubtitle')}
-          </p>
-          <button
-            onClick={() => setShowDemoModal(true)}
-            className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
-          >
-            {t('getQuote')}
-          </button>
-        </motion.div>
+      {/* Related projects */}
+      <section className="bg-background py-24 md:py-32 w-full">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight leading-[1.1]">{t('relatedHeadline')}</h2>
+            <Link href="/projects" className="w-fit border border-border text-foreground font-mono uppercase tracking-widest text-sm px-6 py-4 hover:border-accent hover:text-accent transition-colors focus-ring">
+              {t('allProjects')}
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {related.map((project) => (
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group block focus-ring rounded-2xl">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5">
+                  <Image src={project.image} alt={project.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+                <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent">{project.category}</span>
+                <h3 className="text-xl text-foreground font-normal tracking-tight mt-2 group-hover:text-accent transition-colors">{project.title}</h3>
+                <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mt-2">{project.location}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <Footer onDemoClick={() => setShowDemoModal(true)} />

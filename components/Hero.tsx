@@ -1,29 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import RevealText from './RevealText';
 
-export default function Hero() {
+const DISCIPLINES = [
+  { key: 'cooling', href: '/services#district-cooling' },
+  { key: 'mep', href: '/services#mep' },
+  { key: 'infra', href: '/industries/infrastructure' },
+] as const;
+
+export default function Hero({ onQuoteClick }: { onQuoteClick: () => void }) {
   const t = useTranslations('Hero');
   const shouldReduceMotion = useReducedMotion();
-  const d = (duration: number) => (shouldReduceMotion ? 0 : duration);
-
-  // Slide cycling
-  const slides = [
-    { title: t('title'), subtitle: t('subtitle') },
-    { title: t('slide2Title'), subtitle: t('slide2Subtitle') },
-    { title: t('slide3Title'), subtitle: t('slide3Subtitle') },
-  ];
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [shouldReduceMotion, slides.length]);
 
   // Pin spacer: gives the shrink-reveal transition scroll room without the
   // browser fighting itself over layout height (sticky + a taller spacer,
@@ -34,7 +25,10 @@ export default function Hero() {
   // 'end start' overshoots by one viewport height, since the sticky child
   // actually starts releasing once (spacer bottom - viewport height) is
   // reached, not once the spacer's bottom itself reaches the viewport top.
-  const { scrollYProgress: pinProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] });
+  const { scrollYProgress: rawPinProgress } = useScroll({ target: pinRef, offset: ['start start', 'end end'] });
+  // Function pass-through keeps framer-motion computing these transforms
+  // itself; its native ScrollTimeline path mistimed the reveal fade.
+  const pinProgress = useTransform(rawPinProgress, (v) => v);
 
   // Hold fully visible for the first ~40% of the pin range, then shrink the
   // video away from the top down, revealing the real What We Do intro
@@ -50,7 +44,9 @@ export default function Hero() {
   // ghosting effect - the outgoing headline/logos show through the
   // incoming text. Ending one exactly where the other begins keeps the
   // handoff a clean sequential fade instead of a cross-fade.
-  const heroTextOpacity = useTransform(pinProgress, [0.4, 0.6], [1, 0]);
+  // Text scrolls up and out at full strength, like normal content, so it
+  // never lingers over the video as a half-transparent ghost.
+  const heroTextY = useTransform(pinProgress, [0, 0.4], ['0vh', '-100vh']);
   const revealOpacity = useTransform(pinProgress, [0.6, 0.85], [0, 1]);
   // Once revealed, fade the whole pinned frame to transparent right before
   // release. Sticky positioning always needs one full viewport-height of
@@ -67,21 +63,13 @@ export default function Hero() {
   // before release even begins.
   const frameOpacity = useTransform(pinProgress, [0.95, 1], [1, 0]);
 
-  // Defensive belt-and-suspenders on top of heroTextOpacity: on this
-  // project's framer-motion version, derived useTransform values driven by
-  // rapid scroll updates were observed to occasionally settle on a stale
-  // intermediate reading well past where they should be fully clamped to 0
-  // (reproduced directly via getComputedStyle against the DOM, independent
-  // of any test-harness artifact) - which reads as the outgoing headline
-  // and client-logo row faintly ghosting through the incoming content.
-  // Actually unmounting the hero text past the fade-out point removes any
-  // possibility of that, regardless of what the opacity transform reports.
+  // Unmount the hero text once it has scrolled out, so a stale transform
+  // reading can never leave it showing over the reveal layer.
   const [showHeroText, setShowHeroText] = useState(true);
   useMotionValueEvent(pinProgress, 'change', (v) => {
-    if (v > 0.62 && showHeroText) setShowHeroText(false);
-    else if (v < 0.58 && !showHeroText) setShowHeroText(true);
+    if (v > 0.42 && showHeroText) setShowHeroText(false);
+    else if (v < 0.38 && !showHeroText) setShowHeroText(true);
   });
-
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
   const videoY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 120]);
@@ -94,7 +82,11 @@ export default function Hero() {
   // than autoplaying, so it's fine to leave running for reduced-motion
   // users too - it only moves in response to the user's own scroll input.
   return (
-    <div ref={pinRef} className="relative w-full" style={{ height: '160vh' }}>
+    // Taller spacer than the pin strictly needs to release (160vh) so the
+    // same 0-1 scroll-linked progress is spread over more physical scroll
+    // distance - the shrink/reveal plays out at a gentler pace per pixel
+    // scrolled instead of rushing through on a quick flick.
+    <div ref={pinRef} className="relative w-full" style={{ height: '220vh' }}>
       <motion.div
         style={{ opacity: frameOpacity }}
         className="sticky top-0 h-[100dvh] w-full overflow-hidden"
@@ -103,14 +95,23 @@ export default function Hero() {
         {/* Reveal layer: the real What We Do intro, sitting behind the hero.
             Vertically centered in the frame. */}
         <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-center">
-          <div className="w-full max-w-[1400px] mx-auto px-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
+          <div className="w-full px-[22px] md:px-8">
+            <span className="font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-muted-foreground">{t('eyebrow')}</span>
+            <h2 className="mt-6 text-[34px] md:text-[56px] leading-[1.02] text-foreground font-medium tracking-[-0.01em] max-w-[22ch]">
               {t('revealHeadline')}
             </h2>
+            <ul className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-foreground/80 pt-5" aria-label={t('disciplinesLabel')}>
+              {DISCIPLINES.map((d) => (
+                <li key={d.key}>
+                  <Link href={d.href} className="group block focus-ring">
+                    <span className="block font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-foreground group-hover:text-accent transition-colors">
+                      {t(`${d.key}Name`)} <span className="inline-block rtl:-scale-x-100" aria-hidden="true">→</span>
+                    </span>
+                    <span className="block mt-2 text-[15px] md:text-base leading-snug text-muted-foreground max-w-[36ch]">{t(`${d.key}Desc`)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </motion.div>
 
@@ -123,18 +124,22 @@ export default function Hero() {
           className="absolute top-0 left-0 w-full overflow-hidden bg-[#111]"
         >
           <motion.video
+            poster="/hero-welding-poster.jpg"
             autoPlay
             loop
             muted
             playsInline
             style={{ y: videoY }}
-            className="absolute -top-[60px] left-0 w-full h-[calc(100%+120px)] object-cover opacity-50"
+            className="absolute -top-[60px] left-0 w-full h-[calc(100%+120px)] object-cover object-[70%_50%] opacity-50"
           >
-            <source src="/hero-bg.mp4" type="video/mp4" />
+            <source src="/hero-welding.mp4" type="video/mp4" />
           </motion.video>
 
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0 bg-black/20" />
+
+          {/* Bottom-up shade so the left-aligned headline reads over any frame */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111]/85 via-[#111]/20 to-transparent" />
 
           {/* Top gradient for navbar blending */}
           <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#111]/80 to-transparent" />
@@ -146,61 +151,43 @@ export default function Hero() {
             Conditionally rendered (see showHeroText above) so it's fully
             removed from the DOM once faded out, not just transparent. */}
         {showHeroText && (
-        <motion.div
-          style={{ opacity: heroTextOpacity }}
-          className="absolute inset-0 pointer-events-none"
-        >
-          {/* Centered title */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-            <div className="relative z-10 w-full max-w-6xl mx-auto">
-              <AnimatePresence mode="wait">
-                <motion.h1
-                  key={activeSlide}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.8, ease: 'easeInOut' }}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white/80 font-sans font-thin uppercase leading-[1.1] max-w-4xl mx-auto"
-                  style={{ wordSpacing: '0.3em' }}
-                >
-                  {slides[activeSlide].title}
-                </motion.h1>
-              </AnimatePresence>
-            </div>
-          </div>
+          <motion.div
+            style={{ y: heroTextY }}
+            className="absolute inset-0 pointer-events-none"
+          >
+            <div className="absolute inset-0 flex flex-col px-[22px] md:px-8 pt-28 lg:pt-40 pb-6 md:pb-7">
+              <div className="flex-1 flex items-center">
+                <div className="w-full grid grid-cols-12 gap-x-6 gap-y-6 items-start">
+                  <RevealText
+                    as="h1"
+                    trigger="mount"
+                    delay={0.2}
+                    text={t('title')}
+                    className="col-span-12 lg:col-span-8 text-[42px] md:text-[62px] leading-[0.95] text-white font-medium tracking-[-0.01em] max-w-[14ch]"
+                  />
+                  <motion.p
+                    initial={shouldReduceMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+                    className="col-span-12 sm:col-span-8 lg:col-span-3 lg:col-start-9 lg:pt-1 font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-white max-w-[330px]"
+                  >
+                    {t('subtitle')}
+                  </motion.p>
+                </div>
+              </div>
 
-          {/* Bottom subtitle + slide dots */}
-          <div className="absolute bottom-12 md:bottom-20 w-full px-6 flex flex-col items-center gap-5">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={activeSlide}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
-                className="text-white/90 text-base md:text-lg lg:text-xl max-w-3xl text-center font-sans font-light leading-relaxed"
-              >
-                {slides[activeSlide].subtitle}
-              </motion.p>
-            </AnimatePresence>
-
-            {/* Slide indicator dots */}
-            <div className="flex items-center gap-2">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveSlide(i)}
-                  className={`pointer-events-auto transition-all duration-500 rounded-full ${
-                    i === activeSlide
-                      ? 'w-6 h-1.5 bg-white'
-                      : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/70'
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
+              <div className="grid grid-cols-12 gap-x-6 items-end font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-white">
+                <div className="col-span-12 lg:col-span-4 lg:col-start-9 flex flex-col items-start sm:flex-row sm:flex-wrap sm:items-center lg:justify-start gap-x-8 gap-y-3 pointer-events-auto">
+                  <Link href="/projects" className="text-white hover:text-white/60 transition-colors focus-ring">
+                    {t('ctaProjects')} <span className="inline-block rtl:-scale-x-100" aria-hidden="true">→</span>
+                  </Link>
+                  <button onClick={onQuoteClick} className="text-start uppercase tracking-[0.09em] text-white hover:text-white/60 transition-colors cursor-pointer focus-ring">
+                    {t('ctaQuote')} <span className="inline-block rtl:-scale-x-100" aria-hidden="true">→</span>
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
         )}
 
       </motion.div>

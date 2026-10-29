@@ -36,6 +36,7 @@ export async function POST(request: Request) {
   const company = typeof body.company === 'string' ? body.company.trim() : '';
   const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
   const discipline = typeof body.discipline === 'string' ? body.discipline.trim() : '';
+  const workType = typeof body.workType === 'string' ? body.workType.trim() : '';
   const projectReference = typeof body.projectReference === 'string' ? body.projectReference.trim() : '';
   const message = typeof body.message === 'string' ? body.message.trim() : '';
 
@@ -71,6 +72,7 @@ export async function POST(request: Request) {
     ['Email', email],
     company && ['Company', company],
     phone && ['Phone', phone],
+    workType && ['Type of Work', workType],
     discipline && ['Discipline / Role', discipline],
     projectReference && ['Project Reference', projectReference],
   ].filter((row): row is [string, string] => Boolean(row));

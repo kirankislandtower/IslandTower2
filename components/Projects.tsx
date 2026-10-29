@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import RevealText from './RevealText';
 import { Link } from '@/i18n/navigation';
 import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 import CircularGallery from './CircularGallery';
@@ -51,11 +52,23 @@ function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number 
   );
 }
 
+// Landmark work first, then the strongest district cooling networks.
+const FEATURED_SLUGS = [
+  'abu-dhabi-airport-chilled-water-network',
+  'presidential-palace-abu-dhabi-chilled-water',
+  'midfield-terminal-abu-dhabi-chilled-water-flushing',
+  'jumeirah-village-triangle-district-cooling-phase-3',
+  'al-shindagha-corridor-chilled-water',
+  'dubai-beachfront-chilled-water-network',
+];
+
 export default function Projects() {
   const t = useTranslations('Projects');
   const locale = useLocale() as Locale;
   const isRtl = locale === 'ar';
-  const projects = allProjects.slice(0, 6).map((p) => localizeProject(p, locale));
+  const projects = FEATURED_SLUGS.map((slug) => allProjects.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .map((p) => localizeProject(p, locale));
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -83,25 +96,7 @@ export default function Projects() {
 
         <div className="flex justify-between items-end mb-16 gap-6 flex-wrap">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="flex items-center gap-3 mb-6"
-            >
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-              className="text-5xl md:text-7xl text-foreground font-normal tracking-tight mb-6"
-            >
-              {t('headline')}
-            </motion.h2>
+            <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.03em] leading-[1.04] mb-6 max-w-3xl text-balance" />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

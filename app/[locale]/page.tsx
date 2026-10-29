@@ -1,18 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import ProofStrip from '@/components/ProofStrip';
+import ClientLogos from '@/components/ClientLogos';
 import WhatWeDo from '@/components/WhatWeDo';
 import Solutions from '@/components/Solutions';
+import Projects from '@/components/Projects';
 import Platform from '@/components/Platform';
 import Industries from '@/components/Industries';
-import Projects from '@/components/Projects';
 import InsightsPreview from '@/components/InsightsPreview';
-import CareersTeaser from '@/components/CareersTeaser';
-import Testimonials from '@/components/Testimonials';
-import ClientLogos from '@/components/ClientLogos';
 import Footer from '@/components/Footer';
 import QuoteModal from '@/components/QuoteModal';
 
@@ -22,16 +20,15 @@ export default function Home() {
   return (
     <>
       <Header onDemoClick={() => setShowDemoModal(true)} />
-      <Hero />
-      <WhatWeDo />
+      <Hero onQuoteClick={() => setShowDemoModal(true)} />
+      <ProofStrip />
       <ClientLogos />
+      <WhatWeDo />
       <Solutions />
+      <Projects />
       <Platform />
       <Industries />
-      <Projects />
       <InsightsPreview />
-      <CareersTeaser />
-      <Testimonials />
       <Footer onDemoClick={() => setShowDemoModal(true)} />
       <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </>

@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss'
 
+// Theme colours are CSS variables; color-mix keeps opacity modifiers
+// (text-foreground/70, bg-accent/90…) working with them.
 const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,17 +14,17 @@ const config: Config = {
         'slate': {
           '900': '#0f172a',
         },
-        primary: 'var(--color-primary)',
-        'on-primary': 'var(--color-on-primary)',
-        secondary: 'var(--color-secondary)',
-        accent: 'var(--color-accent)',
-        'on-accent': 'var(--color-on-accent)',
-        background: 'var(--color-background)',
-        foreground: 'var(--color-foreground)',
-        card: 'var(--color-card)',
-        muted: 'var(--color-muted)',
-        'muted-foreground': 'var(--color-muted-foreground)',
-        border: 'var(--color-border)',
+        primary: 'color-mix(in srgb, var(--color-primary) calc(<alpha-value> * 100%), transparent)',
+        'on-primary': 'color-mix(in srgb, var(--color-on-primary) calc(<alpha-value> * 100%), transparent)',
+        secondary: 'color-mix(in srgb, var(--color-secondary) calc(<alpha-value> * 100%), transparent)',
+        accent: 'color-mix(in srgb, var(--color-accent) calc(<alpha-value> * 100%), transparent)',
+        'on-accent': 'color-mix(in srgb, var(--color-on-accent) calc(<alpha-value> * 100%), transparent)',
+        background: 'color-mix(in srgb, var(--color-background) calc(<alpha-value> * 100%), transparent)',
+        foreground: 'color-mix(in srgb, var(--color-foreground) calc(<alpha-value> * 100%), transparent)',
+        card: 'color-mix(in srgb, var(--color-card) calc(<alpha-value> * 100%), transparent)',
+        muted: 'color-mix(in srgb, var(--color-muted) calc(<alpha-value> * 100%), transparent)',
+        'muted-foreground': 'color-mix(in srgb, var(--color-muted-foreground) calc(<alpha-value> * 100%), transparent)',
+        border: 'color-mix(in srgb, var(--color-border) calc(<alpha-value> * 100%), transparent)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],

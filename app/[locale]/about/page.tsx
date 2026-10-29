@@ -21,11 +21,11 @@ export async function generateMetadata({
 
   const title = isAr ? 'من نحن' : 'About Us';
   const description = isAr
-    ? `أمضت شركة جزيرة البرج للأعمال الكهروميكانيكية ذ.م.م أكثر من ${years} عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية في الإمارات العربية المتحدة والمملكة العربية السعودية.`
-    : `Island Tower Electro Mechanical Works LLC has spent over ${years} years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia. Learn our story, values, and track record.`;
+    ? `منذ 2003 تبني جزيرة البرج شبكات المياه المبردة في الإمارات. تعرف على قصتنا واعتمادنا من هيئة الطرق وشهادات ISO الثلاث.`
+    : `Since 2003, Island Tower has built the UAE's chilled water networks. Our story, our RTA approval and our three ISO certificates.`;
   const ogDescription = isAr
-    ? `جزيرة البرج للأعمال الكهروميكانيكية — أكثر من ${years} عاماً في تنفيذ مشاريع البنية التحتية والأعمال الكهروميكانيكية والهندسة المدنية.`
-    : `Island Tower Electro Mechanical Works LLC — ${years}+ years delivering infrastructure, MEP, and civil engineering projects across the UAE and Saudi Arabia.`;
+    ? `جزيرة البرج — أكثر من ${years} عاماً في بناء شبكات المياه المبردة والأعمال الكهروميكانيكية في الإمارات.`
+    : `Island Tower — ${years}+ years building chilled water networks and MEP works in the UAE.`;
 
   const keywords = isAr
     ? ['عن جزيرة البرج', 'مقاول كهروميكانيكي معتمد من هيئة الطرق والمواصلات', 'شركة جزيرة البرج للأعمال الكهروميكانيكية', 'مقاول معتمد من بلدية دبي', `${years} عاماً من الخبرة`, 'تاريخ شركة المقاولات', 'مقاول حاصل على شهادة الأيزو']

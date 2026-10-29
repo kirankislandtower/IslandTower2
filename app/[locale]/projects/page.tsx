@@ -11,7 +11,7 @@ const ogImage = {
 export const metadata: Metadata = {
   title: 'Projects',
   description:
-    'A cross-section of the engineering, procurement, and construction projects Island Tower has delivered across the UAE and Saudi Arabia — from MEP fit-outs to water treatment expansions.',
+    'District cooling, chilled water flushing and MEP projects by Island Tower, including Abu Dhabi Airport, the Presidential Palace and Jumeirah Village networks.',
   keywords: [
     'EPC projects UAE',
     'district cooling projects Dubai',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: 'Projects | Island Tower',
     description:
-      'A cross-section of the EPC projects Island Tower has delivered across the UAE and Saudi Arabia.',
+      'District cooling, flushing and MEP projects by Island Tower across the UAE.',
     url: '/projects',
     images: [ogImage],
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Projects | Island Tower',
     description:
-      'A cross-section of the EPC projects Island Tower has delivered across the UAE and Saudi Arabia.',
+      'District cooling, flushing and MEP projects by Island Tower across the UAE.',
     images: [ogImage.url],
   },
 };

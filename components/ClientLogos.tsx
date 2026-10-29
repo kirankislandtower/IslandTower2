@@ -6,12 +6,12 @@ import { useTranslations } from 'next-intl';
 
 const logos = [
   { file: 'empower', name: 'Empower' },
+  { file: 'emicool', name: 'Emicool' },
   { file: 'rta', name: 'RTA' },
   { file: 'emaar', name: 'Emaar' },
+  { file: 'tabreed', name: 'Tabreed' },
   { file: 'dubai-municipality', name: 'Dubai Municipality' },
   { file: 'nakheel', name: 'Nakheel' },
-  { file: 'tabreed', name: 'Tabreed' },
-  { file: 'emicool', name: 'Emicool' },
   { file: 'pdc', name: 'PDC' },
   { file: 'wasl', name: 'Wasl' },
   { file: 'expo-2020-dubai', name: 'Expo 2020 Dubai' },
@@ -22,44 +22,28 @@ export default function ClientLogos() {
   const t = useTranslations('ClientLogos');
 
   return (
-    <section className="bg-background py-20 md:py-24 w-full border-t border-border">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="flex flex-col items-center text-center mb-14"
+    <section className="bg-card w-full border-b border-border">
+      <div className="max-w-[1400px] mx-auto px-6 py-14 md:py-16 grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-12 items-center">
+        <p className="text-muted-foreground text-sm leading-relaxed max-w-[240px]">{t('headline')}</p>
+        <motion.ul
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, margin: '0px 0px -60px 0px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="flex flex-wrap items-center gap-x-10 gap-y-6 md:gap-x-12"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-          </div>
-          <h2 className="text-2xl md:text-3xl text-foreground font-normal tracking-tight">
-            {t('headline')}
-          </h2>
-        </motion.div>
-
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-8 md:gap-10 items-center">
-          {logos.map((logo, idx) => (
-            <motion.div
-              key={logo.file}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-              transition={{ duration: 0.4, delay: (idx % 6) * 0.05, ease: 'easeOut' }}
-              className="relative flex items-center justify-center h-24"
-            >
+          {logos.map((logo) => (
+            <li key={logo.file} className="relative h-14 w-28 md:h-16 md:w-32">
               <Image
                 src={`/images/clients/${logo.file}.jpg`}
                 alt={logo.name}
                 fill
-                sizes="150px"
-                className="object-contain p-2"
+                sizes="128px"
+                className="object-contain"
               />
-            </motion.div>
+            </li>
           ))}
-        </div>
+        </motion.ul>
       </div>
     </section>
   );

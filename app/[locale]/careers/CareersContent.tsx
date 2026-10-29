@@ -64,7 +64,7 @@ export default function CareersContent() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20"
+          className="relative z-10 w-full px-6 md:px-10 mt-24"
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -456,7 +456,7 @@ export default function CareersContent() {
         </div>
       </section>
 
-      <Footer onDemoClick={() => setShowDemoModal(true)} />
+      <Footer onDemoClick={() => setShowDemoModal(true)} hideCta />
       <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </>
   );

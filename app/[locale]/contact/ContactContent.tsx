@@ -93,7 +93,7 @@ export default function ContactContent() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-6xl mx-auto px-6 mt-20"
+          className="relative z-10 w-full px-6 md:px-10 mt-24"
         >
           <div className="flex items-center gap-4 mb-6">
             <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -157,6 +157,7 @@ export default function ContactContent() {
                           email: formData.get('email'),
                           company: formData.get('company'),
                           phone: formData.get('phone'),
+                          workType: formData.get('workType'),
                           message: formData.get('message'),
                         }),
                       });
@@ -220,6 +221,23 @@ export default function ContactContent() {
                         className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="contact-work-type" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
+                      {t('workType')}
+                    </label>
+                    <select
+                      id="contact-work-type"
+                      name="workType"
+                      defaultValue=""
+                      className="w-full px-4 py-3 bg-background border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
+                    >
+                      <option value="">{t('workTypeSelect')}</option>
+                      {(['workNetwork', 'workFlushing', 'workEts', 'workMep', 'workMaintenance', 'workOther'] as const).map((key) => (
+                        <option key={key} value={t(key)}>{t(key)}</option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
@@ -303,7 +321,7 @@ export default function ContactContent() {
         </div>
       </section>
 
-      <Footer onDemoClick={() => setShowDemoModal(true)} />
+      <Footer onDemoClick={() => setShowDemoModal(true)} hideCta />
       <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
     </>
   );

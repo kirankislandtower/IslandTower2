@@ -18,12 +18,15 @@ export async function generateMetadata({
   const project = localizeProject(raw, locale as Locale);
 
   const isAr = locale === 'ar';
-  const title = isAr ? `${project.title} — دراسة حالة` : `${project.title} — Case Study`;
+  const title = project.title;
   const description = project.description;
   const ogImage = { url: project.image, width: 1200, height: 630, alt: project.title };
+  // City from the project's own location, so Abu Dhabi work is not tagged "Dubai".
+  const city = project.location.split(/[,،]/)[0].trim();
+  const isCooling = ['District Cooling', 'Flushing'].includes(raw.category.en);
   const keywords = isAr
-    ? [project.title, `${project.category} دبي`, project.location, 'مقاول EPC جزيرة البرج']
-    : [project.title, `${project.category} Dubai`, project.location, 'Island Tower EPC contractor', 'district cooling project UAE'];
+    ? [project.title, `${project.category} ${city}`, project.location, 'مقاول جزيرة البرج', ...(isCooling ? ['مشروع تبريد مركزي الإمارات'] : [])]
+    : [project.title, `${project.category} ${city}`, project.location, 'Island Tower contractor', ...(isCooling ? ['district cooling project UAE'] : [])];
 
   return {
     title,

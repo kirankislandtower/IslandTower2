@@ -58,7 +58,7 @@ export default function ArticleContent({ article }: { article: LocalizedArticle 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full max-w-[1400px] mx-auto px-6 mt-[200px] pb-16"
+          className="relative z-10 w-full px-6 md:px-10 mt-[200px] pb-16"
         >
           <Link
             href="/news"

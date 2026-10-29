@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import RevealText from './RevealText';
 import { Link } from '@/i18n/navigation';
 import { useParallax } from '@/hooks/useParallax';
 import { articles, localizeArticle, type Locale } from '@/lib/news';
@@ -54,13 +55,7 @@ export default function InsightsPreview() {
         {/* Header and Controls */}
         <div className="flex justify-between items-end mb-10 gap-6 flex-wrap">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight mb-3">
-              {t('headline')}
-            </h2>
+            <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.03em] leading-[1.04] mb-4" />
             <p className="text-muted-foreground text-base max-w-xl leading-relaxed">
               {t('description')}
             </p>

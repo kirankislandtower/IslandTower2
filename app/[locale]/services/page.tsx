@@ -5,7 +5,7 @@ const ogImage = {
   url: '/images/site/steel-structure-piping.jpg',
   width: 1200,
   height: 630,
-  alt: 'Island Tower — Expertise & Services',
+  alt: 'Island Tower — Services',
 };
 
 export async function generateMetadata({
@@ -16,13 +16,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const isAr = locale === 'ar';
 
-  const title = isAr ? 'خدماتنا' : 'Expertise & Services';
+  const title = isAr ? 'خدماتنا' : 'Services';
   const description = isAr
-    ? 'تقدم جزيرة البرج خدمات الهندسة الكهروميكانيكية والبنية التحتية والأعمال المدنية والمنشآت الكيميائية ومعالجة المياه وحلول الطاقة والبحث والتطوير للمشاريع الكبرى في الإمارات والسعودية.'
-    : 'Island Tower delivers MEP engineering, infrastructure, civil works, chemical facilities, water treatment, energy solutions, and R&D for major projects across the UAE and Saudi Arabia.';
+    ? 'شبكات المياه المبردة وغسيلها والتنظيف الكيميائي ومحطات نقل الطاقة والتوصيل على الخطوط العاملة وأعمال حرم الطرق، إلى جانب الخدمات الكهروميكانيكية الكاملة للمباني.'
+    : 'Chilled water networks, flushing and chemical cleaning, ETS and hot tapping, and RTA right-of-way works, plus full MEP services for buildings.';
   const ogDescription = isAr
-    ? 'الهندسة الكهروميكانيكية والبنية التحتية والأعمال المدنية والمنشآت الكيميائية ومعالجة المياه وحلول الطاقة والبحث والتطوير — منفذة عبر الإمارات والسعودية.'
-    : 'MEP engineering, infrastructure, civil works, chemical facilities, water treatment, energy solutions, and R&D — delivered across the UAE and Saudi Arabia.';
+    ? 'التبريد المركزي وشبكات المياه المبردة أولاً، مع خدمات كهروميكانيكية متكاملة للمباني.'
+    : 'District cooling and chilled water networks first, with full MEP services for buildings.';
 
   const keywords = isAr
     ? ['خدمات الهندسة الكهروميكانيكية دبي', 'تنظيف خطوط المياه المبردة', 'مقاول تبريد مركزي دبي', 'خدمات الأعمال المدنية الإمارات', 'الجودة والصحة والسلامة في المقاولات', 'لحام مواسير HDPE دبي', 'تمديد مواسير GRP الإمارات']

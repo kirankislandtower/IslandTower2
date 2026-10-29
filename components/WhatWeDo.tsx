@@ -2,192 +2,136 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useParallax } from '@/hooks/useParallax';
+import RevealText from './RevealText';
+import { Link } from '@/i18n/navigation';
+
+// The path chilled water takes, plant to building. Order is the real
+// sequence of a district cooling job, which is why the stops are numbered.
+const STOPS = [
+  { key: 'plant', image: '/images/site/rooftop-cooling-equipment.jpg' },
+  { key: 'row', image: '/images/projects/shindagha-valve-chamber-formwork.jpg' },
+  { key: 'network', image: '/images/site/large-diameter-pipe-install.jpg' },
+  { key: 'flushing', image: '/images/projects/saadiyat-flushing-equipment.jpg' },
+  { key: 'ets', image: '/images/projects/tecom-mechanical-room.jpg' },
+] as const;
 
 export default function WhatWeDo() {
   const t = useTranslations('WhatWeDo');
-  const [activeTab, setActiveTab] = useState(1);
-  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
-
-  const tabs = [
-    {
-      id: 1,
-      title: t('tab1Title'),
-      desc: t('tab1Desc'),
-      image: '/images/projects/shindagha-pipe-trench-shoring.jpg'
-    },
-    {
-      id: 2,
-      title: t('tab2Title'),
-      desc: t('tab2Desc'),
-      image: '/images/projects/shindagha-valve-chamber-formwork.jpg'
-    },
-    {
-      id: 3,
-      title: t('tab3Title'),
-      desc: t('tab3Desc'),
-      image: '/images/projects/saadiyat-chiller-units.jpg'
-    },
-    {
-      id: 4,
-      title: t('tab4Title'),
-      desc: t('tab4Desc'),
-      image: '/images/projects/saadiyat-flushing-equipment.jpg'
-    },
-  ];
+  const [active, setActive] = useState(2);
+  const stop = STOPS[active];
+  // Six columns (five stops + the building); line runs to each node's centre.
+  const columnPct = (i: number) => `calc(${(i / (STOPS.length + 1)) * 100}% + 12px)`;
 
   return (
-    <section className="relative overflow-hidden bg-background pt-8 pb-24 w-full">
-      {/* Faint tower-icon watermark in the section's own top area. The
-          hero's scroll-pin above releases with an unavoidable blank stretch
-          (a CSS `position: sticky` limitation - releasing a pin always
-          costs one viewport-height of scroll with nothing pinned to show)
-          before this section's real content scrolls into view. Since this
-          watermark lives in the section's own top padding rather than
-          being tied to the pin's timing, it starts appearing the moment
-          this section's top edge enters the viewport - filling what would
-          otherwise be a truly blank pause with a subtle branded presence
-          instead, with no fragile scroll-position math involved. */}
-      <Image
-        src="/images/logo/island-tower-logo-full.png"
-        alt=""
-        aria-hidden="true"
-        width={1654}
-        height={1400}
-        className="pointer-events-none select-none absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] md:w-[640px] h-auto max-w-none opacity-[0.05] mix-blend-multiply"
-      />
-      <div className="relative max-w-[1400px] mx-auto px-6">
-        {/* No entrance animation here on purpose: the hero's shrink-reveal
-            transition (see components/Hero.tsx) already plays this exact
-            block in as the hero recedes, so this is what's left in its
-            place once the page un-pins - animating it again would replay
-            a fade-in on content the user just watched appear. */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl text-foreground font-normal tracking-tight leading-[1.1] max-w-4xl">
-            {t('headline')}
-          </h2>
+    <section className="bg-background pt-24 md:pt-36 pb-24 md:pb-32 w-full" id="speciality">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="grid lg:grid-cols-[1.3fr_1fr] gap-6 lg:gap-16 items-end mb-16 md:mb-20"
+        >
+          <RevealText text={t('headline')} className="text-4xl md:text-6xl lg:text-[4.25rem] text-foreground font-light tracking-[-0.03em] leading-[1.02] text-balance" />
+          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-md lg:justify-self-end">
+            {t('description')}
+          </p>
+        </motion.div>
+
+        {/* The route */}
+        <div className="relative" role="tablist" aria-label={t('routeLabel')}>
+          <div className="absolute start-0 top-[11px] h-[3px] bg-border rounded-full" style={{ width: columnPct(STOPS.length) }} aria-hidden="true" />
+          <motion.div
+            className="absolute start-0 top-[11px] h-[3px] bg-accent rounded-full"
+            animate={{ width: columnPct(active) }}
+            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+            aria-hidden="true"
+          />
+          <ol className="relative grid grid-cols-6">
+            {STOPS.map((s, i) => {
+              const isActive = i === active;
+              const passed = i < active;
+              return (
+                <li key={s.key}>
+                  <button
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls="route-panel"
+                    onClick={() => setActive(i)}
+                    className="group w-full flex flex-col items-start text-start cursor-pointer focus-ring rounded-md"
+                  >
+                    <span
+                      className={`relative z-10 w-[25px] h-[25px] rounded-full border-[3px] transition-colors duration-300 ${
+                        isActive ? 'bg-accent border-accent' : passed ? 'bg-background border-accent' : 'bg-background border-border group-hover:border-foreground/40'
+                      }`}
+                    />
+                    <span className={`font-mono text-[11px] tracking-[0.16em] mt-4 transition-colors ${isActive ? 'text-accent' : 'text-muted-foreground'}`}>
+                      0{i + 1}
+                    </span>
+                    <span className={`hidden sm:block text-sm md:text-lg tracking-tight mt-1 pe-2 transition-colors ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                      {t(`${s.key}Stop`)}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+            <li>
+              <a href="#mep" className="group w-full flex flex-col items-start text-start focus-ring rounded-md">
+                <span className="relative z-10 w-[25px] h-[25px] rounded-[5px] bg-foreground" />
+                <span className="font-mono text-[11px] tracking-[0.16em] mt-4 text-muted-foreground">{t('endLabel')}</span>
+                <span className="hidden sm:block text-sm md:text-lg tracking-tight mt-1 text-foreground group-hover:text-accent transition-colors">
+                  {t('buildingStop')}
+                </span>
+              </a>
+            </li>
+          </ol>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, margin: "0px 0px -100px 0px" }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          ref={parallaxRef}
-          className="relative w-full h-[600px] rounded-xl overflow-hidden bg-black shadow-2xl"
-        >
-          {tabs.map((tab) => (
+        {/* Selected stop */}
+        <div id="route-panel" role="tabpanel" className="mt-12 md:mt-16">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={tab.id}
-              style={{ y: parallaxY, scale: 1.15 }}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-                activeTab === tab.id ? 'opacity-100' : 'opacity-0'
-              }`}
+              key={stop.key}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-14 items-stretch"
             >
-              <Image
-                src={tab.image}
-                alt={tab.title}
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
+              <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[440px] rounded-2xl overflow-hidden bg-muted">
+                <Image
+                  src={stop.image}
+                  alt={t(`${stop.key}Title`)}
+                  fill
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-between gap-10 py-2">
+                <div>
+                  <h3 className="text-3xl md:text-4xl text-foreground font-light tracking-[-0.02em] leading-tight">{t(`${stop.key}Title`)}</h3>
+                  <p className="text-foreground/80 text-base md:text-lg leading-relaxed mt-5">{t(`${stop.key}Desc`)}</p>
+                </div>
+                <div className="border-t border-border pt-6">
+                  <span className="font-mono text-[11px] tracking-[0.16em] uppercase text-muted-foreground">{t('whereLabel')}</span>
+                  <p className="text-foreground text-base mt-2">{t(`${stop.key}Ref`)}</p>
+                  <Link
+                    href="/services#district-cooling"
+                    className="inline-flex items-center gap-2 mt-6 font-mono text-xs tracking-widest uppercase text-foreground hover:text-accent transition-colors focus-ring"
+                  >
+                    {t('cta')}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </Link>
+                </div>
+              </div>
             </motion.div>
-          ))}
-
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/90 pointer-events-none" />
-
-          <div className="absolute top-8 left-8 right-8 flex justify-between items-start z-10 pointer-events-none">
-            <div className="font-mono text-white/90 text-sm md:text-lg tracking-widest uppercase max-w-[200px] leading-relaxed">
-              {t('deliveringExcellence')}
-            </div>
-            <div className="font-mono text-white/90 text-4xl md:text-5xl font-light">
-              0{activeTab}
-            </div>
-          </div>
-
-          <div className="absolute bottom-0 left-0 right-0 p-8 z-10 hidden md:grid grid-cols-4 gap-6">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className="flex flex-col justify-end text-left h-full group cursor-pointer focus-ring"
-              >
-                <div className="flex flex-col justify-end min-h-[120px] mb-4">
-                  <h3 
-                    className={`text-lg transition-colors duration-300 ${
-                      activeTab === tab.id ? 'text-white font-medium' : 'text-white/50 group-hover:text-white/80'
-                    }`}
-                  >
-                    {tab.title}
-                  </h3>
-                  
-                  <div 
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      activeTab === tab.id ? 'max-h-40 mt-3 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <p className="text-white/70 text-sm leading-relaxed">
-                      {tab.desc}
-                    </p>
-                  </div>
-                </div>
-                
-                <div 
-                  className={`h-[2px] w-full transition-colors duration-300 ${
-                    activeTab === tab.id ? 'bg-white' : 'bg-white/20 group-hover:bg-white/40'
-                  }`} 
-                />
-              </button>
-            ))}
-          </div>
-          
-          {/* Mobile Tabs */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 z-10 md:hidden flex flex-col gap-4">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className="text-left w-full cursor-pointer focus-ring"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 
-                    className={`text-base transition-colors duration-300 ${
-                      activeTab === tab.id ? 'text-white font-medium' : 'text-white/50'
-                    }`}
-                  >
-                    {tab.title}
-                  </h3>
-                  {activeTab !== tab.id && (
-                    <div className="w-4 h-[1px] bg-white/30" />
-                  )}
-                </div>
-                
-                <div 
-                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    activeTab === tab.id ? 'max-h-40 mt-2 opacity-100' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <p className="text-white/70 text-xs leading-relaxed">
-                    {tab.desc}
-                  </p>
-                </div>
-                
-                <div 
-                  className={`h-[1px] w-full mt-3 transition-colors duration-300 ${
-                    activeTab === tab.id ? 'bg-white' : 'bg-white/20'
-                  }`} 
-                />
-              </button>
-            ))}
-          </div>
-
-        </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

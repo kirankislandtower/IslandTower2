@@ -1,138 +1,53 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import RevealText from './RevealText';
 import { Link } from '@/i18n/navigation';
-import { useParallax } from '@/hooks/useParallax';
 
-const industryImages = [
-  '/images/site/underground-pipe-trench.jpg',
-  '/images/site/rooftop-cooling-equipment.jpg',
-  '/images/site/pump-filtration-room.jpg',
-  '/images/projects/dragonmart-electrical-panel.jpg',
-  '/images/site/rebar-formwork-crew.jpg',
-  '/images/site/steel-structure-piping.jpg',
-  '/images/site/rooftop-piping-install.jpg',
-  '/images/site/tunnel-piping-run.jpg',
-];
-
-const industrySlugs = [
-  'infrastructure',
-  'energy-power',
-  'water-treatment',
-  'commercial',
-  'residential',
-  'industrial',
-  'aviation',
-  'oil-gas',
-];
-
-function SectorCard({ item, idx }: { item: { title: string; image: string; slug: string }; idx: number }) {
-  const row = Math.floor(idx / 4);
-  const col = idx % 4;
-  const delay = (row + col) * 0.09;
-  const { ref: parallaxRef, y: parallaxY } = useParallax(30);
-
-  return (
-    <Link href={`/industries/${item.slug}`} className="block focus-ring rounded-2xl">
-      <motion.div
-        initial={{ clipPath: 'inset(100% 0 0 0)' }}
-        whileInView={{ clipPath: 'inset(0% 0 0 0)' }}
-        viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-        transition={{ duration: 0.7, delay, ease: [0.65, 0, 0.35, 1] }}
-        ref={parallaxRef}
-        className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-      >
-        <motion.div
-          initial={{ scale: 1.4 }}
-          whileInView={{ scale: 1.15 }}
-          whileHover={{ scale: 1.22 }}
-          viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-          transition={{ duration: 0.9, delay, ease: [0.65, 0, 0.35, 1] }}
-          style={{ y: parallaxY }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            sizes="(min-width: 768px) 25vw, 50vw"
-            className="object-cover"
-          />
-        </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-80" />
-
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false, margin: "0px 0px -60px 0px" }}
-          transition={{ duration: 0.4, delay: delay + 0.5 }}
-          className="absolute top-6 end-6 font-mono text-white/60 text-xs tracking-widest"
-        >
-          0{idx + 1}
-        </motion.span>
-
-        <h3 className="absolute top-6 start-6 end-6 text-white text-2xl md:text-xl lg:text-2xl font-medium leading-snug">
-          {item.title}
-        </h3>
-      </motion.div>
-    </Link>
-  );
-}
+// Only sectors with real projects behind them are featured on Home.
+const featuredSectors = [
+  { key: 'i1', slug: 'infrastructure', ref: 'refInfrastructure' },
+  { key: 'i4', slug: 'commercial', ref: 'refCommercial' },
+  { key: 'i5', slug: 'residential', ref: 'refResidential' },
+  { key: 'i7', slug: 'aviation', ref: 'refAviation' },
+  { key: 'i6', slug: 'industrial', ref: 'refIndustrial' },
+] as const;
 
 export default function Industries() {
   const t = useTranslations('Industries');
-  const industryKeys = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7', 'i8'] as const;
-  const industries = industryKeys.map((key, idx) => ({ title: t(key), image: industryImages[idx], slug: industrySlugs[idx] }));
 
   return (
     <section id="industries" className="bg-background py-24 md:py-32 w-full scroll-mt-28">
       <div className="max-w-[1400px] mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="grid lg:grid-cols-[1.3fr_1fr] gap-6 lg:gap-16 items-end mb-12"
+        >
+          <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.03em] leading-[1.04] text-balance" />
+          <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-md lg:justify-self-end">{t('description')}</p>
+        </motion.div>
 
-        {/* Header */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="flex items-center gap-3 mb-6"
-          >
-            <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-          </motion.div>
-
-          <div className="overflow-hidden mb-6">
-            <motion.h2
-              initial={{ clipPath: 'inset(0 100% 0 0)' }}
-              whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
-              viewport={{ once: false, margin: "0px 0px -100px 0px" }}
-              transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
-              className="text-5xl md:text-7xl text-foreground font-normal tracking-tight"
-            >
-              {t('headline')}
-            </motion.h2>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-            className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
-          >
-            {t('description')}
-          </motion.p>
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {industries.map((item, idx) => (
-            <SectorCard key={idx} item={item} idx={idx} />
+        <ul className="border-t border-foreground/80">
+          {featuredSectors.map((sector) => (
+            <li key={sector.slug}>
+              <Link
+                href={`/industries/${sector.slug}`}
+                className="group grid grid-cols-[1fr_auto] md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)_auto] items-center gap-4 md:gap-10 py-6 md:py-7 border-b border-border focus-ring"
+              >
+                <span className="text-2xl md:text-4xl text-foreground font-light tracking-[-0.02em] group-hover:text-accent transition-colors">{t(sector.key)}</span>
+                <span className="hidden md:block text-muted-foreground text-sm md:text-base">{t(sector.ref)}</span>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50 group-hover:text-accent transition-all duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </Link>
+            </li>
           ))}
-        </div>
-
+        </ul>
       </div>
     </section>
   );

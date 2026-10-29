@@ -45,7 +45,7 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#111]/70 via-[#111]/40 to-[#111]" />
 
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 pt-28 pb-12 md:pb-16">
+        <div className="relative z-10 w-full px-6 md:px-10 pt-32 pb-12 md:pb-16">
           <Link
             href="/projects"
             className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
@@ -217,30 +217,6 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
             ))}
           </div>
         </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section className="bg-[#1c1f24] py-20 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="max-w-4xl mx-auto px-6 flex flex-col items-center text-center gap-6"
-        >
-          <h2 className="text-3xl md:text-5xl text-white font-normal tracking-tight">
-            {t('ctaHeadline')}
-          </h2>
-          <p className="text-white/70 text-base max-w-xl">
-            {t('ctaSubtitle')}
-          </p>
-          <button
-            onClick={() => setShowDemoModal(true)}
-            className="bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-8 py-4 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
-          >
-            {t('getQuote')}
-          </button>
-        </motion.div>
       </section>
 
       <Footer onDemoClick={() => setShowDemoModal(true)} />
