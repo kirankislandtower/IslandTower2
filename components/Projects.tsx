@@ -1,56 +1,11 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
-import RevealText from './RevealText';
 import { Link } from '@/i18n/navigation';
 import { projects as allProjects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
-import CircularGallery from './CircularGallery';
-
-function ProjectCard({ project, idx }: { project: LocalizedProject; idx: number }) {
-  const t = useTranslations('Projects');
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-      transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: 'easeOut' }}
-      className="snap-start shrink-0 w-[300px] md:w-[380px]"
-    >
-      <Link href={`/projects/${project.slug}`} className="group block focus-ring rounded-2xl">
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg mb-5">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(min-width: 768px) 380px, 300px"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <span className="absolute top-5 start-5 font-mono text-white text-xs tracking-widest uppercase bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full">
-            0{idx + 1}
-          </span>
-        </div>
-        <span className="font-mono text-xs tracking-[0.2em] uppercase text-accent">{project.category}</span>
-        <h3 className="text-xl md:text-2xl text-foreground font-normal tracking-tight mt-2 mb-2 leading-snug">
-          {project.title}
-        </h3>
-        <p className="font-mono text-xs tracking-widest uppercase text-muted-foreground mb-4">
-          {project.location}
-        </p>
-        <span className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-foreground group-hover:text-accent transition-colors">
-          {t('viewCaseStudy')}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </span>
-      </Link>
-    </motion.div>
-  );
-}
 
 // Landmark work first, then the strongest district cooling networks.
 const FEATURED_SLUGS = [
@@ -62,87 +17,106 @@ const FEATURED_SLUGS = [
   'dubai-beachfront-chilled-water-network',
 ];
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+function ProjectTile({ project, reduceMotion }: { project: LocalizedProject; reduceMotion: boolean }) {
+  // Short name: drop the trailing "— Chilled Water …" part the full titles carry
+  const name = project.title.split(/\s[—–-]\s/)[0];
+  // Client (without any partner list in brackets) and city; skip the client
+  // when the project is already named after it, e.g. Abu Dhabi Airport.
+  const client = project.client?.replace(/\s*\(.*\)\s*/, '');
+  const city = project.location.split(/[,،]/)[0];
+  const meta = [client && !name.includes(client) ? client : null, city].filter(Boolean).join(' · ');
+
+  return (
+    <Link href={`/projects/${project.slug}`} className="group block focus-ring">
+      {/* The photo opens upward as it enters, settling from a slight zoom */}
+      <motion.div
+        initial={reduceMotion ? { opacity: 0 } : { clipPath: 'inset(100% 0% 0% 0%)' }}
+        whileInView={reduceMotion ? { opacity: 1 } : { clipPath: 'inset(0% 0% 0% 0%)' }}
+        viewport={{ once: true, margin: '0px 0px -80px 0px' }}
+        transition={{ duration: 1.1, ease: EASE }}
+        className="relative aspect-[16/10] overflow-hidden bg-muted"
+      >
+        <motion.div
+          initial={reduceMotion ? false : { scale: 1.15 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, margin: '0px 0px -80px 0px' }}
+          transition={{ duration: 1.6, ease: EASE }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(min-width: 1024px) 46vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          />
+        </motion.div>
+      </motion.div>
+      <div className="mt-3 flex items-baseline justify-between gap-6 text-[15px] md:text-base">
+        <span className="text-foreground bg-[linear-gradient(currentColor,currentColor)] bg-no-repeat bg-[length:0%_1px] bg-[position:0_100%] group-hover:bg-[length:100%_1px] transition-[background-size] duration-500">
+          {name}
+        </span>
+        <span className="shrink-0 text-muted-foreground text-end">{meta}</span>
+      </div>
+    </Link>
+  );
+}
+
 export default function Projects() {
   const t = useTranslations('Projects');
   const locale = useLocale() as Locale;
-  const isRtl = locale === 'ar';
+  const reduceMotion = !!useReducedMotion();
   const projects = FEATURED_SLUGS.map((slug) => allProjects.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p))
     .map((p) => localizeProject(p, locale));
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scrollByCard = (forward: boolean) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>('[data-card]');
-    const amount = (card?.offsetWidth ?? 380) + 32;
-    const sign = forward ? 1 : -1;
-    const rtlAdjusted = isRtl ? -sign : sign;
-    el.scrollBy({ left: rtlAdjusted * amount, behavior: 'smooth' });
-  };
+  // Two columns, the second set lower and drifting at its own pace
+  const left = projects.filter((_, i) => i % 2 === 0);
+  const right = projects.filter((_, i) => i % 2 === 1);
 
-  const step = (forward: boolean) => {
-    scrollByCard(forward);
-    setActiveIndex((prev) => {
-      const next = forward ? prev + 1 : prev - 1;
-      return ((next % projects.length) + projects.length) % projects.length;
-    });
-  };
+  const gridRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: raw } = useScroll({ target: gridRef, offset: ['start end', 'end start'] });
+  // Function pass-through keeps framer-motion computing scroll-linked values itself.
+  const progress = useTransform(raw, (v) => v);
+  const driftRight = useTransform(progress, [0, 1], [120, -120]);
 
   return (
-    <section className="bg-card py-24 md:py-32 w-full" id="projects">
-      <div className="max-w-[1400px] mx-auto px-6">
+    // Slides up over the last screen of the numbers chapter, like a card laid on top
+    <section data-section="projects" className="relative z-10 -mt-[100vh] rounded-t-[48px] md:rounded-t-[110px] bg-card py-24 md:py-36 w-full px-[22px] md:px-8" id="projects">
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <h2 className="text-[46px] md:text-[88px] leading-[0.92] font-medium tracking-[-0.01em] text-foreground max-w-[12ch]">
+          {t('headline')}
+          <sup className="ms-2 align-super text-[20px] md:text-[32px] font-normal tracking-normal text-muted-foreground">({allProjects.length})</sup>
+        </h2>
+        <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-sm">{t('description')}</p>
+      </div>
 
-        <div className="flex justify-between items-end mb-16 gap-6 flex-wrap">
-          <div>
-            <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.03em] leading-[1.04] mb-6 max-w-3xl text-balance" />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-              className="text-muted-foreground text-base md:text-lg max-w-2xl leading-relaxed"
-            >
-              {t('description')}
-            </motion.p>
-          </div>
-
-          <div className="flex gap-2 shrink-0">
-            <button
-              onClick={() => step(false)}
-              aria-label={t('previous')}
-              className="p-3 border border-border hover:border-accent transition-colors bg-background cursor-pointer focus-ring"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              onClick={() => step(true)}
-              aria-label={t('next')}
-              className="p-3 border border-border hover:border-accent transition-colors bg-background cursor-pointer focus-ring"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <CircularGallery items={projects} activeIndex={activeIndex} />
-
-        <div
-          ref={scrollerRef}
-          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6 lg:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {projects.map((project, idx) => (
-            <div key={project.slug} data-card>
-              <ProjectCard project={project} idx={idx} />
-            </div>
+      <div ref={gridRef} className="mt-16 md:mt-24 grid grid-cols-1 lg:grid-cols-2 gap-x-[8vw] gap-y-16">
+        <div className="flex flex-col gap-16 md:gap-28">
+          {left.map((p) => (
+            <ProjectTile key={p.slug} project={p} reduceMotion={reduceMotion} />
           ))}
         </div>
+        <motion.div
+          className="flex flex-col gap-16 md:gap-28 lg:pt-[22vw]"
+          style={reduceMotion ? undefined : { y: driftRight }}
+        >
+          {right.map((p) => (
+            <ProjectTile key={p.slug} project={p} reduceMotion={reduceMotion} />
+          ))}
+        </motion.div>
+      </div>
 
+      <div className="mt-20 md:mt-28 flex justify-center">
+        <Link
+          href="/projects"
+          className="group inline-flex items-center gap-3 h-12 px-7 rounded-full bg-[#1c1f24] text-white text-[15px] font-medium hover:bg-accent active:scale-[0.98] transition-[background-color,transform] duration-200 focus-ring"
+        >
+          {t('viewAll')}
+          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   );

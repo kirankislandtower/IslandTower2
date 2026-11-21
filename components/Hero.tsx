@@ -30,38 +30,25 @@ export default function Hero({ onQuoteClick }: { onQuoteClick: () => void }) {
   // itself; its native ScrollTimeline path mistimed the reveal fade.
   const pinProgress = useTransform(rawPinProgress, (v) => v);
 
-  // Hold fully visible for the first ~40% of the pin range, then shrink the
-  // video away from the top down, revealing the real What We Do intro
-  // sitting behind it at the same screen position.
-  const heroHeight = useTransform(pinProgress, [0, 0.4, 0.78], ['100%', '100%', '0%']);
-  // Hero's own text/logos live in a separate, non-shrinking overlay so they
-  // never reposition with the shrinking video box - they simply crossfade
-  // out before the reveal layer starts crossfading in. These ranges must
-  // not overlap (0.4-0.6 vs 0.6-0.85): with the reveal layer's tall
-  // multi-line heading spanning much of the same vertical band as the
-  // hero's own centered headline, any shared progress window where both
-  // are simultaneously above 0 opacity produces a visible double-exposure
-  // ghosting effect - the outgoing headline/logos show through the
-  // incoming text. Ending one exactly where the other begins keeps the
-  // handoff a clean sequential fade instead of a cross-fade.
-  // Text scrolls up and out at full strength, like normal content, so it
-  // never lingers over the video as a half-transparent ghost.
+  // The What we do panel rises over the still video like a dome (Sobha
+  // style): narrow and round-topped as it enters, widening and flattening
+  // until it fills the frame.
   const heroTextY = useTransform(pinProgress, [0, 0.4], ['0vh', '-100vh']);
-  const revealOpacity = useTransform(pinProgress, [0.6, 0.85], [0, 1]);
-  // Once revealed, fade the whole pinned frame to transparent right before
-  // release. Sticky positioning always needs one full viewport-height of
-  // extra scroll to release the pin (there's no way to shortcut that in
-  // CSS) - during that release the frame is still on-screen sliding away
-  // while the real What We Do section slides up from below. Without this
-  // fade that produces a visible double-exposure of the same "Our
-  // Expertise" text; fading the frame out first means nothing is visible
-  // to double up. Held off until 0.95 (not 0.85) so the frame stays solid
-  // for as much of the pin as possible, shrinking the blank stretch between
-  // the frame disappearing and the real section scrolling into view -
-  // that stretch is fixed at one viewport height by CSS sticky regardless,
-  // but starting the fade later means less of it is spent looking blank
-  // before release even begins.
-  const frameOpacity = useTransform(pinProgress, [0.95, 1], [1, 0]);
+  const DOME_AT = [0.3, 0.55, 0.8];
+  const domeTop = useTransform(pinProgress, DOME_AT, [100, 42, 0]);
+  const domeSide = useTransform(pinProgress, DOME_AT, [16, 9, 0]);
+  const domeRound = useTransform(pinProgress, DOME_AT, [42, 30, 0]);
+  const domeClip = useTransform([domeTop, domeSide, domeRound], ([t, sd, r]) =>
+    `inset(${t}% ${sd}% 0% ${sd}% round ${r}vw ${r}vw 0px 0px)`,
+  );
+  // The panel's content rides up with it, then settles
+  const domeContentY = useTransform(pinProgress, DOME_AT, ['34vh', '12vh', '0vh']);
+  // Text stays inside the dome's curved edges while it is narrow
+  const domePad = useTransform(domeSide, (sd) => `calc(${(sd * 1.35).toFixed(2)}vw + 32px)`);
+  // The video sinks back a little as it is covered
+  const videoDim = useTransform(pinProgress, [0.3, 0.8], [1, 0.55]);
+  // The revealed What we do frame stays solid and scrolls away with the
+  // pin, so the proof strip follows straight after it with no blank gap.
 
   // Unmount the hero text once it has scrolled out, so a stale transform
   // reading can never leave it showing over the reveal layer.
@@ -86,42 +73,16 @@ export default function Hero({ onQuoteClick }: { onQuoteClick: () => void }) {
     // same 0-1 scroll-linked progress is spread over more physical scroll
     // distance - the shrink/reveal plays out at a gentler pace per pixel
     // scrolled instead of rushing through on a quick flick.
-    <div ref={pinRef} className="relative w-full" style={{ height: '220vh' }}>
-      <motion.div
-        style={{ opacity: frameOpacity }}
-        className="sticky top-0 h-[100dvh] w-full overflow-hidden"
-      >
-
-        {/* Reveal layer: the real What We Do intro, sitting behind the hero.
-            Vertically centered in the frame. */}
-        <motion.div style={{ opacity: revealOpacity }} className="absolute inset-0 bg-background flex items-center">
-          <div className="w-full px-[22px] md:px-8">
-            <span className="font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-muted-foreground">{t('eyebrow')}</span>
-            <h2 className="mt-6 text-[34px] md:text-[56px] leading-[1.02] text-foreground font-medium tracking-[-0.01em] max-w-[22ch]">
-              {t('revealHeadline')}
-            </h2>
-            <ul className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-foreground/80 pt-5" aria-label={t('disciplinesLabel')}>
-              {DISCIPLINES.map((d) => (
-                <li key={d.key}>
-                  <Link href={d.href} className="group block focus-ring">
-                    <span className="block font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-foreground group-hover:text-accent transition-colors">
-                      {t(`${d.key}Name`)} <span className="inline-block rtl:-scale-x-100" aria-hidden="true">→</span>
-                    </span>
-                    <span className="block mt-2 text-[15px] md:text-base leading-snug text-muted-foreground max-w-[36ch]">{t(`${d.key}Desc`)}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
+    <div ref={pinRef} data-section={showHeroText ? 'home' : 'whatwedo'} className="relative w-full" style={{ height: '220vh' }}>
+      <motion.div className="sticky top-0 h-[100dvh] w-full overflow-hidden">
 
         {/* Video/background layer: top-anchored, recedes bottom-up as the
             pin scrolls. Text-free, so its shrinking box never has to worry
             about repositioning readable content. */}
         <motion.section
           ref={sectionRef}
-          style={{ height: heroHeight }}
-          className="absolute top-0 left-0 w-full overflow-hidden bg-[#111]"
+          style={{ opacity: videoDim }}
+          className="absolute inset-0 w-full overflow-hidden bg-[#111]"
         >
           <motion.video
             poster="/hero-welding-poster.jpg"
@@ -145,6 +106,32 @@ export default function Hero({ onQuoteClick }: { onQuoteClick: () => void }) {
           <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#111]/80 to-transparent" />
         </motion.section>
 
+        {/* Reveal layer: the real What We Do intro, rising over the video as a
+            dome. Vertically centered in the frame once it fills it. */}
+        <motion.div
+          style={{ clipPath: domeClip }}
+          className="absolute inset-0 z-[1] bg-background flex items-center"
+        >
+          <motion.div className="w-full px-[22px] md:px-8" style={shouldReduceMotion ? undefined : { y: domeContentY, paddingLeft: domePad, paddingRight: domePad }}>
+            <span className="font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-muted-foreground">{t('eyebrow')}</span>
+            <h2 className="mt-6 text-[34px] md:text-[56px] leading-[1.02] text-foreground font-medium tracking-[-0.01em] max-w-[22ch]">
+              {t('revealHeadline')}
+            </h2>
+            <ul className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-6 border-t border-foreground/80 pt-5" aria-label={t('disciplinesLabel')}>
+              {DISCIPLINES.map((d) => (
+                <li key={d.key}>
+                  <Link href={d.href} className="group block focus-ring">
+                    <span className="block font-mono text-[14px] leading-[1.25] tracking-[0.09em] uppercase text-foreground group-hover:text-accent transition-colors">
+                      {t(`${d.key}Name`)} <span className="inline-block rtl:-scale-x-100" aria-hidden="true">→</span>
+                    </span>
+                    <span className="block mt-2 text-[15px] md:text-base leading-snug text-muted-foreground max-w-[36ch]">{t(`${d.key}Desc`)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </motion.div>
+
         {/* Hero text overlay: fixed to the full sticky frame regardless of
             the video's shrinking height, so it only ever crossfades - it
             never has to reposition itself as the box beneath it shrinks.
@@ -153,7 +140,7 @@ export default function Hero({ onQuoteClick }: { onQuoteClick: () => void }) {
         {showHeroText && (
           <motion.div
             style={{ y: heroTextY }}
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 z-[2] pointer-events-none"
           >
             <div className="absolute inset-0 flex flex-col px-[22px] md:px-8 pt-28 lg:pt-40 pb-6 md:pb-7">
               <div className="flex-1 flex items-center">

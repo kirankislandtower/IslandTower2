@@ -49,13 +49,13 @@ export default function InsightsPreview() {
   const current = featured[currentIndex];
 
   return (
-    <section className="bg-background py-24 md:py-32 w-full">
+    <section data-section="insights" className="bg-background py-24 md:py-32 w-full">
       <div className="max-w-[1400px] mx-auto px-6">
 
         {/* Header and Controls */}
         <div className="flex justify-between items-end mb-10 gap-6 flex-wrap">
           <div>
-            <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.03em] leading-[1.04] mb-4" />
+            <RevealText text={t('headline')} className="text-4xl md:text-6xl text-foreground font-light tracking-[-0.01em] leading-[1.04] mb-4" />
             <p className="text-muted-foreground text-base max-w-xl leading-relaxed">
               {t('description')}
             </p>

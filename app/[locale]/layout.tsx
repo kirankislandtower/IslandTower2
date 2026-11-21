@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Onest, Saira_Semi_Condensed } from "next/font/google";
+import { Inter_Tight, Merriweather } from "next/font/google";
+import localFont from "next/font/local";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -9,21 +10,32 @@ import { routing } from "@/i18n/routing";
 import "lenis/dist/lenis.css";
 import "../globals.css";
 
-const onest = Onest({
+// Free stand-ins for ESR's licensed fonts: Inter Tight for FK Grotesk
+// (headings and body), Geist for Binnenland "Regular" (small labels).
+const interTight = Inter_Tight({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Small spaced-capital labels (nav, eyebrows, buttons).
-const sairaLabel = Saira_Semi_Condensed({
-  subsets: ["latin"],
-  weight: ["400", "500"],
+// Small labels (nav, eyebrows, buttons). Geist, SIL Open Font License.
+const geistLabel = localFont({
+  src: "../fonts/Geist-Variable-latin.woff2",
+  weight: "300 600",
   variable: "--font-mono",
   display: "swap",
 });
 
-const onestHeading = Onest({
+// Serif for the home page headings (Evermind-style layout)
+const serif = Merriweather({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const interTightHeading = Inter_Tight({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-heading",
@@ -191,7 +203,7 @@ export default async function LocaleLayout({
       lang={locale}
       dir={dir}
       suppressHydrationWarning
-      className={`${onest.variable} ${sairaLabel.variable} ${onestHeading.variable}`}
+      className={`${interTight.variable} ${geistLabel.variable} ${interTightHeading.variable} ${serif.variable}`}
     >
       <head>
         <script

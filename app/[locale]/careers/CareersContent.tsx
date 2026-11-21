@@ -1,463 +1,201 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import QuoteModal from '@/components/QuoteModal';
+import { EASE, GUTTER, Label, Rise, SERIF } from '@/components/home/ui';
+import { Area, CARD, Field, Head, PageShell, Photo, SubmitButton, TitleHero } from '@/components/page/kit';
 
+// Careers, built from the reference's about-page "open roles" and pricing
+// FAQ: centred title, why work here beside a photograph, the disciplines,
+// how we hire as a stacked list, how we train, questions, and the form.
 export default function CareersContent() {
   const t = useTranslations('CareersPage');
-  const [showDemoModal, setShowDemoModal] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [faq, setFaq] = useState<number | null>(0);
+  const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  const disciplines = [
-    t('d1'), t('d2'), t('d3'), t('d4'), t('d5'), t('d6'), t('d7'),
-  ];
+  const values = [1, 2, 3].map((n) => ({ title: t(`value${n}Title`), desc: t(`value${n}Desc`) }));
+  const disciplines = [1, 2, 3, 4, 5, 6, 7].map((n) => t(`d${n}`));
+  const steps = [1, 2, 3].map((n) => ({ title: t(`process${n}Title`), desc: t(`process${n}Desc`) }));
+  const training = [1, 2, 3].map((n) => ({ title: t(`training${n}Title`), desc: t(`training${n}Desc`) }));
+  const faqs = [1, 2, 3].map((n) => ({ q: t(`faq${n}Q`), a: t(`faq${n}A`) }));
 
-  const values = [
-    { title: t('value1Title'), description: t('value1Desc') },
-    { title: t('value2Title'), description: t('value2Desc') },
-    { title: t('value3Title'), description: t('value3Desc') },
-  ];
-
-  const trainingPrograms = [
-    { title: t('training1Title'), description: t('training1Desc') },
-    { title: t('training2Title'), description: t('training2Desc') },
-    { title: t('training3Title'), description: t('training3Desc') },
-  ];
-
-  const process = [
-    { title: t('process1Title'), description: t('process1Desc') },
-    { title: t('process2Title'), description: t('process2Desc') },
-    { title: t('process3Title'), description: t('process3Desc') },
-  ];
-
-  const faqs = [
-    { q: t('faq1Q'), a: t('faq1A') },
-    { q: t('faq2Q'), a: t('faq2A') },
-    { q: t('faq3Q'), a: t('faq3A') },
-  ];
+  const scrollToForm = () => {
+    const el = document.getElementById('apply');
+    if (!el) return;
+    if (window.__lenis) window.__lenis.scrollTo(el, { offset: -96 });
+    else el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <>
-      <Header onDemoClick={() => setShowDemoModal(true)} />
-
-      {/* Hero */}
-      <section className="relative min-h-[60vh] w-full flex flex-col justify-center overflow-hidden bg-[#111]">
-        <Image
-          src="/images/site/scaffolding-piping-install.jpg"
-          alt="Engineers on a construction site"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/50 to-[#111]" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full px-6 md:px-10 mt-24"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{t('eyebrow')}</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            {t('title1')}
-            <br />
-            {t('title2')}
-          </h1>
-          <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed mt-6">
-            {t('subtitle')}
-          </p>
-        </motion.div>
-      </section>
+    <PageShell>
+      <TitleHero label={t('eyebrow')} title={`${t('title1')} ${t('title2')}`} sub={t('subtitle')}>
+        <button type="button" onClick={scrollToForm} className="inline-flex items-center h-9 px-4 rounded-full bg-accent text-white text-[14px] hover:bg-[#b91c1c] transition-colors cursor-pointer focus-ring">
+          {t('expressInterest')}
+        </button>
+      </TitleHero>
 
       {/* Why Island Tower */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('whyEyebrow')}</span>
-            </div>
-            <h2 className="text-4xl md:text-6xl text-foreground font-normal tracking-tight">
-              {t('whyHeadline')}
-            </h2>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-3 gap-6 mb-24">
-            {values.map((value, idx) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                transition={{ duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
-                className="bg-card border border-border rounded-2xl p-8"
-              >
-                <div className="font-mono text-xs text-accent mb-4">0{idx + 1}</div>
-                <h3 className="text-lg text-foreground font-medium mb-3">{value.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-10"
-          >
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">{t('disciplinesEyebrow')}</span>
-            <div className="flex flex-wrap justify-center gap-3 max-w-3xl">
-              {disciplines.map((d) => (
-                <span
-                  key={d}
-                  className="font-mono text-xs tracking-widest uppercase text-foreground border border-border rounded-full px-4 py-2"
-                >
-                  {d}
-                </span>
+      <section className={`${GUTTER} pb-24 md:pb-32`}>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
+          <div className="flex flex-col justify-between gap-12">
+            <Head label={t('whyEyebrow')} title={t('whyHeadline')} />
+            <ul className="flex flex-col gap-6">
+              {values.map((v, i) => (
+                <Rise key={v.title} delay={i * 0.05}>
+                  <li className="flex gap-3.5">
+                    <span className="mt-0.5 shrink-0 w-8 h-8 rounded-[8px] bg-accent/10 flex items-center justify-center" aria-hidden="true"><span className="w-2 h-2 rounded-full bg-accent" /></span>
+                    <div>
+                      <h3 className="text-[15px] font-semibold">{v.title}</h3>
+                      <p className="mt-1 text-[14px] leading-[1.55] font-medium text-[#1a1a17]/70 max-w-[46ch]">{v.desc}</p>
+                    </div>
+                  </li>
+                </Rise>
               ))}
+            </ul>
+          </div>
+          <Photo src="/images/site/scaffolding-piping-install.jpg" alt="" className="aspect-[4/5] lg:aspect-auto lg:min-h-[600px]" sizes="(min-width: 1024px) 50vw, 100vw" />
+        </div>
+
+        <Rise className="mt-16 flex flex-col items-center text-center">
+          <Label>{t('disciplinesEyebrow')}</Label>
+          <div className="mt-6 flex flex-wrap justify-center gap-2 max-w-[860px]">
+            {disciplines.map((d) => (
+              <span key={d} className="h-9 px-4 inline-flex items-center rounded-full border border-[#1a1a17]/15 text-[14px]">{d}</span>
+            ))}
+          </div>
+        </Rise>
+      </section>
+
+      {/* How we hire, stacked */}
+      <section className={`${GUTTER} pb-24 md:pb-32`}>
+        <div className="border-t border-[#1a1a17]/12 pt-5 grid md:grid-cols-2 gap-10 lg:gap-14 items-start">
+          <div className="md:sticky md:top-28 flex flex-col gap-8">
+            <div>
+              <Rise><Label>{t('processEyebrow')}</Label></Rise>
+              <Rise delay={0.04}><h2 className={`${SERIF} mt-6 text-[30px] md:text-[40px] leading-[1.15]`}>{t('processHeadline')}</h2></Rise>
             </div>
-          </motion.div>
+            <Photo src="/images/site/pump-room-team.jpg" alt="" className="hidden md:block aspect-[4/3] max-h-[44vh]" sizes="50vw" />
+          </div>
+          <div>
+            <ul className="flex flex-col gap-3">
+              {steps.map((s, i) => (
+                <Rise key={s.title} delay={0.04}>
+                  <li className={`rounded-[10px] ${CARD} p-5 md:p-6`}>
+                    <span className="text-[11px] tracking-[0.08em] uppercase font-medium text-[#3f403c]">{t('processEyebrow')} · {i + 1}/{steps.length}</span>
+                    <h3 className="mt-3 text-[18px] md:text-[20px] font-medium tracking-[-0.01em]">{s.title}</h3>
+                    <p className="mt-2 text-[14px] leading-[1.55] font-medium text-[#1a1a17]/70">{s.desc}</p>
+                  </li>
+                </Rise>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      {/* Recruitment Process */}
-      <section className="bg-card py-24 md:py-32 w-full border-y border-border">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('processEyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight">
-              {t('processHeadline')}
-            </h2>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-3 gap-6">
-            {process.map((step, idx) => (
-              <motion.div
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                transition={{ duration: 0.5, delay: idx * 0.15, ease: 'easeOut' }}
-                className="relative bg-background border border-border rounded-2xl p-8"
-              >
-                <motion.div
-                  initial={{ scale: 0, rotate: -20 }}
-                  whileInView={{ scale: 1, rotate: 0 }}
-                  viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                  transition={{ delay: idx * 0.15 + 0.1, type: 'spring', stiffness: 260, damping: 16 }}
-                  className="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center font-mono text-sm mb-5"
-                >
-                  {idx + 1}
-                </motion.div>
-                <h3 className="text-lg text-foreground font-medium mb-3">{step.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-
-                {idx < process.length - 1 && (
-                  <motion.svg
-                    initial={{ opacity: 0, x: -6 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                    transition={{ delay: idx * 0.15 + 0.35, duration: 0.4, ease: 'easeOut' }}
-                    className="hidden sm:block absolute top-9 -end-3.5 translate-x-1/2 rtl:-translate-x-1/2 text-accent/50 z-10"
-                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12" className="rtl:-scale-x-100" />
-                    <polyline points="12 5 19 12 12 19" className="rtl:-scale-x-100" />
-                  </motion.svg>
-                )}
-              </motion.div>
+      {/* How we train */}
+      <section className={`${GUTTER} pb-24 md:pb-32`}>
+        <div className="border-t border-[#1a1a17]/12 pt-5">
+          <Head label={t('trainingEyebrow')} title={t('trainingHeadline')} />
+          <div className="mt-12 grid sm:grid-cols-3 gap-3">
+            {training.map((x, i) => (
+              <Rise key={x.title} delay={i * 0.05}>
+                <div className={`h-full rounded-[10px] ${CARD} p-5`}>
+                  <span className="w-8 h-8 rounded-[8px] bg-accent text-white flex items-center justify-center" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z" /><path d="M6 12v5c3 2 9 2 12 0v-5" /></svg>
+                  </span>
+                  <h3 className="mt-8 text-[17px] font-semibold">{x.title}</h3>
+                  <p className="mt-2 text-[14px] leading-[1.55] font-medium text-[#1a1a17]/70">{x.desc}</p>
+                </div>
+              </Rise>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Training Programs */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('trainingEyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight">
-              {t('trainingHeadline')}
-            </h2>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-3 gap-6">
-            {trainingPrograms.map((program, idx) => (
-              <motion.div
-                key={program.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                transition={{ duration: 0.5, delay: idx * 0.1, ease: 'easeOut' }}
-                whileHover={{ y: -6 }}
-                className="bg-card border border-border rounded-2xl p-8 transition-shadow hover:shadow-xl hover:border-accent/40 cursor-default"
-                style={{ transition: 'box-shadow 0.3s ease, border-color 0.3s ease' }}
-              >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-                  transition={{ delay: idx * 0.1 + 0.15, type: 'spring', stiffness: 260, damping: 16 }}
-                  className="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center font-mono text-sm mb-5"
-                >
-                  {idx + 1}
-                </motion.div>
-                <h3 className="text-lg text-foreground font-medium mb-3">{program.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{program.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="bg-card py-24 md:py-32 w-full border-y border-border">
-        <div className="max-w-3xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="flex flex-col items-center text-center mb-12"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('faqEyebrow')}</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl text-foreground font-normal tracking-tight">
-              {t('faqHeadline')}
-            </h2>
-          </motion.div>
-
-          <div className="flex flex-col gap-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
+      {/* Questions */}
+      <section className={`${GUTTER} pb-24 md:pb-32`}>
+        <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-2 gap-10">
+          <Head label={t('faqEyebrow')} title={t('faqHeadline')} />
+          <ul>
+            {faqs.map((f, i) => {
+              const open = faq === i;
               return (
-                <motion.div
-                  key={faq.q}
-                  className="bg-background border border-border rounded-2xl overflow-hidden"
-                  animate={{ borderColor: isOpen ? 'var(--color-accent)' : 'var(--color-border)' }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-4 p-6 text-start cursor-pointer focus-ring"
-                  >
-                    <span className="text-foreground font-medium">{faq.q}</span>
-                    <motion.svg
-                      animate={{ rotate: isOpen ? 45 : 0 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                      width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                      className="text-accent shrink-0"
-                    >
-                      <line x1="12" y1="5" x2="12" y2="19"></line>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </motion.svg>
+                <li key={f.q} className="border-b border-[#1a1a17]/12">
+                  <button type="button" onClick={() => setFaq(open ? null : i)} aria-expanded={open} className="w-full flex items-center justify-between gap-6 py-5 text-start text-[16px] font-medium cursor-pointer focus-ring">
+                    {f.q}
+                    <motion.span animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.3, ease: EASE }} className="shrink-0 w-7 h-7 rounded-full bg-[#1a1a17]/5 flex items-center justify-center" aria-hidden="true">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                    </motion.span>
                   </button>
                   <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.65, 0, 0.35, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <motion.p
-                          initial={{ y: -6 }}
-                          animate={{ y: 0 }}
-                          transition={{ duration: 0.3, delay: 0.05 }}
-                          className="text-muted-foreground text-sm leading-relaxed px-6 pb-6"
-                        >
-                          {faq.a}
-                        </motion.p>
+                    {open && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: EASE }} className="overflow-hidden">
+                        <p className="pb-5 text-[15px] leading-[1.6] font-medium text-[#1a1a17]/70 max-w-[60ch]">{f.a}</p>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* Express Interest form */}
-      <section className="bg-card py-24 md:py-32 w-full border-t border-border">
-        <div className="max-w-2xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="bg-background border border-border rounded-2xl p-8 md:p-10"
-          >
-            {submitted ? (
-              <div className="py-10 text-center">
-                <div className="w-14 h-14 rounded-full bg-accent/10 text-accent flex items-center justify-center mx-auto mb-6">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+      {/* Apply */}
+      <section id="apply" className={`${GUTTER} pb-24 md:pb-32 scroll-mt-28`}>
+        <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-14">
+          <div>
+            <Head label={t('expressInterest')} title={t('formHeadline')} />
+            <Rise delay={0.12}>
+              <p className="mt-6 text-[16px] leading-[24px] font-medium text-[#1a1a17]/75 max-w-[44ch]">
+                {t('formDesc')} <a href="mailto:careers@islandtoweruae.ae" className="text-accent underline underline-offset-4 focus-ring">careers@islandtoweruae.ae</a>.
+              </p>
+            </Rise>
+          </div>
+          <Rise delay={0.08}>
+            <div className={`rounded-[12px] ${CARD} p-5 md:p-8`}>
+              {state === 'sent' ? (
+                <div className="py-16 text-center">
+                  <h3 className={`${SERIF} text-[28px]`}>{t('thanksTitle')}</h3>
+                  <p className="mt-3 text-[15px] font-medium text-[#1a1a17]/70 max-w-sm mx-auto">{t('thanksDesc')}</p>
                 </div>
-                <h3 className="text-2xl font-normal text-foreground mb-2">{t('thanksTitle')}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
-                  {t('thanksDesc')}
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-2 h-2 bg-accent" />
-                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('expressInterest')}</span>
-                </div>
-                <h2 className="text-2xl md:text-3xl text-foreground font-normal tracking-tight mb-2">
-                  {t('formHeadline')}
-                </h2>
-                <p className="text-muted-foreground text-sm mb-8">
-                  {t('formDesc')} <a href="mailto:careers@islandtoweruae.ae" className="text-accent hover:underline">careers@islandtoweruae.ae</a>.
-                </p>
-
+              ) : (
                 <form
+                  className="flex flex-col gap-5"
                   onSubmit={async (e) => {
                     e.preventDefault();
-                    setSubmitting(true);
-                    setError(false);
-                    const formData = new FormData(e.currentTarget);
+                    setState('sending');
+                    const f = new FormData(e.currentTarget);
                     try {
                       const res = await fetch('/api/inquiry', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          formType: 'careers',
-                          name: formData.get('name'),
-                          email: formData.get('email'),
-                          discipline: formData.get('discipline'),
-                          message: formData.get('experience'),
-                        }),
+                        body: JSON.stringify({ formType: 'careers', name: f.get('name'), email: f.get('email'), discipline: f.get('discipline'), message: f.get('experience') }),
                       });
-                      if (!res.ok) throw new Error('Request failed');
-                      setSubmitted(true);
+                      if (!res.ok) throw new Error('failed');
+                      setState('sent');
                     } catch {
-                      setError(true);
-                    } finally {
-                      setSubmitting(false);
+                      setState('error');
                     }
                   }}
-                  className="flex flex-col gap-5"
                 >
                   <div className="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <label htmlFor="careers-name" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                        {t('fullName')}
-                      </label>
-                      <input
-                        id="careers-name"
-                        name="name"
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="careers-email" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                        {t('email')}
-                      </label>
-                      <input
-                        id="careers-email"
-                        name="email"
-                        type="email"
-                        required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
-                      />
-                    </div>
+                    <Field id="career-name" name="name" label={t('fullName')} required />
+                    <Field id="career-email" name="email" type="email" label={t('email')} required />
                   </div>
-
-                  <div>
-                    <label htmlFor="careers-discipline" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      {t('disciplineRole')}
-                    </label>
-                    <input
-                      id="careers-discipline"
-                      name="discipline"
-                      type="text"
-                      placeholder={t('disciplinePlaceholder')}
-                      required
-                      className="w-full px-4 py-3 bg-card border border-border rounded-md text-foreground text-sm focus-ring focus:border-accent"
-                    />
+                  <Field id="career-discipline" name="discipline" label={t('disciplineRole')} placeholder={t('disciplinePlaceholder')} required />
+                  <Area id="career-experience" name="experience" label={t('relevantExperience')} required />
+                  {state === 'error' && <p className="text-[14px] text-accent" role="alert">{t('formError')}</p>}
+                  <div className="flex justify-end">
+                    <SubmitButton disabled={state === 'sending'}>{state === 'sending' ? t('sending') : t('submit')}</SubmitButton>
                   </div>
-
-                  <div>
-                    <label htmlFor="careers-experience" className="block text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                      {t('relevantExperience')}
-                    </label>
-                    <textarea
-                      id="careers-experience"
-                      name="experience"
-                      rows={4}
-                      required
-                      className="w-full px-4 py-3 bg-card border border-border rounded-md text-foreground text-sm resize-none focus-ring focus:border-accent"
-                    />
-                  </div>
-
-                  {error && (
-                    <p className="text-sm text-red-600" role="alert">
-                      {t('formError')}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-sm px-6 py-4 rounded-md hover:bg-accent/90 transition-colors cursor-pointer focus-ring disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {submitting ? t('sending') : t('submit')}
-                  </button>
                 </form>
-              </>
-            )}
-          </motion.div>
+              )}
+            </div>
+          </Rise>
         </div>
       </section>
-
-      <Footer onDemoClick={() => setShowDemoModal(true)} hideCta />
-      <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
-    </>
+    </PageShell>
   );
 }

@@ -1,153 +1,80 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import QuoteModal from '@/components/QuoteModal';
-import { projects, localizeProject, type Locale as ProjectLocale } from '@/lib/projects';
+import { GUTTER, Label, Pill, Rise, SERIF } from '@/components/home/ui';
+import { BlurWords, CARD, PageShell, Photo, StoryCard, useQuote } from '@/components/page/kit';
+import { projects, localizeProject, type Locale } from '@/lib/projects';
 import type { LocalizedIndustry } from '@/lib/industries';
 
+// One sector: the title beside its photograph (as the reference's article
+// head), the overview and what we do in it, and the projects behind it.
 export default function IndustryDetailContent({ industry }: { industry: LocalizedIndustry }) {
   const t = useTranslations('IndustryDetail');
-  const locale = useLocale() as ProjectLocale;
-  const [showDemoModal, setShowDemoModal] = useState(false);
+  const p = useTranslations('Pages');
+  const locale = useLocale() as Locale;
+  const openQuote = useQuote();
 
-  const relatedProjects = industry.relatedProjectSlugs
-    .map((slug) => projects.find((p) => p.slug === slug))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p))
-    .map((p) => localizeProject(p, locale));
+  const related = industry.relatedProjectSlugs
+    .map((s) => projects.find((x) => x.slug === s))
+    .filter((x): x is NonNullable<typeof x> => Boolean(x))
+    .map((x) => localizeProject(x, locale));
 
   return (
-    <>
-      <Header onDemoClick={() => setShowDemoModal(true)} />
-
-      {/* Hero */}
-      <section className="relative min-h-[60vh] w-full flex flex-col justify-end overflow-hidden bg-[#111]">
-        <Image
-          src={industry.image}
-          alt={industry.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/60 via-[#111]/40 to-[#111]" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-          className="relative z-10 w-full px-6 md:px-10 mt-24 pb-16"
-        >
-          <Link
-            href="/#industries"
-            className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            {t('allIndustries')}
-          </Link>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{industry.title}</span>
+    <PageShell>
+      <section className={`${GUTTER} pt-[100px]`}>
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-stretch">
+          <div className="flex flex-col justify-center pt-8 md:pt-0">
+            <Link href="/services" className="inline-flex w-fit items-center gap-2 text-[13px] font-medium text-[#1a1a17]/60 hover:text-[#1a1a17] transition-colors focus-ring">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100"><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg>
+              {t('allIndustries')}
+            </Link>
+            <div className="mt-10"><Label>{industry.title}</Label></div>
+            <h1 className={`${SERIF} mt-6 text-[36px] leading-[40px] sm:text-[48px] sm:leading-[52px] md:text-[56px] md:leading-[60px] md:tracking-[-2px] max-w-[16ch] text-balance`}>
+              <BlurWords text={industry.headline} />
+            </h1>
+            <div className="mt-8"><Pill onClick={openQuote} variant="accent">{t('getQuote')}</Pill></div>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-            {industry.headline}
-          </h1>
-        </motion.div>
-      </section>
-
-      {/* Overview / Capabilities */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-3 gap-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="lg:col-span-2"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('overview')}</span>
-            </div>
-            <p className="text-foreground text-base leading-relaxed">{industry.overview}</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="bg-card border border-border rounded-2xl p-8"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('capabilities')}</span>
-            </div>
-            <ul className="flex flex-col gap-4">
-              {industry.capabilities.map((capability) => (
-                <li key={capability} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent shrink-0 mt-0.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  {capability}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          <Photo src={industry.image} alt={industry.title} className="aspect-[4/5] md:aspect-auto md:min-h-[600px]" sizes="(min-width: 768px) 50vw, 100vw" priority />
         </div>
       </section>
 
-      {/* Related Projects */}
-      {relatedProjects.length > 0 && (
-        <section className="bg-card py-24 md:py-32 w-full border-t border-border">
-          <div className="max-w-[1400px] mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="flex items-center gap-3 mb-10"
-            >
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('relatedProjects')}</span>
-            </motion.div>
+      <section className={`${GUTTER} py-24 md:py-32`}>
+        <div className="grid md:grid-cols-2 gap-10">
+          <Rise><Label>{t('overview')}</Label></Rise>
+          <Rise delay={0.04}><p className="text-[20px] md:text-[22px] leading-[1.4] font-medium max-w-[580px]">{industry.overview}</p></Rise>
+        </div>
+        <div className="mt-16 border-t border-[#1a1a17]/12 pt-5">
+          <Rise><Label>{t('capabilities')}</Label></Rise>
+          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {industry.capabilities.map((c, i) => (
+              <Rise key={c} delay={(i % 3) * 0.05}>
+                <div className={`h-full rounded-[10px] ${CARD} p-5 flex gap-3.5`}>
+                  <span className="mt-0.5 shrink-0 w-7 h-7 rounded-[8px] bg-accent text-white flex items-center justify-center" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                  </span>
+                  <p className="text-[15px] leading-[1.5] font-medium">{c}</p>
+                </div>
+              </Rise>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className={`grid sm:grid-cols-2 gap-6 ${relatedProjects.length === 3 ? "lg:grid-cols-3" : ""}`}>
-              {relatedProjects.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/projects/${p.slug}`}
-                  className="group relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg focus-ring"
-                >
-                  <Image
-                    src={p.image}
-                    alt={p.title}
-                    fill
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute bottom-0 start-0 end-0 p-6">
-                    <span className="font-mono text-xs tracking-widest uppercase text-white/70">{p.category}</span>
-                    <h3 className="text-xl text-white font-medium mt-1">{p.title}</h3>
-                  </div>
-                </Link>
+      {related.length > 0 && (
+        <section className={`${GUTTER} pb-24 md:pb-32`}>
+          <div className="border-t border-[#1a1a17]/12 pt-5">
+            <Rise><Label>{t('relatedProjects')}</Label></Rise>
+            <div className="mt-10 grid md:grid-cols-2 gap-3">
+              {related.map((x) => (
+                <Rise key={x.slug}>
+                  <StoryCard href={`/projects/${x.slug}`} img={x.image} tag={x.category} title={x.title} meta={x.client ?? x.location} cta={p('readCase')} />
+                </Rise>
               ))}
             </div>
           </div>
         </section>
       )}
-
-      <Footer onDemoClick={() => setShowDemoModal(true)} />
-      <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
-    </>
+    </PageShell>
   );
 }

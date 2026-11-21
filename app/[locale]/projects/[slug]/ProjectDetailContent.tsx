@@ -1,226 +1,105 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import QuoteModal from '@/components/QuoteModal';
-import { useParallax } from '@/hooks/useParallax';
+import { GUTTER, Label, Pill, Rise, SERIF } from '@/components/home/ui';
+import { BlurWords, PageShell, Photo, StoryCard, useQuote } from '@/components/page/kit';
 import { projects, localizeProject, type Locale, type LocalizedProject } from '@/lib/projects';
 
+// One project, set as the reference's case study: dark ground, the client
+// as the label, the title, the main photograph beside the facts, the scope
+// as the lead, the gallery, a small card to start a similar job, and two
+// more projects on cream.
 export default function ProjectDetailContent({ project }: { project: LocalizedProject }) {
   const t = useTranslations('ProjectDetail');
+  const p = useTranslations('Pages');
   const locale = useLocale() as Locale;
-  const [showDemoModal, setShowDemoModal] = useState(false);
-  const { ref: heroImgRef, y: heroImgY } = useParallax(24);
+  const openQuote = useQuote();
 
-  const related = projects
-    .filter((p) => p.slug !== project.slug && p.category.en === project.categoryKey)
-    .map((p) => localizeProject(p, locale))
-    .slice(0, 2);
-  const fallbackRelated =
-    related.length > 0
-      ? related
-      : projects
-          .filter((p) => p.slug !== project.slug)
-          .map((p) => localizeProject(p, locale))
-          .slice(0, 2);
+  const same = projects.filter((x) => x.slug !== project.slug && x.category.en === project.categoryKey);
+  const more = (same.length ? same : projects.filter((x) => x.slug !== project.slug)).slice(0, 2).map((x) => localizeProject(x, locale));
+
+  const facts = [
+    { k: t('category'), v: project.category },
+    { k: t('location'), v: project.location },
+    project.client && { k: t('client'), v: project.client },
+    project.consultant && { k: t('consultant'), v: project.consultant },
+    project.contractValue && { k: t('contractValue'), v: project.contractValue },
+  ].filter(Boolean) as { k: string; v: string }[];
 
   return (
-    <>
-      <Header onDemoClick={() => setShowDemoModal(true)} />
-
-      {/* Intro band */}
-      <section className="relative min-h-[48vh] w-full flex flex-col justify-end overflow-hidden bg-[#111]">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-45"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/70 via-[#111]/40 to-[#111]" />
-
-        <div className="relative z-10 w-full px-6 md:px-10 pt-32 pb-12 md:pb-16">
-          <Link
-            href="/projects"
-            className="flex w-fit items-center gap-2 font-mono text-xs tracking-widest uppercase text-white/70 hover:text-white transition-colors focus-ring mb-8"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
+    <PageShell>
+      <div className="bg-[#1a1a17] text-[#f4f3ea]">
+        <section className={`${GUTTER} pt-[132px] md:pt-[160px]`}>
+          <Link href="/projects" className="inline-flex items-center gap-2 text-[13px] font-medium text-[#f4f3ea]/70 hover:text-[#f4f3ea] transition-colors focus-ring">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rtl:-scale-x-100"><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg>
             {t('allProjects')}
           </Link>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/70">{project.category}</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl text-white font-normal tracking-tight leading-[1.05] max-w-4xl">
-              {project.title}
-            </h1>
-            <p className="font-mono text-xs tracking-widest uppercase text-white/60 mt-6">{project.location}</p>
-          </motion.div>
-        </div>
-      </section>
+          <div className="mt-10"><Label light>{project.client ?? project.category}</Label></div>
+          <h1 className={`${SERIF} mt-6 text-[36px] leading-[40px] sm:text-[48px] sm:leading-[52px] md:text-[56px] md:leading-[60px] md:tracking-[-2px] max-w-[18ch] text-balance`}>
+            <BlurWords text={project.title} />
+          </h1>
 
-      {/* Story + sticky project spec */}
-      <section className="bg-background py-16 md:py-24 w-full">
-        <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-[1fr_320px] gap-12 items-start">
-          <div className="flex flex-col gap-14 lg:order-1">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              ref={heroImgRef}
-              className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl"
-            >
-              <motion.div style={{ y: heroImgY, scale: 1.15 }} className="absolute inset-0 w-full h-full">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  sizes="(min-width: 1024px) 800px, 100vw"
-                  className="object-cover"
-                />
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-2 h-2 bg-accent" />
-                <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('scopeOfWork')}</span>
-              </div>
-              <p className="text-foreground text-base leading-relaxed">{project.scope}</p>
-            </motion.div>
-
-            {project.gallery.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-2 h-2 bg-accent" />
-                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('gallery')}</span>
+          <div className="mt-12 grid md:grid-cols-[1.1fr_1fr] lg:grid-cols-[0.9fr_1fr] gap-8 md:gap-12 items-start">
+            <Photo src={project.image} alt={project.title} className="aspect-[4/3]" sizes="(min-width: 768px) 50vw, 100vw" priority />
+            <dl className="grid grid-cols-2 gap-x-8 gap-y-6">
+              {facts.map((f) => (
+                <div key={f.k}>
+                  <dt className="text-[11px] tracking-[0.08em] uppercase font-medium text-[#f4f3ea]/55">{f.k}</dt>
+                  <dd className="mt-1.5 text-[15px] font-medium">{f.v}</dd>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {project.gallery.map((src, idx) => (
-                    <div key={idx} className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
-                      <Image src={src} alt={project.title} fill sizes="(min-width: 640px) 50vw, 100vw" className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </div>
-
-          <motion.aside
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -60px 0px' }}
-            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-            className="order-first lg:order-2 lg:sticky lg:top-28 bg-card border border-border rounded-2xl p-8 flex flex-col gap-5"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 bg-accent" />
-              <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('projectDetails')}</span>
-            </div>
-            <dl className="flex flex-col gap-4 text-sm">
-              <div className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{t('category')}</dt>
-                <dd className="text-foreground text-end">{project.category}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-muted-foreground">{t('location')}</dt>
-                <dd className="text-foreground text-end">{project.location}</dd>
-              </div>
-              {project.client && (
-                <div className="flex justify-between gap-4">
-                  <dt className="text-muted-foreground">{t('client')}</dt>
-                  <dd className="text-foreground text-end">{project.client}</dd>
-                </div>
-              )}
-              {project.consultant && (
-                <div className="flex justify-between gap-4">
-                  <dt className="text-muted-foreground">{t('consultant')}</dt>
-                  <dd className="text-foreground text-end">{project.consultant}</dd>
-                </div>
-              )}
-              {project.contractValue && (
-                <div className="flex justify-between gap-4">
-                  <dt className="text-muted-foreground">{t('contractValue')}</dt>
-                  <dd className="text-foreground text-end">{project.contractValue}</dd>
-                </div>
-              )}
+              ))}
             </dl>
-            <button
-              onClick={() => setShowDemoModal(true)}
-              className="mt-2 w-full bg-accent text-on-accent font-mono uppercase tracking-widest text-xs px-6 py-3.5 hover:bg-accent/90 transition-colors cursor-pointer focus-ring"
-            >
-              {t('getQuote')}
-            </button>
-          </motion.aside>
-        </div>
-      </section>
-
-      {/* Related Projects */}
-      <section className="bg-background py-24 md:py-32 w-full">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: '0px 0px -100px 0px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex items-center gap-3 mb-10"
-          >
-            <div className="w-2 h-2 bg-accent" />
-            <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">{t('moreProjects')}</span>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {fallbackRelated.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/projects/${p.slug}`}
-                className="group relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg focus-ring"
-              >
-                <Image
-                  src={p.image}
-                  alt={p.title}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute bottom-0 start-0 end-0 p-6">
-                  <span className="font-mono text-xs tracking-widest uppercase text-white/70">{p.category}</span>
-                  <h3 className="text-xl text-white font-medium mt-1">{p.title}</h3>
-                </div>
-              </Link>
-            ))}
           </div>
+        </section>
+
+        <section className={`${GUTTER} py-24 md:py-32`}>
+          <div className="grid md:grid-cols-2 gap-10">
+            <Rise><Label light>{t('scopeOfWork')}</Label></Rise>
+            <div className="max-w-[580px]">
+              <Rise delay={0.04}><p className="text-[20px] md:text-[22px] leading-[1.4] font-medium">{project.description}</p></Rise>
+              <Rise delay={0.08}><p className="mt-6 text-[16px] leading-[24px] font-medium text-[#f4f3ea]/75">{project.scope}</p></Rise>
+            </div>
+          </div>
+
+          {project.gallery.length > 0 && (
+            <div className="mt-16 md:mt-24 grid sm:grid-cols-2 gap-3">
+              {project.gallery.slice(0, 4).map((src, i) => (
+                <Photo key={src + i} src={src} alt={project.title} className="aspect-[4/3]" sizes="(min-width: 640px) 50vw, 100vw" />
+              ))}
+            </div>
+          )}
+
+          {/* Start a similar job */}
+          <Rise className="mt-16 md:mt-24 flex justify-center">
+            <div className="w-full max-w-[560px] rounded-[12px] bg-[#f4f3ea]/[0.06] border border-[#f4f3ea]/10 p-4 flex gap-5 items-center">
+              <span className="relative shrink-0 w-[96px] h-[120px] rounded-[8px] overflow-hidden">
+                <Image src="/images/projects/hse-safety-briefing-difc.jpg" alt="" fill sizes="96px" className="object-cover" />
+              </span>
+              <div>
+                <Label light>{p('readyLabel')}</Label>
+                <p className="mt-3 text-[17px] font-medium">{t('ctaHeadline')}</p>
+                <p className="mt-1 text-[13px] font-medium text-[#f4f3ea]/65">{t('ctaSubtitle')}</p>
+                <div className="mt-4"><Pill onClick={openQuote} variant="accent">{t('getQuote')}</Pill></div>
+              </div>
+            </div>
+          </Rise>
+        </section>
+      </div>
+
+      {/* More projects */}
+      <section className={`${GUTTER} py-24 md:py-32`}>
+        <Rise><Label>{p('moreStories')}</Label></Rise>
+        <Rise delay={0.06}><h2 className={`${SERIF} mt-6 text-[30px] md:text-[40px] leading-[1.15] max-w-[16ch]`}>{p('moreStoriesTitle')}</h2></Rise>
+        <div className="mt-12 grid md:grid-cols-2 gap-3">
+          {more.map((x) => (
+            <Rise key={x.slug}>
+              <StoryCard href={`/projects/${x.slug}`} img={x.image} tag={x.category} title={x.title} meta={x.client ?? x.location} cta={p('readCase')} />
+            </Rise>
+          ))}
         </div>
       </section>
-
-      <Footer onDemoClick={() => setShowDemoModal(true)} />
-      <QuoteModal open={showDemoModal} onClose={() => setShowDemoModal(false)} />
-    </>
+    </PageShell>
   );
 }

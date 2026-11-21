@@ -9,7 +9,7 @@ export default function ProofStrip() {
   const t = useTranslations('ProofStrip');
 
   return (
-    <section className="bg-[#1c1f24] w-full" aria-label={t('ariaLabel')}>
+    <section data-section="facts" className="bg-[#1c1f24] w-full" aria-label={t('ariaLabel')}>
       <div className="max-w-[1400px] mx-auto px-6">
         <ul className="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-white/10">
           {ITEMS.map((key, idx) => (

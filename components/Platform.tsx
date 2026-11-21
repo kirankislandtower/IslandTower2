@@ -16,7 +16,7 @@ export default function Platform() {
   ];
 
   return (
-    <section className="bg-[#1c1f24] text-white py-24 md:py-32 w-full" id="quality">
+    <section data-section="quality" className="bg-[#1c1f24] text-white py-24 md:py-32 w-full" id="quality">
       <div className="max-w-[1400px] mx-auto px-6 grid lg:grid-cols-[1fr_1.25fr] gap-14 lg:gap-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,7 +25,7 @@ export default function Platform() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="flex flex-col justify-between gap-10"
         >
-          <RevealText text={t('headline')} className="text-4xl md:text-5xl font-light tracking-[-0.03em] leading-[1.06] text-balance" />
+          <RevealText text={t('headline')} className="text-4xl md:text-5xl font-light tracking-[-0.01em] leading-[1.06] text-balance" />
           <div>
             <p className="text-white/75 text-lg md:text-xl leading-relaxed max-w-md">{t('hseText')}</p>
             <Link

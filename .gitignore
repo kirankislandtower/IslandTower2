@@ -51,3 +51,6 @@ next-env.d.ts
 
 # python bytecode from skill scripts
 __pycache__/
+
+# design-taste-frontend working output (screenshots, direction sheets)
+/.taste-skill/

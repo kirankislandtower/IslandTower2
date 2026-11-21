@@ -13,26 +13,34 @@ interface FooterProps {
 export default function Footer({ onDemoClick, hideCta = false }: FooterProps) {
   const t = useTranslations('Footer');
 
+  const LINK = 'w-fit text-white/70 hover:text-white transition-colors focus-ring';
+  const HEAD = 'text-white text-[15px] md:text-base font-semibold';
+
   return (
-    <footer className="bg-[#1c1f24] w-full pt-20 md:pt-24 pb-10 overflow-hidden" id="contact">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <footer
+      data-section="contact"
+      id="contact"
+      className="relative z-10 w-full overflow-hidden rounded-t-[48px] md:rounded-t-[110px] bg-[#1c1f24] bg-[radial-gradient(120%_90%_at_85%_10%,#2e333b_0%,#1c1f24_55%,#15171b_100%)] pt-20 md:pt-28 pb-10"
+    >
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
 
         {!hideCta && (
-          <div className="grid lg:grid-cols-12 gap-8 items-end pb-16 mb-16 border-b border-white/10">
-            <h2 className="lg:col-span-8 text-3xl md:text-5xl text-white font-light tracking-[-0.03em] leading-[1.08] text-balance">
+          <div className="pb-16 md:pb-20">
+            <h2 className="text-[36px] md:text-[64px] lg:text-[76px] text-white font-light tracking-[-0.01em] leading-[1.05] text-balance max-w-[20ch]">
               {t('contactUs')}
             </h2>
-            <div className="lg:col-span-4 lg:justify-self-end flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap gap-3">
               <button
                 onClick={onDemoClick}
-                className="bg-accent text-on-accent font-mono uppercase tracking-[0.14em] text-[13px] px-6 py-4 rounded-[6px] hover:bg-accent/90 transition-colors whitespace-nowrap cursor-pointer focus-ring"
+                className="group inline-flex items-center gap-3 h-12 px-6 rounded-full bg-accent text-on-accent text-[15px] font-medium hover:bg-white hover:text-[#1c1f24] active:scale-[0.98] transition-[background-color,color,transform] duration-200 cursor-pointer focus-ring"
               >
                 {t('getQuote')}
+                <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 rtl:-scale-x-100" aria-hidden="true">↗</span>
               </button>
               <a
                 href="tel:+97142573677"
                 dir="ltr"
-                className="border border-white/30 text-white font-mono tracking-[0.12em] text-[13px] px-6 py-4 rounded-[6px] hover:border-white transition-colors whitespace-nowrap focus-ring"
+                className="inline-flex items-center h-12 px-6 rounded-full bg-white/10 text-white text-[15px] font-medium hover:bg-white/20 transition-colors focus-ring"
               >
                 +971 4 257 3677
               </a>
@@ -40,70 +48,56 @@ export default function Footer({ onDemoClick, hideCta = false }: FooterProps) {
           </div>
         )}
 
-        {/* Bottom Section (4 Columns) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 font-mono text-xs uppercase tracking-widest text-white/70 leading-relaxed">
-
-          {/* Column 1 */}
-          <div className="flex flex-col gap-4">
-            <span className="text-white/40">{t('getInTouch')}</span>
-            <a href="tel:+97142573677" className="hover:text-accent transition-colors focus-ring w-fit">
-              {t('companyName')}<br />
-              {t('dubaiUae')}<br />
-              {t('riyadhSaudi')}<br />
-              +971 4 257 3677
-            </a>
-            <a href="mailto:info@islandtoweruae.ae" className="hover:text-accent transition-colors focus-ring w-fit">
-              INFO@ISLANDTOWERUAE.AE
-            </a>
+        {/* Link columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12 text-[15px] md:text-base leading-snug">
+          <div className="flex flex-col gap-3">
+            <span className={HEAD}>{t('getInTouch')}</span>
+            <span className="text-white/70">{t('companyName')}</span>
+            <span className="text-white/70">{t('dubaiUae')}</span>
+            <a href="tel:+97142573677" dir="ltr" className={LINK}>+971 4 257 3677</a>
+            <a href="mailto:info@islandtoweruae.ae" className={LINK}>info@islandtoweruae.ae</a>
           </div>
 
-          {/* Column 2 */}
-          <div className="flex flex-col gap-4">
-            <span className="text-white/40">{t('company')}</span>
-            <Link href="/" className="hover:text-accent transition-colors focus-ring">{t('home')}</Link>
-            <Link href="/about" className="hover:text-accent transition-colors focus-ring">{t('aboutUs')}</Link>
-            <Link href="/services" className="hover:text-accent transition-colors focus-ring">{t('services')}</Link>
-            <Link href="/projects" className="hover:text-accent transition-colors focus-ring">{t('projects')}</Link>
-            <Link href="/news" className="hover:text-accent transition-colors focus-ring">{t('insights')}</Link>
-            <Link href="/careers" className="hover:text-accent transition-colors focus-ring">{t('careers')}</Link>
-            <Link href="/contact" className="hover:text-accent transition-colors focus-ring">{t('contactUsLink')}</Link>
+          <div className="flex flex-col gap-3">
+            <span className={HEAD}>{t('company')}</span>
+            <Link href="/" className={LINK}>{t('home')}</Link>
+            <Link href="/about" className={LINK}>{t('aboutUs')}</Link>
+            <Link href="/projects" className={LINK}>{t('projects')}</Link>
+            <Link href="/news" className={LINK}>{t('insights')}</Link>
+            <Link href="/careers" className={LINK}>{t('careers')}</Link>
+            <Link href="/contact" className={LINK}>{t('contactUsLink')}</Link>
           </div>
 
-          {/* Column 3 */}
-          <div className="flex flex-col gap-4">
-            <span className="text-white/40">{t('servicesHeading')}</span>
-            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceNetworks')}</Link>
-            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceFlushing')}</Link>
-            <Link href="/services#district-cooling" className="hover:text-accent transition-colors focus-ring">{t('serviceEts')}</Link>
-            <Link href="/services#mep" className="hover:text-accent transition-colors focus-ring">{t('serviceMep')}</Link>
-            <Link href="/about#quality" className="hover:text-accent transition-colors focus-ring">{t('quality')}</Link>
-            <a href="/island-tower-company-profile.pdf" download className="hover:text-accent transition-colors focus-ring">{t('companyProfile')}</a>
+          <div className="flex flex-col gap-3">
+            <span className={HEAD}>{t('servicesHeading')}</span>
+            <Link href="/services#district-cooling" className={LINK}>{t('serviceNetworks')}</Link>
+            <Link href="/services#district-cooling" className={LINK}>{t('serviceFlushing')}</Link>
+            <Link href="/services#district-cooling" className={LINK}>{t('serviceEts')}</Link>
+            <Link href="/services#mep" className={LINK}>{t('serviceMep')}</Link>
+            <Link href="/about#quality" className={LINK}>{t('quality')}</Link>
+            <a href="/island-tower-company-profile.pdf" download className={LINK}>{t('companyProfile')}</a>
           </div>
 
-          {/* Column 4 */}
-          <div className="flex flex-col gap-4">
-            <span className="text-white/40">{t('followUs')}</span>
+          <div className="flex flex-col gap-3">
+            <span className={HEAD}>{t('followUs')}</span>
             <a
               href="https://www.linkedin.com/company/island-tower-electromech/posts/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="text-white/70 hover:text-accent transition-colors w-fit mt-1 focus-ring"
+              className={LINK}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
+              LinkedIn
             </a>
           </div>
-
         </div>
 
-        {/* Legal Bar */}
-        <div className="mt-20 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-white/40">
+        {/* Legal line */}
+        <div className="mt-20 md:mt-24 flex flex-col sm:flex-row sm:items-center gap-x-10 gap-y-3 text-[14px] text-white/50">
           <span>{t('copyright', { year: new Date().getFullYear() })}</span>
           <span>{t('locations')}</span>
         </div>
       </div>
+
     </footer>
   );
 }

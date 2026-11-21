@@ -62,6 +62,35 @@ h4 {
   }
 }
 
+/* Client logo strip: two identical lists side by side, slid left by one
+   list's width so the loop is seamless. */
+@keyframes logo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.logo-marquee {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.logo-marquee-track {
+  animation: logo-marquee 40s linear infinite;
+}
+.logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    mask-image: none;
+  }
+  .logo-marquee-track {
+    animation: none !important;
+    flex-wrap: wrap;
+    width: auto !important;
+  }
+  .logo-marquee-track > ul + ul {
+    display: none;
+  }
+}
+
 .focus-ring {
   outline: none;
 }
