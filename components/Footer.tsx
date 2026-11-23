@@ -75,7 +75,6 @@ export default function Footer({ onDemoClick, hideCta = false }: FooterProps) {
             <Link href="/services#district-cooling" className={LINK}>{t('serviceEts')}</Link>
             <Link href="/services#mep" className={LINK}>{t('serviceMep')}</Link>
             <Link href="/about#quality" className={LINK}>{t('quality')}</Link>
-            <a href="/island-tower-company-profile.pdf" download className={LINK}>{t('companyProfile')}</a>
           </div>
 
           <div className="flex flex-col gap-3">
