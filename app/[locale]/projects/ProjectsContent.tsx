@@ -81,7 +81,7 @@ export default function ProjectsContent() {
       </section>
 
       <div className="border-t border-[#1a1a17]/12 mx-[18px] md:mx-6 lg:mx-8" />
-      <BigQuote label={p('fromChairman')} quote={a('chairmanMotto')} name={a('chairmanName')} role={a('chairmanTitle')} img="/images/team/sasikumar-chairman.png" />
+      <BigQuote label={p('fromChairman')} quote={a('chairmanMotto')} name={a('chairmanName')} role={`${a('chairmanTitle')} · ${a('chairmanOrg')}`} img="/images/team/sasikumar-chairman.png" />
     </PageShell>
   );
 }

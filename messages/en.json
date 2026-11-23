@@ -315,8 +315,9 @@
     "leadershipEyebrow": "Leadership",
     "chairmanName": "Sasikumar Vasukurup Madhaviamma",
     "chairmanTitle": "Chairman",
-    "chairmanQuote": "As the Chairman of Island Tower, I am immensely proud of what we have achieved over the years. Our journey from a small chilled water contractor to a leader in construction across various sectors reflects our commitment to excellence and innovation. The expansion of our operations globally signifies our growing influence and dedication to shaping sustainable environments. I am profoundly grateful to our talented team, whose relentless drive and ingenuity have propelled us to new heights. Together, we continue to build on our accomplishments, driven by a shared vision of excellence and sustainability.",
-    "chairmanBio": "Sasikumar Vasukurup Madhaviamma is the Chairman of Island Tower Electromechanical Works LLC, which has grown from a specialized chilled water flushing contractor into a trusted electromechanical partner across the UAE and Saudi Arabia since 2003.",
+    "chairmanOrg": "Island Tower Group of Companies",
+    "chairmanQuote": "As the Chairman of Island Tower Group of Companies, I am immensely proud of what we have achieved over the years. Our journey from a small chilled water contractor to a leader in construction across various sectors reflects our commitment to excellence and innovation. The expansion of our operations globally signifies our growing influence and dedication to shaping sustainable environments. I am profoundly grateful to our talented team, whose relentless drive and ingenuity have propelled us to new heights. Together, we continue to build on our accomplishments, driven by a shared vision of excellence and sustainability.",
+    "chairmanBio": "Sasikumar Vasukurup Madhaviamma is the Chairman of Island Tower Group of Companies. Its electromechanical company, Island Tower Electromechanical Works LLC, has grown from a specialized chilled water flushing contractor into a trusted electromechanical partner across the UAE and Saudi Arabia since 2003.",
     "visionTitle": "Our Vision",
     "visionText": "To be the most innovative and respected electromechanical engineering partner in the region, redefining standards through sustainable practice and pioneering technology.",
     "missionTitle": "Our Mission",
@@ -579,6 +580,7 @@
       "trusted": "Trusted by Empower, Emicool, Emaar and the RTA"
     },
     "services": {
+      "title": "What we do",
       "s1Label": "District cooling",
       "s1Title": "Chilled water networks",
       "s1Text": "Pipes, flushing and connections from the plant to each building.",

@@ -6,6 +6,19 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { useTranslations } from 'next-intl';
 import { GUTTER, Label, Pill, Rise, SERIF } from '@/components/home/ui';
 import { CARD, Head, PageShell, Photo, PhotoHero } from '@/components/page/kit';
+import FocusText from '@/components/page/FocusText';
+import ReadText from '@/components/page/ReadText';
+import ValuesStepper from '@/components/page/ValuesStepper';
+
+// A site photograph for each value, shown as the values step through
+const VALUE_IMG = [
+  '/images/projects/weld-inspection-tecom.jpg',
+  '/images/projects/green-field-plant-piping.jpg',
+  '/images/projects/fabrication-piping-skid.jpg',
+  '/images/site/rooftop-cooling-equipment.jpg',
+  '/images/projects/chilled-water-flushing-works.jpg',
+  '/images/projects/hse-safety-briefing-difc.jpg',
+];
 
 // About, in the reference's order: the photograph and title, the story on
 // dark ground with a strip of site photographs that slides sideways as the
@@ -82,9 +95,9 @@ export default function AboutContent() {
             </Rise>
           </div>
           <div className="flex flex-col gap-6 max-w-[560px]">
-            <Rise delay={0.04}><h2 className={`${SERIF} text-[28px] md:text-[34px] leading-[1.2]`}>{t('storyHeadline')}</h2></Rise>
-            <Rise delay={0.08}><p className="text-[16px] leading-[24px] font-medium text-[#f4f3ea]/85">{t('storyP1')}</p></Rise>
-            <Rise delay={0.12}><p className="text-[16px] leading-[24px] font-medium text-[#f4f3ea]/85">{t('storyP2')}</p></Rise>
+            <FocusText as="h2" text={t('storyHeadline')} className={`${SERIF} text-[28px] md:text-[34px] leading-[1.2]`} />
+            <ReadText text={t('storyP1')} className="text-[16px] md:text-[18px] leading-[1.6] font-medium text-[#f4f3ea]" />
+            <ReadText text={t('storyP2')} className="text-[16px] md:text-[18px] leading-[1.6] font-medium text-[#f4f3ea]" />
           </div>
         </div>
 
@@ -112,30 +125,13 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* What we stand for */}
-      <section className={`${GUTTER} py-24 md:py-32`}>
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
-          <div className="flex flex-col justify-between gap-12">
-            <Head label={t('valuesEyebrow')} title={t('valuesHeadline')} />
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-7">
-              {values.map((v, i) => (
-                <Rise key={v.title} delay={(i % 2) * 0.05}>
-                  <li className="flex gap-3.5">
-                    <span className="mt-0.5 shrink-0 w-8 h-8 rounded-[8px] bg-accent/10 text-accent flex items-center justify-center" aria-hidden="true">
-                      <span className="w-2 h-2 rounded-full bg-accent" />
-                    </span>
-                    <div>
-                      <h3 className="text-[15px] font-semibold">{v.title}</h3>
-                      <p className="mt-1 text-[14px] leading-[1.55] font-medium text-[#1a1a17]/70">{v.desc}</p>
-                    </div>
-                  </li>
-                </Rise>
-              ))}
-            </ul>
-          </div>
-          <Photo src="/images/site/pump-room-team.jpg" alt={t('capability3Title')} className="aspect-[4/5] lg:aspect-auto lg:min-h-[720px]" sizes="(min-width: 1024px) 50vw, 100vw" />
-        </div>
-      </section>
+      {/* What we stand for: pinned, stepping through the values one at a
+          time with a photograph for each */}
+      <ValuesStepper
+        label={t('valuesEyebrow')}
+        title={t('valuesHeadline')}
+        steps={values.map((v, i) => ({ title: v.title, desc: v.desc, img: VALUE_IMG[i] }))}
+      />
 
       {/* Milestones, stacked */}
       <section className={`${GUTTER} pb-24 md:pb-32`}>
@@ -192,16 +188,16 @@ export default function AboutContent() {
                   <p
                     key={i}
                     className={i === 0
-                      ? 'mt-7 text-[17px] md:text-[18px] leading-[1.45] font-medium tracking-[-0.01em] max-w-[40ch]'
+                      ? 'mt-7 text-[17px] md:text-[18px] leading-[1.45] font-medium tracking-[-0.01em] max-w-[56ch] text-balance'
                       : 'mt-4 text-[14px] md:text-[15px] leading-[24px] text-[#f4f3ea]/65 max-w-[60ch]'}
                   >
-                    {para}
+                    {i === 0 ? para.replace(/\bI am\b/, 'I\u00A0am') : para}
                   </p>
                 ))}
 
                 <div className="mt-7 pt-6 border-t border-[#f4f3ea]/12 max-w-[60ch]">
                   <p className="text-[16px] font-medium">{t('chairmanName')}</p>
-                  <p className="mt-1 text-[11px] tracking-[0.14em] uppercase font-medium text-[#f4f3ea]/50">{t('chairmanTitle')} · Island Tower</p>
+                  <p className="mt-1 text-[11px] tracking-[0.14em] uppercase font-medium text-[#f4f3ea]/50">{t('chairmanTitle')} · {t('chairmanOrg')}</p>
                   <p className="mt-3 text-[12px] leading-[1.6] text-[#f4f3ea]/45">{t('chairmanBio')}</p>
                 </div>
               </div>

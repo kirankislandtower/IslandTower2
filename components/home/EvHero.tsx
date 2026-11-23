@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion';
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { EASE, Pill } from './ui';
 
@@ -14,7 +14,25 @@ import { EASE, Pill } from './ui';
 // On load the headline words come out of a blur one after another. Once the
 // page starts to move, all the text goes soft and fades (the label 5px, the
 // rest 10px) while the footage stays sharp.
+// After the last frame of the footage, the frame closes into a rounded card
+// in the middle while the ground turns cream and four site photographs drift
+// in around it, then the page releases to the next section.
 const BLUR_ON = 30;
+
+// Share of the track spent on each stage: the footage, then the card closing
+const VIDEO_END = 0.55;
+const CARD_END = 0.85;
+
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+// The photographs around the card. Phone positions sit above and below the
+// card; from md up they sit either side of it.
+const COLLAGE = [
+  { src: '/images/site/excavation-team-trench.jpg', cls: 'top-[11%] start-[6%] w-[30vw] aspect-[4/3] md:top-[13%] md:start-[5%] md:w-[13vw] md:aspect-square' },
+  { src: '/images/site/pump-room-team.jpg', cls: 'bottom-[8%] start-[8%] w-[34vw] aspect-[4/3] md:bottom-auto md:top-[60%] md:start-[10%] md:w-[11vw] md:aspect-[4/5]' },
+  { src: '/images/site/scaffolding-piping-install.jpg', cls: 'top-[12%] end-[6%] w-[26vw] aspect-square md:top-[10%] md:end-[6%] md:w-[12vw] md:aspect-[4/5]' },
+  { src: '/images/site/rooftop-cooling-equipment.jpg', cls: 'bottom-[9%] end-[7%] w-[28vw] aspect-[4/5] md:bottom-auto md:top-[62%] md:end-[8%] md:w-[13vw] md:aspect-[4/3]' },
+];
 
 export default function EvHero({ onQuote }: { onQuote: () => void }) {
   const t = useTranslations('Home2.hero');
@@ -29,8 +47,30 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
   const target = useRef(0);
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
-    target.current = p;
+    target.current = clamp01(p / VIDEO_END);
   });
+
+  // How far the card has closed (0 = full screen, 1 = card)
+  const close = useTransform(scrollYProgress, (p) => clamp01((p - VIDEO_END) / (CARD_END - VIDEO_END)));
+  const [wide, setWide] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const on = () => setWide(mq.matches);
+    on();
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  const insetX = wide ? 25 : 7;
+  const insetY = wide ? 22 : 27;
+  const clip = useTransform(close, (v) => {
+    const e = 1 - Math.pow(1 - v, 2);
+    return `inset(${e * insetY}% ${e * insetX}% ${e * insetY}% ${e * insetX}% round ${e * 24}px)`;
+  });
+  const footageScale = useTransform(close, [0, 1], [1, 0.9]);
+  const groundColor = useTransform(close, [0, 0.6], ['#1a1a17', '#f4f3ea']);
+  const tint = useTransform(close, [0, 0.7], [1, 0]);
+  const textOpacity = useTransform(close, [0, 0.3], [1, 0]);
+  const textEvents = useTransform(close, (v) => (v > 0.25 ? 'none' : 'auto'));
 
   useEffect(() => {
     const video = videoRef.current;
@@ -81,23 +121,36 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
     <section
       ref={trackRef}
       data-section="home"
-      className={`relative z-0 w-full bg-[#1a1a17] ${reduce ? 'h-[100svh] min-h-[640px]' : 'h-[300svh]'}`}
+      className={`relative z-0 w-full ${reduce ? 'h-[100svh] min-h-[640px] bg-[#1a1a17]' : 'h-[460svh]'}`}
     >
-      <div className="sticky top-0 h-[100svh] min-h-[640px] w-full overflow-hidden text-[#f4f3ea]">
-        {/* Driven by scroll position, never autoplays */}
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          poster="/hero-scroll-poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/hero-scroll.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-[#1a1a17]/40" aria-hidden="true" />
+      <motion.div
+        className="sticky top-0 h-[100svh] min-h-[640px] w-full overflow-hidden text-[#f4f3ea]"
+        style={reduce ? undefined : { backgroundColor: groundColor }}
+      >
+        {/* The footage, driven by scroll position (never autoplays), inside
+            the frame that closes into a card */}
+        <motion.div className="absolute inset-0 overflow-hidden" style={reduce ? undefined : { clipPath: clip }}>
+          <motion.div className="absolute inset-0" style={reduce ? undefined : { scale: footageScale }}>
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              preload="auto"
+              poster="/hero-scroll-poster.jpg"
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/hero-scroll.mp4" type="video/mp4" />
+            </video>
+          </motion.div>
+          <motion.div className="absolute inset-0 bg-[#1a1a17]/40" style={reduce ? undefined : { opacity: tint }} aria-hidden="true" />
+        </motion.div>
 
-        <div className="relative h-full flex flex-col px-[16px] md:px-8">
+        {/* Site photographs drifting in around the card */}
+        {!reduce && COLLAGE.map((c, i) => (
+          <CollagePhoto key={c.src} src={c.src} cls={c.cls} close={close} i={i} />
+        ))}
+
+        <motion.div className="relative h-full flex flex-col px-[16px] md:px-8" style={reduce ? undefined : { opacity: textOpacity, pointerEvents: textEvents }}>
           <div className="flex-1" />
 
           {/* Hairline across the frame */}
@@ -159,8 +212,25 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
               {t('est')}<br />{t('place')}
             </motion.p>
           </motion.div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
+  );
+}
+
+function CollagePhoto({ src, cls, close, i }: { src: string; cls: string; close: MotionValue<number>; i: number }) {
+  const start = 0.25 + i * 0.1;
+  const end = Math.min(1, start + 0.45);
+  const opacity = useTransform(close, [start, end], [0, 1]);
+  const y = useTransform(close, [start, end], [70, 0]);
+  const scale = useTransform(close, [start, end], [0.8, 1]);
+  return (
+    <motion.div
+      className={`absolute overflow-hidden rounded-[12px] pointer-events-none ${cls}`}
+      style={{ opacity, y, scale }}
+      aria-hidden="true"
+    >
+      <Image src={src} alt="" fill sizes="(min-width: 768px) 14vw, 34vw" className="object-cover" />
+    </motion.div>
   );
 }
