@@ -48,6 +48,9 @@ export default function EtsExploded() {
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
+    // Kept non-null for the async three.js callback below, where TypeScript
+    // no longer carries the check above
+    const host: HTMLDivElement = stage;
     let disposed = false;
     let cleanup = () => {};
 
@@ -181,7 +184,7 @@ export default function EtsExploded() {
       const tmp = new THREE.Vector3();
 
       const resize = () => {
-        const w = stage.clientWidth, h = stage.clientHeight;
+        const w = host.clientWidth, h = host.clientHeight;
         renderer.setSize(w, h, false);
         camera.aspect = w / h;
         // Keep the whole model (about 9.8 units wide) in frame at any width
@@ -218,7 +221,7 @@ export default function EtsExploded() {
         renderer.render(scene, camera);
 
         // Labels follow their parts on screen
-        const w = stage.clientWidth, h = stage.clientHeight;
+        const w = host.clientWidth, h = host.clientHeight;
         PARTS.forEach((part, i) => {
           const el = labelRefs.current[i];
           if (!el) return;
