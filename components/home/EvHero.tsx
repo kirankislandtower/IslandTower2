@@ -43,7 +43,7 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
   const trackRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
   const photoScale = useTransform(scrollYProgress, [0, VIDEO_END], [1.14, 1.02]);
-  const photoY = useTransform(scrollYProgress, [0, VIDEO_END], ['0%', '-3%']);
+  const photoY = useTransform(scrollYProgress, [0, VIDEO_END], ['-4%', '-4%']);
 
   // How far the card has closed (0 = full screen, 1 = card)
   const close = useTransform(scrollYProgress, (p) => clamp01((p - VIDEO_END) / (CARD_END - VIDEO_END)));
@@ -128,14 +128,14 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
             that closes into a card */}
         <motion.div className="absolute inset-0 overflow-hidden" style={reduce ? undefined : { clipPath: clip }}>
           <motion.div className="absolute inset-0" style={reduce ? undefined : { scale: footageScale }}>
-            <motion.div className="absolute inset-0" style={reduce ? undefined : { scale: photoScale, y: photoY }}>
+            <motion.div className="absolute inset-x-0 top-0 -bottom-[5%]" style={reduce ? undefined : { scale: photoScale, y: photoY, transformOrigin: '50% 0%' }}>
               <Image
-                src="/images/home-banner-abudhabi.jpg"
+                src="/images/home-banner-dubai-clear.jpg"
                 alt=""
                 fill
                 priority
                 sizes="100vw"
-                className="object-cover object-[center_60%]"
+                className="object-cover object-[center_0%]"
               />
             </motion.div>
           </motion.div>
