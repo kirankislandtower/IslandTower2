@@ -211,11 +211,12 @@ export default function EvHero({ onQuote }: { onQuote: () => void }) {
             </motion.div>
           </motion.div>
 
-          {/* Scroll cue, bottom centre (clear of the WhatsApp button in both languages) */}
-          <motion.div {...enter(1.2)} className="hidden md:flex absolute left-1/2 -translate-x-1/2 bottom-0 flex-col items-center gap-3">
-            <motion.div style={reduce ? undefined : { opacity: sideOpacity }} className="flex flex-col items-center gap-3">
+          {/* Scroll cue, bottom left in both languages (the WhatsApp button
+              holds the bottom right), its line hanging from the end of the word */}
+          <motion.div {...enter(1.2)} className="hidden md:flex absolute left-24 bottom-0 flex-col items-end gap-3">
+            <motion.div style={reduce ? undefined : { opacity: sideOpacity }} className="flex flex-col items-end gap-3">
               <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#f4f3ea]/85">{a('heroScroll')}</span>
-              <span className="relative block w-px h-[9svh] bg-[#f4f3ea]/30 overflow-hidden" aria-hidden="true">
+              <span className="relative block w-px h-[9svh] mr-[0.14em] text-[11px] bg-[#f4f3ea]/30 overflow-hidden" aria-hidden="true">
                 <span className="absolute inset-x-0 top-0 h-1/2 bg-[#f4f3ea] animate-[scrollcue_2.2s_ease-in-out_infinite]" />
               </span>
             </motion.div>
