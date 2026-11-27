@@ -1,25 +1,39 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
+import { useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { GUTTER, Label, Rise } from './ui';
+import { GUTTER, Label, Rise, SERIF } from './ui';
+import GrowText from '@/components/page/GrowText';
+import FlowLine from '@/components/page/FlowLine';
 
-// Who we are: one centred statement in plain sans, then a row of client
+// Who we are: one centred statement set large in the light serif, building
+// in letter by letter, with a line flowing down round it from the banner, then a row of client
 // marks and the line that names them.
 const MARKS = ['empower', 'emicool', 'emaar', 'rta'];
 
 export default function EvIntro() {
   const t = useTranslations('Home2.intro');
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  // The line carries on down from the banner's card, round the statement
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.6'] });
+  const draw = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section data-section="who" className={`relative z-10 bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} py-24 md:py-[120px]`}>
-      <div className="flex flex-col items-center text-center">
+    <section ref={ref} data-section="who" className={`relative z-10 bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} py-28 md:py-[120px]`}>
+      {!reduce && (
+        <FlowLine
+          d="M50 0 C50 14 88 10 88 34 C88 60 12 46 12 74 C12 92 44 92 50 100"
+          progress={draw}
+        />
+      )}
+      <div className="relative z-10 flex flex-col items-center text-center">
         <Rise><Label>{t('label')}</Label></Rise>
-        <Rise delay={0.06}>
-          <p className="mt-7 text-[22px] sm:text-[24px] md:text-[28px] leading-[1.22] font-medium tracking-[-0.02em] max-w-[620px]">
-            {t('text')}
-          </p>
-        </Rise>
+        <p className={`${SERIF} mt-8 text-[26px] sm:text-[34px] md:text-[clamp(34px,2.9vw,46px)] leading-[1.1] max-w-[26ch]`}>
+          <GrowText text={t('text')} stagger={0.01} />
+        </p>
         <Rise delay={0.1} className="mt-12 flex flex-col items-center">
           <div className="flex -space-x-2.5 rtl:space-x-reverse">
             {MARKS.map((m) => (

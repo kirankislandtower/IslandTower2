@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Merriweather } from "next/font/google";
+import { Inter_Tight, Newsreader } from "next/font/google";
 import localFont from "next/font/local";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -27,10 +27,10 @@ const geistLabel = localFont({
   display: "swap",
 });
 
-// Serif for the home page headings (Evermind-style layout)
-const serif = Merriweather({
+// Headings: Newsreader, a light variable serif. Its weight can animate, so
+// letters grow from thin to regular as headings appear (GrowText).
+const serif = Newsreader({
   subsets: ["latin"],
-  weight: ["300", "400"],
   variable: "--font-serif",
   display: "swap",
 });

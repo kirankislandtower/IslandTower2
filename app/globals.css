@@ -131,3 +131,11 @@ h4 {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* About banner: a short bar running down the scroll line */
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+

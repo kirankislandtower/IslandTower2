@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { GUTTER, SERIF, Label, Pill, Rise } from './ui';
+import GrowText from '@/components/page/GrowText';
 
 // How we work: a tall site photograph on the left, the idea on the right,
 // and two proof points pinned to the bottom of the column.
@@ -18,11 +19,11 @@ export default function EvApproach() {
   const imgY = useTransform(p, [0, 1], ['-6%', reduce ? '-6%' : '6%']);
 
   return (
-    <section data-section="approach" className={`bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} pb-24 md:pb-36`}>
+    <section data-section="approach" className={`bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} pb-28 md:pb-48`}>
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
         <div ref={ref} className="relative aspect-[5/6] lg:aspect-auto lg:min-h-[640px] overflow-hidden rounded-[10px] bg-[#e7e5da]">
           <motion.div className="absolute inset-[-7%_0]" style={{ y: imgY }}>
-            <Image src="/images/site/underground-pipe-trench.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <Image src="/images/home/plant-to-building.jpg" alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </motion.div>
           <span className="absolute bottom-4 start-4 px-2.5 py-1.5 rounded-[6px] bg-black/35 backdrop-blur-sm text-[10px] font-medium tracking-[0.08em] uppercase text-[#f4f3ea]">
             {t('tag')}
@@ -33,7 +34,7 @@ export default function EvApproach() {
           <div className="border-t border-[#1a1a17]/12 pt-5">
             <Rise><Label>{t('label')}</Label></Rise>
             <Rise delay={0.06}>
-              <h2 className={`${SERIF} mt-6 text-[32px] md:text-[40px] leading-[1.15] max-w-[16ch]`}>{t('title')}</h2>
+              <h2 className={`${SERIF} mt-6 text-[32px] md:text-[40px] leading-[1.15] max-w-[16ch]`}><GrowText text={t('title')} /></h2>
             </Rise>
             <Rise delay={0.12}>
               <p className="mt-6 text-[15px] md:text-[16px] leading-[1.6] font-medium text-[#1a1a17]/85 max-w-[46ch]">{t('body')}</p>

@@ -46,7 +46,7 @@ export default function ProjectsContent() {
         </div>
       </TitleHero>
 
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <Rise className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
           {CATEGORY_KEYS.map((k) => (
             <button

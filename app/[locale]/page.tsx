@@ -14,6 +14,7 @@ import EvInsights from '@/components/home/EvInsights';
 import EvClosing from '@/components/home/EvClosing';
 import QuoteModal from '@/components/QuoteModal';
 import SectionIndicator from '@/components/SectionIndicator';
+import SectionReveal from '@/components/page/SectionReveal';
 
 // Home page, in the order a client asks: who you are, what you do, who
 // trusts you, how you work, what you deliver, how safely, where you have
@@ -37,6 +38,7 @@ export default function Home() {
       <EvInsights />
       <EvClosing onQuote={openQuote} />
       <SectionIndicator />
+      <SectionReveal />
       <QuoteModal open={quoteOpen} onClose={() => setQuoteOpen(false)} />
     </main>
   );

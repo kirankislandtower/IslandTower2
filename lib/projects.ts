@@ -180,10 +180,9 @@ export const projects: Project[] = [
       en: 'Steam piping installation and commissioning, up to 900mm in diameter, for Cleveland Clinic Abu Dhabi.',
       ar: 'تركيب وتشغيل أنابيب البخار بأقطار تصل إلى 900 مم لمستشفى كليفلاند كلينك أبوظبي.',
     },
-    image: '/images/site/pump-room-team.jpg',
+    image: '/images/site/rooftop-cooling-equipment.jpg',
     gallery: [
       '/images/projects/weld-inspection-tecom.jpg',
-      '/images/site/rooftop-cooling-equipment.jpg',
     ],
     client: 'Mubadala',
     consultant: 'AECOM / JACOBS',
@@ -246,7 +245,7 @@ export const projects: Project[] = [
       en: 'ETS room installation and associated chilled water piping works for DAMAC\'s Vantage Tower.',
       ar: 'تركيب غرفة ETS وأعمال أنابيب المياه المبردة المرتبطة بها لبرج فانتاج التابع لداماك.',
     },
-    image: '/images/site/rooftop-piping-install.jpg',
+    image: '/images/site/vantage-rooftop-piping.jpg',
     gallery: [
       '/images/site/rebar-formwork-crew.jpg',
       '/images/projects/saadiyat-chiller-units.jpg',

@@ -23,7 +23,7 @@ const LOGOS = [
 export default function EvClients() {
   const t = useTranslations('Home2.clients');
   return (
-    <section data-section="clients" className={`bg-[#f4f3ea] ${GUTTER} pb-24 md:pb-36`}>
+    <section data-section="clients" className={`bg-[#f4f3ea] ${GUTTER} pb-28 md:pb-48`}>
       <div className="flex flex-col items-center">
         <Rise><Label>{t('label')}</Label></Rise>
         <Rise delay={0.08} className="w-full">

@@ -23,7 +23,7 @@ export default function ValuesStepper({ label, title, steps }: { label: string; 
 
   if (reduce) {
     return (
-      <section className="px-[18px] md:px-6 lg:px-8 py-24 md:py-32">
+      <section className="px-[18px] md:px-6 lg:px-8 py-28 md:py-44">
         <Label>{label}</Label>
         <h2 className={`${SERIF} mt-6 text-[30px] md:text-[40px] leading-[1.15]`}>{title}</h2>
         <ul className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-7">
@@ -51,7 +51,7 @@ export default function ValuesStepper({ label, title, steps }: { label: string; 
               return (
                 <li key={s.title} className="border-t border-[#1a1a17]/12 last:border-b">
                   <div className={`flex items-baseline gap-4 py-2.5 md:py-3.5 transition-colors duration-500 ${on ? 'text-[#1a1a17]' : 'text-[#1a1a17]/30'}`}>
-                    <span className="text-[12px] font-medium tabular-nums" dir="ltr">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="w-6 shrink-0 text-[12px] font-medium tabular-nums" dir="ltr">{String(i + 1).padStart(2, '0')}</span>
                     <h3 className="text-[18px] md:text-[22px] font-medium tracking-[-0.01em]">{s.title}</h3>
                   </div>
                   <AnimatePresence initial={false}>
@@ -62,7 +62,7 @@ export default function ValuesStepper({ label, title, steps }: { label: string; 
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.45, ease: EASE }}
-                        className="overflow-hidden ps-8 md:ps-9 text-[14px] md:text-[15px] leading-[1.55] font-medium text-[#1a1a17]/70 max-w-[48ch]"
+                        className="overflow-hidden ps-10 text-[14px] md:text-[15px] leading-[1.55] font-medium text-[#1a1a17]/70 max-w-[48ch]"
                       >
                         <span className="block pb-3 md:pb-4">{s.desc}</span>
                       </motion.p>

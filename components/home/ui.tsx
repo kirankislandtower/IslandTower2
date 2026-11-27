@@ -1,7 +1,7 @@
 'use client';
 
-import type { ReactNode } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef, type ReactNode } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Link } from '@/i18n/navigation';
 
 // Shared parts of the home page: the Evermind-style layout (warm cream
@@ -11,7 +11,7 @@ import { Link } from '@/i18n/navigation';
 export const CREAM = 'bg-[#f4f3ea]';
 export const INK = 'text-[#1a1a17]';
 export const GUTTER = 'px-[18px] md:px-6 lg:px-8';
-export const SERIF = 'font-serif font-normal tracking-[-0.015em]';
+export const SERIF = 'font-serif [font-weight:360] tracking-[-0.03em]';
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -49,16 +49,26 @@ export function Pill({ children, href, onClick, variant = 'outline' }: PillProps
 }
 
 // Rises into place once, as the element enters the screen
+// Reveals with the scroll, bottom to top: a block comes onto the screen
+// faint, blurred and a little low, and sharpens and rises into place as it
+// is scrolled up, finishing about a third of the way up the screen. It
+// follows the scroll both ways. A delay starts it a touch later, so blocks
+// side by side still come in one after another.
 export function Rise({ children, delay = 0, className = '', y = 24 }: { children: ReactNode; delay?: number; className?: string; y?: number }) {
   const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 1', 'start 0.62'] });
+  const lag = Math.min(0.5, delay * 1.4);
+  const k = useTransform(scrollYProgress, (v) => {
+    const t = Math.min(1, Math.max(0, (v - lag) / (1 - lag)));
+    return 1 - Math.pow(1 - t, 2);
+  });
+  const opacity = useTransform(k, (t) => 0.3 + 0.7 * t);
+  const ty = useTransform(k, (t) => (1 - t) * y);
+  const filter = useTransform(k, (t) => (t >= 0.999 ? 'none' : `blur(${(1 - t) * 4}px)`));
+  if (reduce) return <div ref={ref} className={className}>{children}</div>;
   return (
-    <motion.div
-      className={className}
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -60px 0px' }}
-      transition={{ duration: 0.8, delay, ease: EASE }}
-    >
+    <motion.div ref={ref} className={className} style={{ opacity, y: ty, filter }}>
       {children}
     </motion.div>
   );

@@ -1,50 +1,56 @@
 'use client';
 
-import { useRef } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useTranslations } from 'next-intl';
-import { GUTTER, Label, Pill, Rise, SERIF } from '@/components/home/ui';
-import { CARD, Head, PageShell, Photo, PhotoHero } from '@/components/page/kit';
+import { useLocale, useTranslations } from 'next-intl';
+import { GUTTER, Label, Rise, SERIF } from '@/components/home/ui';
+import { CARD, PageShell, Photo } from '@/components/page/kit';
 import FocusText from '@/components/page/FocusText';
 import ReadText from '@/components/page/ReadText';
 import ValuesStepper from '@/components/page/ValuesStepper';
+import Parallax from '@/components/page/Parallax';
+import ApprovalLedger from '@/components/page/ApprovalLedger';
+import ApprovalSteps from '@/components/page/ApprovalSteps';
+import DisciplineDrum from '@/components/page/DisciplineDrum';
+import FilmStrip from '@/components/page/FilmStrip';
+import ScatterHero from '@/components/page/ScatterHero';
+import CurvedGallery from '@/components/page/CurvedGallery';
+import { projects as allProjects, localizeProject, type Locale } from '@/lib/projects';
 
 // A site photograph for each value, shown as the values step through
 const VALUE_IMG = [
-  '/images/projects/weld-inspection-tecom.jpg',
-  '/images/projects/green-field-plant-piping.jpg',
-  '/images/projects/fabrication-piping-skid.jpg',
-  '/images/site/rooftop-cooling-equipment.jpg',
-  '/images/projects/chilled-water-flushing-works.jpg',
-  '/images/projects/hse-safety-briefing-difc.jpg',
+  '/images/values/integrity.jpg',
+  '/images/values/excellence.jpg',
+  '/images/values/innovation.jpg',
+  '/images/values/sustainability.jpg',
+  '/images/values/collaboration-crew.jpg',
+  '/images/values/safety.jpg',
 ];
 
-// About, in the reference's order: the photograph and title, the story on
-// dark ground with a strip of site photographs that slides sideways as the
-// page moves, the figures in ruled rows, what we stand for beside a large
-// photograph, the milestones as a stacked list, the chairman, and approvals.
+// About: the banner, the story on dark ground with a pinned film strip,
+// the figures, the values stepping through, the milestones, a walk round
+// the projects, the Managing Director's letter, vision and mission, and
+// the approvals ledger.
 const FOUNDED_YEAR = 2003;
 
 const STRIP = [
-  '/images/site/excavation-team-trench.jpg',
-  '/images/projects/chilled-water-flushing-works.jpg',
-  '/images/site/pump-room-team.jpg',
-  '/images/projects/jvt-tank-installation.jpg',
-  '/images/site/large-diameter-pipe-install.jpg',
-  '/images/projects/hse-safety-briefing-difc.jpg',
-];
+  { src: '/images/strip/excavators.jpg', key: 'strip1' },
+  { src: '/images/strip/rebar.jpg', key: 'strip2', wide: true },
+  { src: '/images/strip/crane-lift.jpg', key: 'strip3' },
+  { src: '/images/strip/valves.jpg', key: 'strip4', wide: true },
+  { src: '/images/strip/water-line.jpg', key: 'strip5' },
+  { src: '/images/strip/inspection.jpg', key: 'strip6', wide: true },
+] as const;
 
 export default function AboutContent() {
   const t = useTranslations('AboutPage');
   const p = useTranslations('Pages');
-  const reduce = useReducedMotion();
+  const locale = useLocale() as Locale;
+  const galleryItems = allProjects.map((pr) => {
+    const l = localizeProject(pr, locale);
+    return { img: l.image, title: l.title, meta: l.location, href: `/projects/${l.slug}` };
+  });
   const years = new Date().getFullYear() - FOUNDED_YEAR;
 
-  const stripRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: raw } = useScroll({ target: stripRef, offset: ['start end', 'end start'] });
-  const prog = useTransform(raw, (v) => v);
-  const x = useTransform(prog, [0, 1], ['4%', reduce ? '4%' : '-28%']);
 
   const stats = [
     { value: `${years}+`, label: t('stat1') },
@@ -58,19 +64,32 @@ export default function AboutContent() {
   const sentences = t('chairmanQuote').split(/(?<=[.!?؟])\s+/);
   const letter = [sentences[0], sentences.slice(1, 3).join(' '), sentences.slice(3).join(' ')].filter(Boolean);
 
-  const approvals = [
-    { kind: t('approvalAuthority'), code: t('rtaCode'), desc: t('rtaDesc') },
-    { kind: 'ISO', code: '9001:2015', desc: t('iso9001Desc') },
-    { kind: 'ISO', code: '14001:2015', desc: t('iso14001Desc') },
-    { kind: 'ISO', code: '45001:2018', desc: t('iso45001Desc') },
+  // Each name in short staggered lines, after the reference's step names
+  const rta = t('rtaCode');
+  const rtaCut = rta.indexOf(' ');
+  const approvalSteps = [
+    { lines: rtaCut > 0 ? [rta.slice(0, rtaCut), rta.slice(rtaCut + 1)] : [rta], indent: [0.55, 0], desc: t('rtaDesc'), img: '/images/approvals/rta-graded.jpg' },
+    { lines: ['ISO', '9001'], indent: [0, 0.66], desc: t('iso9001Desc'), img: '/images/approvals/iso9001-uae.jpg', ltr: true },
+    { lines: ['ISO', '14001'], indent: [0.36, 0], desc: t('iso14001Desc'), img: '/images/approvals/iso14001-uae.jpg', ltr: true },
+    { lines: ['ISO', '45001'], indent: [0, 0.5], desc: t('iso45001Desc'), img: '/images/approvals/iso45001-uae.jpg', ltr: true },
   ];
-
+  const commitments = (['quality-system', 'hse', 'sustainability', 'technology'] as const).map((id, i) => {
+    const key = ['quality', 'hse', 'sustainability', 'technology'][i];
+    return { id, title: t(`${key}Title`), desc: t(`${key}Desc`) };
+  });
   return (
     <PageShell>
-      <PhotoHero label={t('eyebrow')} title={t('title')} img="/images/site/underground-pipe-trench.jpg" alt={t('storyHeadline')} />
+      <ScatterHero
+        title={t('heroBig')}
+        line={t('heroLine')}
+        linkLabel={t('heroScroll')}
+        linkHref="#story"
+        image="/images/about-banner-interchange.jpg"
+        imagePosition="center 78%"
+      />
 
       {/* Story on dark ground */}
-      <section className="bg-[#1a1a17] text-[#f4f3ea] pt-24 md:pt-32 pb-24 md:pb-32 overflow-hidden">
+      <section id="story" className="bg-[#1a1a17] text-[#f4f3ea] pt-28 md:pt-44 pb-28 md:pb-44 [overflow-x:clip] scroll-mt-0">
         <div className={`${GUTTER} grid md:grid-cols-2 gap-10`}>
           {/* The founding year, carrying the left half */}
           <div className="flex flex-col">
@@ -101,14 +120,8 @@ export default function AboutContent() {
           </div>
         </div>
 
-        <div ref={stripRef} className="mt-16 md:mt-24">
-          <motion.div style={{ x }} className="flex gap-3 md:gap-4 w-max">
-            {STRIP.map((src, i) => (
-              <div key={src} className={`relative shrink-0 overflow-hidden rounded-[10px] ${i % 2 ? 'w-[64vw] md:w-[30vw] aspect-[4/3]' : 'w-[52vw] md:w-[22vw] aspect-[3/4]'} self-end`}>
-                <Image src={src} alt="" fill sizes="(min-width: 768px) 30vw, 64vw" className="object-cover" />
-              </div>
-            ))}
-          </motion.div>
+        <div className="mt-8 md:mt-12">
+          <FilmStrip dir={locale === 'ar' ? 'rtl' : 'ltr'} frames={STRIP.map((f) => ({ src: f.src, caption: t(f.key), wide: 'wide' in f }))} />
         </div>
 
         {/* Figures in ruled rows */}
@@ -125,6 +138,14 @@ export default function AboutContent() {
         </div>
       </section>
 
+      {/* What we build: the disciplines rolling past on a cream card */}
+      <DisciplineDrum
+        label={t('buildLabel')}
+        title={t('buildTitle')}
+        text={t('buildText')}
+        items={(['snow', 'drop', 'plug', 'building', 'shovel', 'road', 'wave', 'flask', 'bolt'] as const).map((icon, i) => ({ name: t(`disc${i + 1}`), icon }))}
+      />
+
       {/* What we stand for: pinned, stepping through the values one at a
           time with a photograph for each */}
       <ValuesStepper
@@ -134,7 +155,7 @@ export default function AboutContent() {
       />
 
       {/* Milestones, stacked */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pt-20 md:pt-32 pb-28 md:pb-44`}>
         <div className="border-t border-[#1a1a17]/12 pt-5 grid md:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* Left column stays in view while the milestones pass */}
           <div className="md:sticky md:top-28 flex flex-col gap-8">
@@ -143,7 +164,7 @@ export default function AboutContent() {
               <Rise delay={0.04}><h2 className={`${SERIF} mt-6 text-[30px] md:text-[40px] leading-[1.15]`}>{t('timelineHeadline')}</h2></Rise>
               <Rise delay={0.08}><p className="mt-5 text-[16px] leading-[24px] font-medium text-[#1a1a17]/75 max-w-[48ch]">{t('subtitle')}</p></Rise>
             </div>
-            <Photo src="/images/projects/jvt-tank-installation.jpg" alt={t('milestone4Label')} className="hidden md:block aspect-[4/3] max-h-[52vh]" sizes="50vw" />
+            <Photo src="/images/about-banner-dubai.jpg" alt={t('milestone4Label')} className="hidden md:block aspect-[4/3] max-h-[52vh]" sizes="50vw" />
           </div>
           <div>
             <ul className="flex flex-col gap-3">
@@ -161,12 +182,19 @@ export default function AboutContent() {
         </div>
       </section>
 
+      {/* The projects on a curved wall: scroll or drag to walk round */}
+      <CurvedGallery
+        items={galleryItems}
+        labels={{ title: t('galleryTitle'), past: t('galleryPast'), hint: t('galleryHint'), view: t('galleryView'), prev: t('galleryPrev'), next: t('galleryNext') }}
+      />
+
       {/* Chairman: one black card, the motto and his letter on the left, his
           portrait standing in a soft spotlight on the right. The cut-out photo
           fades to transparent at the bottom, so it sits on the card's floor. */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pt-20 md:pt-32 pb-28 md:pb-44`}>
         <Rise>
-          <div className="relative overflow-hidden rounded-[14px] md:rounded-[20px] bg-[#050505] text-[#f4f3ea] max-w-[1200px] mx-auto">
+          <Parallax scale={[0.84, 1]} y={[120, -60]} className="relative overflow-hidden rounded-[14px] md:rounded-[20px] bg-[#050505] text-[#f4f3ea] max-w-[1200px] mx-auto">
+            <Parallax y={[-200, 200]} className="absolute inset-0 pointer-events-none">
             <div
               className="absolute inset-0 pointer-events-none hidden lg:block"
               style={{ background: 'radial-gradient(ellipse 45% 60% at 72% 40%, rgba(255,255,255,0.09), transparent 70%)' }}
@@ -177,8 +205,9 @@ export default function AboutContent() {
               style={{ background: 'radial-gradient(ellipse 70% 25% at 50% 82%, rgba(255,255,255,0.09), transparent 70%)' }}
               aria-hidden="true"
             />
+            </Parallax>
             <div className="relative grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:min-h-[540px]">
-              <div className="p-6 sm:p-9 lg:p-12 lg:pe-2">
+              <Parallax y={[140, -90]} className="p-6 sm:p-9 lg:p-12 lg:pe-2">
                 <Label light>{p('fromChairman')}</Label>
                 <blockquote className={`${SERIF} mt-5 text-[34px] leading-[1.05] sm:text-[42px] lg:text-[48px] tracking-[-0.02em] max-w-[14ch]`}>
                   &ldquo;{t('chairmanMotto')}&rdquo;
@@ -200,9 +229,10 @@ export default function AboutContent() {
                   <p className="mt-1 text-[11px] tracking-[0.14em] uppercase font-medium text-[#f4f3ea]/50">{t('chairmanTitle')} · {t('chairmanOrg')}</p>
                   <p className="mt-3 text-[12px] leading-[1.6] text-[#f4f3ea]/45">{t('chairmanBio')}</p>
                 </div>
-              </div>
+              </Parallax>
 
               <div className="relative h-[280px] sm:h-[380px] lg:h-auto">
+                <Parallax y={[280, -40]} scale={[1.18, 1]} className="absolute inset-0 origin-bottom">
                 <Image
                   src="/images/team/sasikumar-chairman-bw.png"
                   alt={t('chairmanName')}
@@ -210,9 +240,10 @@ export default function AboutContent() {
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-contain object-bottom lg:pt-8"
                 />
+                </Parallax>
               </div>
             </div>
-          </div>
+          </Parallax>
         </Rise>
 
         {/* Vision and mission */}
@@ -248,41 +279,11 @@ export default function AboutContent() {
         </Rise>
       </section>
 
-      {/* Approvals */}
-      <section id="quality" className={`${GUTTER} pb-24 md:pb-32 scroll-mt-28`}>
-        <div className="border-t border-[#1a1a17]/12 pt-5">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <Head label={t('approvalsEyebrow')} title={t('approvalsHeadline')} />
-            <Rise><Pill href="/careers">{p('viewCareers')}</Pill></Rise>
-          </div>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {approvals.map((a, i) => (
-              <Rise key={a.code} delay={i * 0.05}>
-                <div className={`h-full rounded-[10px] ${CARD} p-5 flex flex-col`}>
-                  <span className="w-8 h-8 rounded-[8px] bg-accent text-white flex items-center justify-center" aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-                  </span>
-                  <span className="mt-6 text-[11px] tracking-[0.08em] uppercase font-medium text-[#3f403c]">{a.kind}</span>
-                  <h3 className="mt-2 text-[20px] font-medium tracking-[-0.01em]" dir="ltr">{a.code}</h3>
-                  <p className="mt-2 text-[14px] leading-[1.55] font-medium text-[#1a1a17]/70">{a.desc}</p>
-                </div>
-              </Rise>
-            ))}
-          </div>
-          <div className="mt-3 grid sm:grid-cols-2 gap-3">
-            {(['quality-system', 'hse', 'sustainability', 'technology'] as const).map((id, i) => {
-              const key = ['quality', 'hse', 'sustainability', 'technology'][i];
-              return (
-                <Rise key={id}>
-                  <div id={id} className="h-full rounded-[10px] border border-[#1a1a17]/12 p-5 scroll-mt-28">
-                    <h3 className="text-[16px] font-semibold">{t(`${key}Title`)}</h3>
-                    <p className="mt-2 text-[14px] leading-[1.6] font-medium text-[#1a1a17]/70">{t(`${key}Desc`)}</p>
-                  </div>
-                </Rise>
-              );
-            })}
-          </div>
-        </div>
+      {/* Approvals, step by step on dark ground, then the commitments
+          behind them */}
+      <ApprovalSteps id="quality" label={t('approvalsEyebrow')} title={t('approvalsHeadline')} steps={approvalSteps} />
+      <section className={`${GUTTER} pt-20 md:pt-32 pb-28 md:pb-44`}>
+        <ApprovalLedger approvals={[]} commitments={commitments} />
       </section>
     </PageShell>
   );

@@ -54,7 +54,7 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
           </div>
         </section>
 
-        <section className={`${GUTTER} py-24 md:py-32`}>
+        <section className={`${GUTTER} py-28 md:py-44`}>
           <div className="grid md:grid-cols-2 gap-10">
             <Rise><Label light>{t('scopeOfWork')}</Label></Rise>
             <div className="max-w-[580px]">
@@ -89,7 +89,7 @@ export default function ProjectDetailContent({ project }: { project: LocalizedPr
       </div>
 
       {/* More projects */}
-      <section className={`${GUTTER} py-24 md:py-32`}>
+      <section className={`${GUTTER} py-28 md:py-44`}>
         <Rise><Label>{p('moreStories')}</Label></Rise>
         <Rise delay={0.06}><h2 className={`${SERIF} mt-6 text-[30px] md:text-[40px] leading-[1.15] max-w-[16ch]`}>{p('moreStoriesTitle')}</h2></Rise>
         <div className="mt-12 grid md:grid-cols-2 gap-3">

@@ -36,7 +36,7 @@ export default function CareersContent() {
       </TitleHero>
 
       {/* Why Island Tower */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-stretch">
           <div className="flex flex-col justify-between gap-12">
             <Head label={t('whyEyebrow')} title={t('whyHeadline')} />
@@ -68,7 +68,7 @@ export default function CareersContent() {
       </section>
 
       {/* How we hire, stacked */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="border-t border-[#1a1a17]/12 pt-5 grid md:grid-cols-2 gap-10 lg:gap-14 items-start">
           <div className="md:sticky md:top-28 flex flex-col gap-8">
             <div>
@@ -94,7 +94,7 @@ export default function CareersContent() {
       </section>
 
       {/* How we train */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="border-t border-[#1a1a17]/12 pt-5">
           <Head label={t('trainingEyebrow')} title={t('trainingHeadline')} />
           <div className="mt-12 grid sm:grid-cols-3 gap-3">
@@ -114,7 +114,7 @@ export default function CareersContent() {
       </section>
 
       {/* Questions */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-2 gap-10">
           <Head label={t('faqEyebrow')} title={t('faqHeadline')} />
           <ul>
@@ -143,7 +143,7 @@ export default function CareersContent() {
       </section>
 
       {/* Apply */}
-      <section id="apply" className={`${GUTTER} pb-24 md:pb-32 scroll-mt-28`}>
+      <section id="apply" className={`${GUTTER} pb-28 md:pb-44 scroll-mt-28`}>
         <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-14">
           <div>
             <Head label={t('expressInterest')} title={t('formHeadline')} />

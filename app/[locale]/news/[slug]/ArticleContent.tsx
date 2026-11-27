@@ -45,7 +45,7 @@ export default function ArticleContent({ article }: { article: LocalizedArticle 
         </div>
       </section>
 
-      <section className={`${GUTTER} py-20 md:py-28`}>
+      <section className={`${GUTTER} py-24 md:py-40`}>
         <div className="max-w-[640px] mx-auto">
           <Rise><Label>{p('writtenBy')} · {article.readTime}</Label></Rise>
           {lead && <Rise delay={0.04}><p className="mt-8 text-[20px] md:text-[24px] leading-[1.35] font-medium tracking-[-0.01em]">{lead}</p></Rise>}
@@ -83,7 +83,7 @@ export default function ArticleContent({ article }: { article: LocalizedArticle 
         </div>
       </section>
 
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="border-t border-[#1a1a17]/12 pt-5">
           <Rise><Label>{t('moreInsights')}</Label></Rise>
           <div className="mt-10 grid md:grid-cols-2 gap-3">

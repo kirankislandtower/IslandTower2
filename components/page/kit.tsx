@@ -8,6 +8,7 @@ import { Link } from '@/i18n/navigation';
 import HomeNav from '@/components/home/HomeNav';
 import EvClosing from '@/components/home/EvClosing';
 import QuoteModal from '@/components/QuoteModal';
+import SectionReveal from '@/components/page/SectionReveal';
 import { EASE, GUTTER, Label, Rise, SERIF, ArrowCircle } from '@/components/home/ui';
 
 // Shared frame for the inner pages, laid out like the reference's inner
@@ -29,6 +30,7 @@ export function PageShell({ children }: { children: ReactNode }) {
         <HomeNav />
         {children}
         <EvClosing onQuote={openQuote} />
+        <SectionReveal />
         <QuoteModal open={open} onClose={() => setOpen(false)} />
       </main>
     </QuoteCtx.Provider>
@@ -212,7 +214,7 @@ export function LetsTalk({ id = 'talk' }: { id?: string }) {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   return (
-    <section id={id} className={`${GUTTER} pb-24 md:pb-32 scroll-mt-28`}>
+    <section id={id} className={`${GUTTER} pb-28 md:pb-44 scroll-mt-28`}>
       <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-14">
         <div className="flex flex-col justify-between gap-10">
           <div>
@@ -290,7 +292,7 @@ export function LetsTalk({ id = 'talk' }: { id?: string }) {
 // Large centred quote, as the reference's "From founder" block
 export function BigQuote({ label, quote, name, role, img }: { label: string; quote: string; name: string; role: string; img?: string }) {
   return (
-    <section className={`${GUTTER} py-24 md:py-32`}>
+    <section className={`${GUTTER} py-28 md:py-44`}>
       <div className="flex flex-col items-center text-center">
         <Rise><Label>{label}</Label></Rise>
         <Rise delay={0.06}>

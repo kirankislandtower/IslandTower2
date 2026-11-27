@@ -32,7 +32,7 @@ export default function ContactContent() {
     <PageShell>
       <TitleHero label={t('eyebrow')} title={t('title')} sub={t('subtitle')} />
 
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <Rise className="grid sm:grid-cols-3 gap-3 max-w-[960px] mx-auto">
           <Inbox
             label={p('generalLabel')} value="info@islandtoweruae.ae" href="mailto:info@islandtoweruae.ae" text={p('generalText')}
@@ -50,7 +50,7 @@ export default function ContactContent() {
       </section>
 
       {/* Offices beside a large photograph */}
-      <section className={`${GUTTER} pb-24 md:pb-32`}>
+      <section className={`${GUTTER} pb-28 md:pb-44`}>
         <div className="grid lg:grid-cols-[0.75fr_1.25fr] gap-3 min-h-[520px]">
           <Rise className="h-full">
             <div className="relative h-full min-h-[420px] rounded-[10px] overflow-hidden bg-[#1a1a17]">

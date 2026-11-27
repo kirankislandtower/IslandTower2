@@ -5,15 +5,16 @@ import Image from 'next/image';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { GUTTER, SERIF, EASE, Label, Pill, Rise } from './ui';
+import GrowText from '@/components/page/GrowText';
 
 // What we deliver: an accordion of the four things we build, with the
 // photograph for the open one on the right, and a frosted card of our real
 // numbers laid over it.
 const ITEMS = [
-  { k: 'i1', img: '/images/site/large-diameter-pipe-install.jpg' },
-  { k: 'i2', img: '/images/projects/saadiyat-flushing-equipment.jpg' },
-  { k: 'i3', img: '/images/projects/tecom-mechanical-room.jpg' },
-  { k: 'i4', img: '/images/projects/pump-replacement-plant-room.jpg' },
+  { k: 'i1', img: '/images/home/pipe-in-trench.jpg' },
+  { k: 'i2', img: '/images/home/flushing-pumps.jpg' },
+  { k: 'i3', img: '/images/home/ets-valves.jpg' },
+  { k: 'i4', img: '/images/home/maintenance.jpg' },
 ] as const;
 
 export default function EvDeliver() {
@@ -23,12 +24,12 @@ export default function EvDeliver() {
   const item = ITEMS[open];
 
   return (
-    <section data-section="deliver" className={`bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} pb-24 md:pb-36`}>
+    <section data-section="deliver" className={`bg-[#f4f3ea] text-[#1a1a17] ${GUTTER} pb-28 md:pb-48`}>
       <div className="border-t border-[#1a1a17]/12 pt-5 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-14 items-stretch">
         <div className="flex flex-col justify-between gap-12">
         <div>
           <Rise><Label>{t('label')}</Label></Rise>
-          <Rise delay={0.06}><h2 className={`${SERIF} mt-6 text-[32px] md:text-[40px] leading-[1.15] max-w-[14ch]`}>{t('title')}</h2></Rise>
+          <Rise delay={0.06}><h2 className={`${SERIF} mt-6 text-[32px] md:text-[40px] leading-[1.15] max-w-[14ch]`}><GrowText text={t('title')} /></h2></Rise>
           <Rise delay={0.12} className="mt-7"><Pill href="/projects">{t('cta')}</Pill></Rise>
         </div>
         {/* Accordion */}

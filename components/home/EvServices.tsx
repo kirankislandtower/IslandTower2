@@ -6,14 +6,15 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { GUTTER, SERIF, Rise, ArrowCircle } from './ui';
+import GrowText from '@/components/page/GrowText';
 
 // What we do: the section pins and the service cards slide sideways as the
 // page is scrolled down, with a progress bar under them. The pin lasts
 // exactly as long as the row needs to travel, then releases.
 const CARDS = [
-  { k: 's1', href: '/services#district-cooling', img: '/images/site/large-diameter-pipe-install.jpg' },
-  { k: 's2', href: '/services#mep', img: '/images/site/fire-piping-plant-room.jpg' },
-  { k: 's3', href: '/industries/infrastructure', img: '/images/projects/shindagha-pipe-trench-shoring.jpg' },
+  { k: 's1', href: '/services#district-cooling', img: '/images/home/networks-trench.jpg' },
+  { k: 's2', href: '/services#mep', img: '/images/home/mep-plant-room.jpg' },
+  { k: 's3', href: '/industries/infrastructure', img: '/images/home/roadworks.jpg' },
 ] as const;
 
 export default function EvServices() {
@@ -90,7 +91,7 @@ export default function EvServices() {
       <div className={`${pinned ? 'sticky top-0 h-[100svh] min-h-[600px]' : ''} flex flex-col justify-center overflow-hidden pt-24 pb-10 md:pb-14`}>
         <div className={`${GUTTER} flex items-end justify-between gap-6`}>
           <Rise>
-            <h2 className={`${SERIF} text-[34px] md:text-[48px] leading-[1.1]`}>{t('title')}</h2>
+            <h2 className={`${SERIF} text-[34px] md:text-[48px] leading-[1.1]`}><GrowText text={t('title')} /></h2>
           </Rise>
         </div>
 

@@ -39,7 +39,7 @@ export default function IndustryDetailContent({ industry }: { industry: Localize
         </div>
       </section>
 
-      <section className={`${GUTTER} py-24 md:py-32`}>
+      <section className={`${GUTTER} py-28 md:py-44`}>
         <div className="grid md:grid-cols-2 gap-10">
           <Rise><Label>{t('overview')}</Label></Rise>
           <Rise delay={0.04}><p className="text-[20px] md:text-[22px] leading-[1.4] font-medium max-w-[580px]">{industry.overview}</p></Rise>
@@ -62,7 +62,7 @@ export default function IndustryDetailContent({ industry }: { industry: Localize
       </section>
 
       {related.length > 0 && (
-        <section className={`${GUTTER} pb-24 md:pb-32`}>
+        <section className={`${GUTTER} pb-28 md:pb-44`}>
           <div className="border-t border-[#1a1a17]/12 pt-5">
             <Rise><Label>{t('relatedProjects')}</Label></Rise>
             <div className="mt-10 grid md:grid-cols-2 gap-3">
